@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package product;
+
+// Go iin paket tanm
+option go_package = "github.com/arch-yunus/microservices-101/proto/product";
+
+// ProductService: urun bilgilerini sunan servis
+service ProductService {
+  rpc GetProduct(GetProductRequest) returns (ProductResponse);
+}
+
+message GetProductRequest {
+  string id = 1;
+}
+
+message ProductResponse {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+}
