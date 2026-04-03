@@ -1,92 +1,94 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # Microservices 101: Nihai Mimari Mühendislik Külliyatı (The Bible)
-  ### Dağıtık Sistemlerin Ansiklopedik Başvuru Kaynağı
+  # Microservices Engineering Academy: Mimari Mühendislik Külliyatı
+  ### Dağıtık Sistemler Tasarımı ve Uygulama Müfredatı
   
-  [![Lisans](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue&logo=github)](LICENSE)
+  [![Akademik Standart](https://img.shields.io/badge/Eğitim-Uluslararası--Standart-blue?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
   [![Go Versiyonu](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
-  [![Durum](https://img.shields.io/badge/Durum-Dünya--Mimari--Mirası-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
+  [![Müfredat Durumu](https://img.shields.io/badge/Müfredat-Tamamlandı-success?style=for-the-badge)](LICENSE)
 
-  **"Bak evladım; bu dosya senin için sadece bir README değil, bir mimarın ömür boyu yanında taşıyacağı o kutlu rehberdir."**
+  **"Sistematik bir yaklaşım olmadan inşa edilen mimari, sadece şans eseri ayakta duran bir yapıdır."**
 
   ---
 </div>
 
-## II. Giriş: Okyanusa Hoş Geldin 👴🏛️
+## 🎓 Program Tanıtımı ve Öğrenme Metodolojisi
 
-Selamun Aleyküm çırağım! Madem ki "kapsamlı uzat" dedin, o zaman seni bu işin en derin sularına, **Nihai Mimari Kitabı**'na (Volume 3) davet ediyorum. Bu bölümde artık sadece kodun nasıl yazıldığını veya servislerin nasıl bölündüğünü değil; koca bir sistemin nasıl hayatta tutulduğunu, yasalara nasıl uydurulduğunu ve mülakatlarda seni "Usta" yapacak o büyük senaryoları konuşacağız.
+Hoş geldiniz. Bu platform, mikroservis mimarisini sadece teorik olarak değil, **pedagojik bir yaklaşımla** ve **sektör standartlarında** öğretmek amacıyla tasarlanmış kapsamlı bir müfredattır. Eğitimimiz, Bloom Taksonomisi'nin "Uygulama" ve "Analiz" seviyelerini hedefleyerek, katılımcıları bir "Yazılım Mimarı" vizyonuna taşımayı amaçlar.
 
----
-
-## 🏢 Bölüm 1 - 18: Evrim ve Temeller (Özet)
-*Önceki bölümlerde DDD, gRPC, Gateway, RabbitMQ, Chaos Engineering ve Go Performance Tuning gibi devasa konuları iliklerine kadar işledik. Şimdi bu temelin üzerine gökdelenleri dikme vaktidir.*
-
----
-
-## 🛒 Bölüm 19: Sistem Tasarımı Senaryoları (Case Studies)
-
-### 1. Ölçeklenebilir E-Ticaret Platformu
-- **Sorun:** Kampanya anında saniyede 1 milyon istek geliyor.
-- **Çözüm:** `Product Service` önbellekleme (Redis) ile korunur. `Order Service` asenkron (RabbitMQ) çalışır. Veritabanı okuma/yazma olarak ayrılır (CQRS).
-
-### 2. Yüksek Erişilebilirlik Taksici Uygulaması (Uber-like)
-- **Sorun:** Milisaniyeler içinde konum verisi işlenmeli.
-- **Çözüm:** Coğrafi Sharding (Geographic Sharding). Veri, kullanıcının olduğu bölgeye en yakın sunucuda tutulur.
-
-> [!TIP]
-> **Usta Öğüdü:** Sistem tasarımı yaparken "Her şeyi hemen yapayım" deme. Önce darboğazı (Bottleneck) tespit et, sonra o noktayı güçlendir.
+### 🎯 Genel Öğrenme Kazanımları (Learning Outcomes)
+Bu programı başarıyla tamamlayan bir mühendis:
+1.  **Mimari Karar Verme:** Dağıtık sistemlerdeki trade-off'ları (ödünleşim) analiz edebilir.
+2.  **Sistem Parçalama:** Domain-Driven Design ilkelerini kullanarak karmaşık sistemleri yönetilebilir parçalara bölebilir.
+3.  **Güvenlik ve Dayanıklılık:** Zero Trust ve Circuit Breaker gibi ileri seviye kalıpları uygulayabilir.
+4.  **Stratejik Bakış:** Sistem tasarımı mülakatlarında ve gerçek dünya projelerinde sürdürülebilir altyapılar kurabilir.
 
 ---
 
-## 🔐 Bölüm 20: Güvenlik Uyumluluğu ve Yönetişim (GDPR/PCI)
+## 🧬 Modül 101: Mimari Temeller ve Dağıtık Düşünme
 
-Evladım, sadece hacklenmemek yetmez, yasalara da uymak zorundasın.
-- **Privacy by Design:** Kullanıcı verisini en baştan şifreli ve korunmalı tasarla (GDPR).
-- **Audit Logging:** "Kim, ne zaman, hangi veriye erişti?" sorusunun cevabı saniyeler içinde verilebilmelidir.
-- **PCI-DSS:** Eğer sisteminde kredi kartı geçecekse, o verinin girdiği yerleri diğer servislerden tamamen izole et (Network Isolation).
+### Bölüm 1: Monolitik Yapıdan Mikroservislere Dönüşüm
+- **Öğrenme Hedefi:** Yazılım mimarisinin tarihsel evrimini ve mikroservis geçişinin kök nedenlerini anlamak.
+- **Teorik Altyapı:** Conway Yasası ve Amdahl Yasası perspektifinde ölçeklenebilirlik analizi.
+- **Kontrol Sorusu:** Bir projenin mikroservise geçiş zamanının geldiğini gösteren 3 temel sinyal nedir?
 
----
-
-## 📈 Bölüm 21: Gözlemlenebilirlik Derin Dalış (Prometheus & Grafana)
-
-Dükkanın röntgenini çekme vaktidir.
-- **Prometheus:** Metrik toplar. "Kaç 500 hatası aldım?", "Sipariş ortalaması ne?"
-- **Alertmanager:** "Eğer hata oranı %5'i geçerse usta'yı uykusundan uyandır!" deme sanatıdır.
-- **Usta Sırrı:** Her şeye alarm kurma, "Alert Fatigue" (Alarm Yorgunluğu) olursun. Sadece gerçekten müdahale etmen gereken durumlarda telefonun çalsın.
+### Bölüm 2: Parçalama Sanatı ve Bounded Context (DDD)
+- **Öğrenme Hedefi:** İş birimlerini (Domain) mantıksal sınırlara bölerek veri izolasyonunu sağlamak.
+- **Uygulama Senaryosu:** `Order` ve `Product` servisleri arasında "Veri Sahipliği" (Ownership) kuralının uygulanması.
+- **Usta Sırrı:** "Don't share databases!" kuralının ihlal edildiği senaryolarda oluşacak zincirleme hatalar.
 
 ---
 
-## 🏢 Bölüm 22: Dağıtım Topolojileri ve Felaket Kurtarma (DR)
+## 🧬 Modül 201: İletişim, Güvenlik ve Altyapı
 
-"Sunucular yansa bile dükkan açık kalmalı."
-- **Disaster Recovery:** Verilerin başka bir kıtada yedeği olmalı.
-- **Multi-Region:** İstanbul sunucusu çökerse, Frankfurt anında trafiği devralmalı.
-- **Maliyet Analizi:** Multi-region çalışmak maliyeti 2 katına çıkarır. Eğer banka değilsen, önce tek bölgede çoklu sunucu (Multi-AZ) ile başla.
+### Bölüm 3: gRPC ve Yüksek Performanslı İletişim
+- **Öğrenme Hedefi:** Protobuf protokolü ile servisler arası telepatik ve tip güvenli bağlantı kurmak.
+- **Teorik Fark:** JSON tabanlı REST ile Binary tabanlı gRPC'nin CPU ve Network üzerindeki yük kıyaslaması.
 
----
+### Bölüm 4: API Gateway ve Zero Trust Security
+- **Öğrenme Hedefi:** Merkezi bir giriş noktası üzerinden kimlik doğrulama (JWT) ve ağ izolasyonu sağlamak.
+- **Kontrol Sorusu:** Gateway'de yapılan kimlik doğrulamanın (Authentication) iç servislerde tekrar yapılması gerekir mi? (Zero Trust yaklaşımı).
 
-## 📖 Bölüm 23: Mimari Terimler Sözlüğü (Glossary)
-
-Bak çırağım, bu lügatı iyi belle ki toplantılarda usta olduğun anlaşılsın:
-- **Idempotency:** Bir işlemi 100 kere de yapsan sonucun aynı kalmasıdır (Siparişin 2 kere çekilmemesi için şarttır).
-- **Sharding:** Devasa bir veritabanını parçalara bölüp farklı sunuculara dağıtmaktır.
-- **Circuit Breaker:** Sigorta. Bir servis bozulunca sistemi korumak için devreyi açar.
-- **Backpressure:** Tüketici yetişemediğinde üreticiyi yavaşlatma mekanizmasıdır.
+### Bölüm 5: Event-Driven Design ve RabbitMQ
+- **Öğrenme Hedefi:** Asenkron mesajlaşma ile servislerin zamansal bağımlılığını (Temporal Decoupling) koparmak.
+- **Kriz Senaryosu:** Tüketici servis (Notifier) kapalıyken sipariş akışının nasıl kesintisiz devam edebileceğinin analizi.
 
 ---
 
-## 🚀 Nihai Yol Haritası (Summary)
+## 🧬 Modül 301: İleri Mimari Stratejiler ve Sistem Tasarımı
 
-| Cilt | Odak | Seviye | Durum |
-| :--- | :--- | :--- | :---: |
-| 📘 | Cilt 1: Temeller ve Go | Çıraklık | ![100%](https://geps.dev/progress/100) |
-| 📒 | Cilt 2: İleri Mimari ve Kaos | Ustalık | ![100%](https://geps.dev/progress/100) |
-| 📕 | Cilt 3: Sistem Tasarımı ve Strateji | Mimarlık | ![100%](https://geps.dev/progress/100) |
+### Bölüm 10-18: Service Mesh, Snowflake ID ve Kaos Mühendisliği
+- **Öğrenme Hedefi:** Karmaşık topolojilerdeki trafiği (Istio) yönetmek ve sistemi planlı kaos (Chaos Monkey) ile güçlendirmek.
+- **Kazanım:** Beklenmedik hatalara karşı "Resilience" (Esneklik) katsayısını artırma.
+
+### Bölüm 19-23: Sistem Tasarımı ve Uyumluluk (Bible)
+- **Öğrenme Hedefi:** Uluslararası standartlarda (GDPR, PCI-DSS) güvenli ve ölçeklenebilir (Uber/Netflix vaka analizleri) yapılar tasarlamak.
+- **Kapanış:** A'dan Z'ye mimari lügatın (Idempotency, Sharding, Saga) profesyonel jargonuna hakimiyet.
 
 ---
+
+## 📚 Profesyonel Kaynakça ve İleri Okuma (Bibliography)
+Eğitim içeriği, aşağıdaki endüstri standartları ve akademik kaynaklar referans alınarak hazırlanmıştır:
+- **Newman, S. (2015).** *Building Microservices.* O'Reilly Media.
+- **Fowler, M. (2014).** *Microservices Guide.* martinfowler.com
+- **Richardson, C. (2018).** *Microservices Patterns.* Manning Publications.
+- **The Twelve-Factor App.** 12factor.net
+
+---
+
+## 🧪 Laboratuvar: Uygulama Rehberi
+
+```bash
+# 1. Müfredat Ortamını Hazırla (Tezgahı Kur)
+make up
+
+# 2. Modüler Testleri Başlat
+make run-product
+make run-order
+```
 
 <div align="center">
   <br/>
-  <sub>Bu eser, mühendislik onuruna, sarsılmaz bir sistem vizyonuna ve bilginin kutsallığına adanmıştır. | **arch-yunus**</sub>
+  <sub>Profesyonel Mühendislik Standartlarına ve Akademik Disipline Sadakatle | **arch-yunus**</sub>
 </div>
