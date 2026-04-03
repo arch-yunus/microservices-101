@@ -1,93 +1,99 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # Microservices Engineering: Evrensel Mimari Külliyatı (The Omnibus)
-  ### Dağıtık Sistemler Mühendisliği ve Stratejik Tasarım Ansiklopedisi
+  # Mikroservis Masterclass: Mühendislik Serüveni 🚀
+  ### Adım Adım, Uygulamalı Mikroservis İnşa Etme Rehberi
   
-  [![Standart](https://img.shields.io/badge/Standart-Uluslararası--Mühendislik-blue?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
+  [![Eğitim Vizyonu](https://img.shields.io/badge/Eğitim-Masterclass-blue?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
   [![Go Versiyonu](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
-  [![Cilt](https://img.shields.io/badge/İçerik-9--Cilt--Külliyat-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
+  [![Durum](https://img.shields.io/badge/Öğrenme-Odaklı-success?style=for-the-badge)](LICENSE)
 
-  **"Bir sistemi inşa etmek sadece başlangıçtır; onu binlerce parça arasında uyumla yaşatmak ise bir sanat eseridir."**
+  **"Bak evladım; okursan unutursun, görürsen hatırlarsın, ama yaparsan öğrenirsin."**
 
   ---
 </div>
 
-## 🎓 Giriş: Evrensel Mimari Yolculuğu 🏛️
+## 🎓 Hoş Geldiniz: Bu Reponun Amacı Nedir?
 
-Değerli mühendis adayı ve kıymetli meslektaşım!
-
-Eline aldığın bu döküman, sadece bir "README" değil, mikroservis mimarisinin tüm derinliklerini, felsefesini, kod seviyesindeki sırlarımızı ve bulut dünyasının en ileri teknolojilerini kapsayan devasa bir **Evrensel Mimari Külliyatı**'dır (The Omnibus). 
-
-Bu yolculukta, 9 farklı cilt (Volume) boyunca, bir çırağın merakıyla başlayıp, bir mimarın vizyonuna ulaşacaksın. Her satır, sektörün en zorlu projelerinde edinilmiş tecrübelerle, akademik disiplinle ve usta-çırak geleneğinin ruhuyla ilmek ilmek işlenmiştir.
+Selamun Aleyküm çırağım! Bu repo, mikroservis dünyasını "karşıdan izlemek" için değil, **bizzat inşa ederek öğrenmek** için tasarlandı. Burada devasa bilgi yığınları arasında boğulmayacaksın; her adımda yeni bir servis ekleyecek, sistemleri bozacak ve gerçek bir mimar gibi düşüneceksin.
 
 ---
 
-## 📘 Modül 101: Temeller ve İletişim (Volume 1-3)
-*Cilt 1-3 kapsamında; Monolit krizini, gRPC hızını, Clean Architecture yapısını ve Mesajlaşma (RabbitMQ) sanatını öğrendiniz. Bu temeli sağlam atmadıysanız, kütüphanenin bu ilk raflarını mutlaka sindirin.*
+## 🗺️ Adım Adım Yol Haritası (Müfredat)
+
+Aşağıdaki adımları sırayla takip ederek, temelden en ileri seviyeye kadar mikroservis mimarisini öğreneceksin:
+
+| Aşama | Konu | Temel Kavram | Zorluk |
+| :--- | :--- | :--- | :---: |
+| 🛡️ 1 | **Temeller & Go** | Proje Yapısı ve Go Modülleri | 🟢 |
+| 🔌 2 | **İletişim (gRPC)** | Servisler Arası Doğrudan Hat | 🟡 |
+| 🔐 3 | **Güvenlik (Gateway)** | Zırhlı Kapı ve JWT Giriş Kartı | 🔴 |
+| 📩 4 | **Mesajlaşma (RabbitMQ)** | Asenkron Haberleşme ve Mektuplar | 🟣 |
+| 🐒 5 | **Dayanıklılık (Kaos)** | Sigorta (Circuit Breaker) ve Hata Yönetimi | 🟠 |
 
 ---
 
-## 📘 Modül 201: Altyapı, Güvenlik ve Teori (Volume 4-6)
+## 🧪 Ders 1: Servislerin Doğuşu (Fundamentals)
 
-### Cilt 4: Dağıtık Hesaplama Teorileri ve Kıvamlılık Modelleri 🧬📜
-Mikroservisler sadece kod yazmak değil, matematiksel bir denge kurmaktır.
-- **CAP Teoremi:** Consistency (Kıvamlılık), Availability (Erişilebilirlik) ve Partition Tolerance (Bölünme Dayanıklılığı) arasındaki o meşhur üçgen. Üçünü birden aynı anda alamazsın evladım!
-- **PACELC Teoremi:** CAP'ın yetmediği yerde, "Hata yokken Network gecikmesi (Latency) mi, Kıvamlılık mı?" sorusunu sorandır.
-- **Kıvamlılık Modelleri:** Strong, Eventual ve Monotonic kıvamlılık arasındaki o ince çizgi.
+**Baba'nın Analojisi:** Mikroservisleri bir restoran mutfağı gibi düşün. Her servisin tek bir görevi var (Çorbacı, Pilavcı). Biz önce bu tezgahları kuracağız.
 
-### Cilt 5: Kaynak Kod Derin Analizi (Source Walkthrough) 💻🔍
-Kodumuzun kalbine iniyoruz.
-- `order-service` içindeki **Order Placement** akışını satır satır inceliyoruz: Nerede veritabanına yazıyoruz, nerede RabbitMQ event'ini fırlatıyoruz ve neden "Transactional Outbox" desenine ihtiyacımız var?
-- **Domain-Driven Design (DDD)** katmanlarımızın (`domain`, `service`, `repository`) Go içindeki somut karşılıkları.
-
-### Cilt 6: Bulut-Yerel ve Kubernetes Masterclass (K8s) 🛰️☁️
-Docker tek başına yetmez, bir orkestra şefi lazımdır.
-- **K8s Objeleri:** Pod, Service, Deployment ve Ingress.
-- **HPA (Autoscaling):** Trafik artınca sunucuları otomatik artırmanın formülü.
-- **Sidecar Pattern:** Loglama ve izleme (Monitoring) araçlarını servislerin yanına bir "gölge" gibi nasıl yerleştiririz?
-
----
-
-## 📘 Modül 301: Veri, Güvenlik ve Strateji (Volume 7-9)
-
-### Cilt 7: İleri Veri Modelleme ve Sharding Stratejileri 💾⚔️
-Veri, mikroservisin en kıymetli ama en tehlikeli parçasıdır.
-- **SQL vs NoSQL:** Ne zaman Postgres, ne zaman Redis, ne zaman Mongo?
-- **Database Sharding:** Milyarlarca satır veriyi tek bir veritabanına sığdıramadığında, onu nasıl parçalara bölüp farklı sunuculara dağıtırsın?
-- **Saga Deseni:** Dağıtık transaction'lar (2PC vs Saga) ve veritabanı tutarlılığını sağlamanın stratejik yolları.
-
-### Cilt 8: Tehdit Modelleme ve İleri Güvenlik 🔐🛡️
-Dış kapıyı (Gateway) kilitledik ama içerideki casuslar ne olacak?
-- **Zero Trust:** Hiçbir servis, diğerine "içerideyiz diye" güvenmez. mTLS ile karşılıklı kimlik doğrulaması şarttır.
-- **OAuth2 & OIDC:** Kullanıcı yetkilendirmesinin (Authorization) dünya standartlarındaki uygulama detayları.
-- **Secret Management:** Şifreleri Vault'ta saklama ve dinamik şifre üretimi.
-
-### Cilt 9: Sistem Tasarımı ve Mülakat Hazırlığı 🏢📊
-Bu cilt seni en üst düzey mühendislik rollerine hazırlar.
-- **Vaka Analizi: Instagram Mimarisi:** Saniyede milyonlarca görselin yüklenmesi ve dağıtılması nasıl tasarlanır?
-- **Vaka Analizi: Uber Lokasyon Takibi:** Milyonlarca arabanın anlık konumunu nasıl takip eder ve kullanıcıya saniyede 10 kere güncellersin?
-- **Usta Öğüdü:** Mülakatlarda sadece "yaparım" deme; trade-off'ları (bu yolu seçersem şunu kaybederim) anlat ki usta olduğun anlaşılsın.
-
----
-
-## 📖 Mimari Terimler Sözlüğü & Kaynakça (Omnibus Edition)
-
-Bu külliyatta kullanılan tüm terimlerin (Idempotency, Sharding, Bounded Context, Saga, Circuit Breaker vb.) en detaylı tanımları ve Martin Fowler'dan Sam Newman'a kadar akademik atıflar bu bölümde yer Almaktadır.
-
----
-
-## 🧪 Laboratuvar: Uygulama Rehberi
-
+### 💻 Laboratuvar:
+Projeyi ayağa kaldırmak için şu komutu çalıştır:
 ```bash
-# 1. Müfredat Ortamını Hazırla (Tezgahı Kur)
+# Tüm dükkanı (Database, Redis, RabbitMQ) açıyoruz.
 make up
-
-# 2. Modüler Testleri Başlat (Uygulamalı Analiz)
-make run-all
 ```
+
+### 🎯 Meydan Okuma:
+Tüm servisler ayağa kalktıktan sonra `services/product-service` loglarını izle. Servis veritabanına bağlanabiliyor mu? Eğer bağlantı yoksa, Docker container'ının ismini kontrol et!
+
+---
+
+## 🔌 Ders 2: Servislerin Konuşması (gRPC)
+
+**Baba'nın Analojisi:** Artık mutfaktaki ustaların birbiriyle hızlı konuşması lazım. "Ürün var mu?" "Var." gRPC, bu ustaların arasındaki doğrudan ve çok hızlı dahili hattır.
+
+### 💻 Laboratuvar:
+```bash
+# Order servisi ile Product servisini gRPC üzerinden konuştur:
+make run-product
+make run-order
+```
+`order-service` içinden ürün sorgulaması yapıldığında loglarda "gRPC Request" ifadesini görmelisin!
+
+### 🎯 Meydan Okuma:
+`proto/product/product.proto` dosyasını aç ve yeni bir alan (field) ekle: `string description`. Sonra tüm kodda bu alanı taşımaya çalış. Bakalım her şey hala çalışıyor mu?
+
+---
+
+## 🔐 Ders 3: Zırhlı Kapı (API Gateway)
+
+**Baba'nın Analojisi:** Müşteri kime sipariş verecek? Doğrudan mutfağa giremez. Kapıda bir **Garson (Gateway)** durur, siparişi alır ve içeriye iletir.
+
+### 💻 Laboratuvar:
+```bash
+# Gateway'i çalıştır ve dışarıdan (Port 8080) istek at:
+cd services/gateway-service && go run cmd/api/main.go
+```
+
+### 🎯 Meydan Okuma:
+JWT token'ı olmadan Gateway'den içeri girmeye çalış (Unauthorized - 401). Bakalım garson seni içeri alacak mı?
+
+---
+
+## 📩 Ders 4: Mektuplar ve Kuyruklar (Messaging)
+
+**Baba'nın Analojisi:** Sipariş bittiğinde e-mail atmak için garsonun beklemesine gerek yok. Bir not yazar ve **Posta Kutusuna (RabbitMQ)** bırakır. Bildirim servisi gelince oradan alır.
+
+### 🎯 Meydan Okuma:
+`notifier-service`'i durdur ve bir sipariş oluştur. Sonra servisi geri aç. Mesajın kuyrukta beklemiş olduğunu ve servis açılınca hemen işlendiğini gözlemle!
+
+---
+
+## 🚀 Mezuniyet ve İleri Seviye
+Tüm bu adımları tamamladıysan; tebrikler çırağım, artık bir kalfasın! İleri seviye konular (Kubernetes, Service Mesh, Chaos Engineering) için `docs/` klasöründeki derinleşme rehberlerini inceleyebilirsin.
 
 <div align="center">
   <br/>
-  <sub>Evrensel Mühendislik Mirasına ve Bilginin Kutsallığına Sadakatle | **arch-yunus**</sub>
+  <sub>Bu repo, mikroservislerin ruhunu bizzat yaparken öğrenmen için inşa edildi. | **arch-yunus**</sub>
 </div>
