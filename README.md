@@ -1,103 +1,102 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # ?? Microservices 101: Mimari Ansiklopedisi & Manifesto
-  ### Daıtık Sistemlerin Kalbine Yolculuk
+  # ?? Microservices 101: Nihai Sistem Mimarisi Rehberi (Ultimate Edition)
+  ### Daıtık Sistemlerin Anatomisi ve Stratejik Yonetimi
   
   ![License](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue)
   ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
   ![Architecture](https://img.shields.io/badge/Architecture-Clean--Microservices-red?style=for-the-badge)
   ![Status](https://img.shields.io/badge/Status-Educational--Intense-orange?style=for-the-badge)
 
-  *Modern, daltık ve leklenip yonetilebilir sistemlerin "Elite" rehberi.*
+  *Modern, daltık, yuksek leklebilir ve her an hata vermeye hazır (Design for Failure) sistemlerin profesyonel rehberi.*
 
   ---
 </div>
 
-## ?? Mikroservis Nedir? (Felsefi ve Teknik Bakış)
+## ?? Mikroservis Nedir? (Derinlemesine Felsefe)
 
-Mikroservisler, devasa bir yazlmı, her biri belirli bir **Business Domain**'e odaklanan, otonom ve bamsz servislerin birleşimi olarak tasarlamaktır. Bu bir teknoloji semimi deil, bir **organizasyonel strateji**dir.
+Mikroservisler, devasa ve yonetilmesi imkansız hale gelen monolitik yazlm sistemlerini, her biri belirli bir **Business Domain**'e (İ Alan) odaklanan, tamamen otonom ve bamsz olarak daltlabilen "mikro-organizmalar" olarak tasarlama sanatıdır. 
 
-> [!CAUTION]
-> **Conway Kanunu:** "Sistemleri tasarlayan her organizasyon, o organizasyonun iletisim yapısını kopyalayan sistemler üretir." 
-> Mikroservis, ekibinizi de paralamanızı gerektirir. Küçük, "Two-Pizza Teams" (İki pizzayla doyan ekipler) mikroservisin ruhudur.
+Sıradan bir mikroservis tanımının otesinde, mikroservis **Otonomi** (Bamszlık) demektir. Bir servisi daltırken dier bir servisin hayatta olup olmaması sizin daltımınızı etkilememelidir. Eer etkiliyorsa, otonom deildir. Mikroservis, sistemin karmaşıklığını "Bol ve Fethet" (Divide and Conquer) prensibiyle kucuk, uzmanlasm ekiplerin yonetebilecei paralar haline getirir.
 
 ---
 
-## ?? Mimari Evrim: Neden Buradayız?
+## ?? Conway Kanunu: Takım Yapısı ve Mimari Banlatısı
 
-1.  **Monolith:** Her şey tek bir yerdedir. Daltımı kolay ama buyutmesi ve teknolojiyi deistirmesi imkansızdır.
-2.  **SOA (Service Oriented Architecture):** Servisler vardır ama genellikle devasa bir **ESB (Enterprise Service Bus)**'a banlıdır. Karmaıktır.
-3.  **Microservices:** Her servis bamszdır, hafiftir ve bamsz daltılabilir (Independently Deployable).
+> "Sistemleri tasarlayan her organizasyon, o organizasyonun iletisim yapısını kopyalayan sistemler üretir." - Melvin Conway
 
----
+Mikroservis mimarisine geçiş, sadece bir kod deisimi değil, bir **kltrel ve organizasyonel** devrimdir. Eer 100 kisilik tek bir ekibiniz varsa, monolitik bir sistem üretirsiniz. Mikroservis iin bu ekibi "Two-Pizza Teams" (İki pizzayla doyan, 6-8 kisilik otonom ekipler) haline getirmelisiniz. 
 
-## ?? 12-Factor App: Modern Uygulamanın 12 Kuralı
-
-Bir mikroservisin "Cloud-Native" olması iin u kurallara uyması gerekir:
-1. **Codebase:** Tek bir depo, cok daltım.
-2. **Dependencies:** Tüm baımlılıklar net tanmlanm olmalı.
-3. **Config:** Ayarlar (DB siferleri vb.) ortam deiskenlerinde (Environment Variables) tutulmalı.
-4. **Backing Services:** Veritabanı vb. her ey banlanabilir bir kaynak olmalı.
-5. **Build, Release, Run:** Bu sureler birbirinden kesin snırlarla ayrılmalı.
-6. **Processes:** Uygulama "Stateless" (Durumsuz) olmalı. Veriyi bellekte deil, DB'de tutmalı.
-7. **Port Binding:** Uygulama kendi portunu darya açabilmeli.
-8. **Concurrency:** İşleri paralel yurtebilmek iin "Process Model" kullanılmalı.
-9. **Disposability:** Hizlı balayıp hzl ve gvenli kapanabilmeli (Graceful Shutdown).
-10. **Dev/Prod Parity:** Yerel ortam ve canlı ortam birbirine olabildiince yakın olmalı.
-11. **Logs:** Loglar bir "Event Stream" (Olay Akıı) olarak ele alınmalı.
-12. **Admin Processes:** Yonetimsel ipler normal kodun bir parası olmalı.
+**Pro Tip:** Eer ekipleriniz bamsz deilse, mikroservisleriniz de bamsz olamaz. Mimari, ekibinizin yansmasıdır.
 
 ---
 
-## ?? Gelişmiş Tasarım Kalıpları (Design Patterns)
+## ?? Mimari Evrim: Monolith'ten Mesh'e Giden Yol
+
+1.  **Monolith (Geleneksel):** Tek bir `main.go` veya `jar` dosyası. Veritabanı tektir. Bir yer patlarsa her yer patlar. Ancak hatayı bulmak (Debug) kolaydır.
+2.  **SOA (Service Oriented Architecture):** Servisler vardır ama genellikle devasa bir **ESB (Enterprise Service Bus)** üzerinden birbirine banlıdır. SOA'da servisler "paylasılan servisler"dir, mikroservislerde ise "bamsz otonom servisler"dir.
+3.  **Microservices (Modern):** ESB'yi ortadan kaldırırız. Servisler arası iletisimi akıllı uç noktalar (Smart Endpoints) ve basit borular (Dumb Pipes) ile yonetiriz. Servisler deryadır; her biri kendi teknolojisini sebilir.
+
+---
+
+## ?? 12-Factor App: Bulut-Yerli (Cloud-Native) Uygulamanın Anayasası
+
+1. **Codebase:** Tek bir depo, cok daltım. (Farklı branch'ler deil, aynı kodun farklı ortamlarda calıması).
+2. **Dependencies:** Tüm baımlılıklar net tanımlanır. (Docker/Go Modules). Hiçbir ey "sistemde kurulu varsayılmaz".
+3. **Config:** Ayarlar `config.yaml` deil, `Environment Variables`'larda tutulur. sifereler asla kod içinde olamaz.
+4. **Backing Services:** DB, Log, Cache her ey banlanabilir kaynaktır. Deistirilmesi iin kod deismesine gerek olmamalıdır.
+5. **Build, Release, Run:** Sureler kesin ayrılmalı. Build (Compile), Release (Config + Build), Run (Execution). Geriye donuk takip (Versioning) yapılabilir.
+6. **Processes:** "Stateless" olmalı. Bir request'ten dierine veri taınmaz. Memory'de "Session" tutulmaz; bunun iin Redis kullanılır.
+7. **Port Binding:** Uygulama kendi portunu darya açabilmeli; dısarıdaki bir "Web Server"ın (IIS/Apache) içinde calımaz.
+8. **Concurrency:** İstekler arttıında tek bir root root process'i buyutmek (Vertical) yerine process sayısını artırırsın (Horizontal Scaling).
+9. **Disposability:** Hizlı balayıp gvenli kapanmalı (SIGTERM). Bir container silindiinde veri kaybı olmamalı.
+10. **Dev/Prod Parity:** Lokal ve prod ortam arası fark "Dı kaynaktır". Kod aynıdır.
+11. **Logs:** Loglar birer "Stream"dir. Uygulama logu dosyaya yazmaz, `stdout`'a basar. dısarıdaki bir log collector (Fluentd) onları toplar.
+12. **Admin Processes:** Database migration vb. iiler "Run" surecinin bir parasıdır.
+
+---
+
+## ?? Gelişmiş Mimari Patternlar (Derin İnceleme)
 
 ### 1. CQRS (Command Query Responsibility Segregation)
-Yazma (Command) ve Okuma (Query) islemlerini paralamak. 
-- **Neden?** Okuma islemleri (Raporlama) cok yk yaratsa da, yazma (Siparis) islemleri cok kritiktir. İkisini ayırarak sistemi mukemmel leklebiliriz.
+Veriyi yazan metod (Command) ile veriyi okuyan metod (Query) birbirinden ayrılır. 
+- **Neden?** Okuma islemleri genellikle daha yuksek trafik alır (10:1 oranında). Okuma iin Elasticsearch gibi hızlı arama motorları, yazma iin PostgreSQL gibi tutarlı veritabanları kullanılır. Aradaki senkronizasyon "Event"lerle salanır.
 
 ### 2. Event Sourcing
-Veritabanında "Anlık Durum"u tutmak yerine, oluan tm "Olaylar" (Events) serisini tutmak.
-- **Ornek:** Banka bakiyesini değil, tm para giriş/çıkış hareketlerini tutarsın. İstediin ana "Replay" yaparak geri donebilirsin.
+Durumu deil, "Olayları" saklarız. 
+- **Snapshot Tekniği:** Eer sistemde milyonlarca olay varsa, hepsini baştan oynatmak yavaş olur. Bu yuzden her 1000 olayda bir sistemin "Anlık Durumu"nu (Snapshot) kaydederiz. Hata analizi iin mukemmeldir.
 
-### 3. Saga Pattern (Dağıtk İslemler)
-Birden fazla servisi ilgilendiren bir islemde veri tutarlılıını salamak iin kullanılır.
-- **Choreography:** Servisler birbirine haber verir.
-- **Orchestration:** Bir yonetici servis i akısını yonetir.
-
----
-
-## ?? Güvenlik: Sıfır Güven (Zero Trust)
-
-Mikroservislerde "İç ağ gvenlidir" mantıı olmzmz.
-- **API Gateway:** Tüm istekler tek bir kapıdan gırer. Burada JWT kontrolu, Rate Limiting yapılır.
-- **mTLS (Mutual TLS):** Servisler birbirleriyle konusurken karşılıklı sertifika dorulaması yapar.
-- **RBAC:** Kullanıcıların rolleri servisler arası tasınır.
+### 3. Saga Pattern ve Compensating Transactions
+Daltık bir sistemde "Sipari Olustur -> Stok Dştir -> Odeme Al" islemi atomik deildir. 
+- **Scenario:** Odeme Servisi patlarsa ne olur? 
+- **Compensating Transaction:** Odeme patladıı anda, Stok Servisi'ne "Stou geri artır" mesajı yollanır. Bu "Geriye Donme" (Undo) mantıı dağıtk sistemlerin can damarıdır.
 
 ---
 
-## ?? Gözlemlenebilirlik (Observability)
+## ?? Güvenlik: Katmanlı Savunma (Defense in Depth)
 
-Karanlıkta yol bulmanın 3 yolu:
-1. **Tracing (Jaeger):** Bir isteğin hangi servislerden getiini milisaniye milisaniye gosterir.
-2. **Metrics (Prometheus):** RAM/CPU ve hata oranlarını grafiklestirir.
-3. **Logging (ELK Stack):** Tm hata mesajlarını bir merkezde toplar.
-
----
-
-## ?? Test Stratejisi
-
-Mikroservis sisteminde "Unit Test" yetmez.
-- **Contract Testing (Pact):** Servis A deistiinde Servis B bozuluyor mu? Bu test servisler daltılmadan (Deployment) once yapılır.
-- **Chaos Engineering:** "Eer bir servisi rastgele kapatırsak ne olur?" sorusunun yanıtı aranır (Netflix Simian Army).
+1. **Edge Security (API Gateway):** Kullanıcıyı "Kapı"da durdurun. JWT, OAuth2 ve Rate Limiting burada yapılır.
+2. **mTLS (Mutual TLS):** Container'lar birbirine "Gerçekten kimsin?" diye sertifika sorar. "Servis Mesh" (Istio) bunu kod yazmadan halleder.
+3. **Zero Trust:** Sadece "İç ağdayım" diyerek kimseye gvenilmez. Her servis, gelen isteın doru JWT'ye sahip olup olmadığını kontrol eder.
 
 ---
 
-## ?? Anti-Patterns: Nelerden Kacmalısın?
+## ?? Gözlemlenebilirlik: 4 Altın Sinyal (Golden Signals)
 
-1. **Nano-services:** Servisi cok kk paralamak. (Yonetim yukunu artırır).
-2. **Shared Database:** İki servisin aynı DB'yi kullanması. (Olumcul hatadır).
-3. **Mega-Service:** Adı mikro kendisi monolit olan devasa servisler.
+1. **Latency:** Bir isteğin tamamlanma suresi. 
+2. **Traffic:** Sisteme gelen istek sayıs (Request per Second).
+3. **Errors:** Hatalı isteklerin tum isteklere oranı (5xx hataları).
+4. **Saturation:** Kaynak kullanımı (CPU/RAM). Eer %90'daysanız, yakında Latency artacaktır.
+
+---
+
+## ?? Test Stratejisi: Test Piramidi (Microservices Edition)
+
+- **Unit Test:** İ mantsal fonksiyonlar. 
+- **Component Test:** Servisin tek basına (Dı dunyayı "Mock"layarak) calıması.
+- **Contract Test (Pact):** Bir servisin dısına verdigi API'nin "Sozleimesi". A servisi degistiinde B servisi patlayacak mı? Bunu bilebilmenin tek yolu budur.
+- **Chaos Engineering:** Netflix "Chaos Monkey"i nsanlara salar. Canlı ortamda rastgele servisleri kapatır ve sistemin kendi kendine iyilesip iyilesmedııni test eder.
 
 ---
 
@@ -105,47 +104,52 @@ Mikroservis sisteminde "Unit Test" yetmez.
 
 ```mermaid
 graph TD
-    subgraph Users
-        Client["?? Client Side"]
+    subgraph Global_Entry
+        LB["?? Load Balancer <br/>(Nginx / Cloudflare)"]
     end
 
-    subgraph Infrastructure_Layer
-        Gateway["?? API Gateway <br/>(Kong / App Mesh)"]
-        Mesh["?? Service Mesh <br/>(Istio)"]
+    subgraph Security_Layer
+        Gateway["?? API Gateway <br/>(Kong / Ocelot / Gloo)"]
+        WAF["?? Firewall"]
     end
 
-    subgraph Business_Cloud
-        Catalog["?? Catalog Service <br/>(Go)"]
-        Order["?? Order Service <br/>(Go)"]
-        User["?? User Service <br/>(Go)"]
+    subgraph Service_Mesh
+        Discovery["?? Service Discovery <br/>(Consul / Eureka)"]
+        Mesh["?? Control Plane <br/>(Istio / Linkerd)"]
     end
 
-    subgraph Data_Layer
-        DB1[("?? Postgres")]
-        DB2[("?? Redis")]
-        DB3[("?? MongoDB")]
+    subgraph Business_Compute
+        OrderSvc["?? Order Service <br/>(Go / Clean Arch)"]
+        InvSvc["?? Inventory Service <br/>(Go / CQRS)"]
+        NotifySvc["?? Notify Service <br/>(Node.js / Event-driven)"]
     end
 
-    subgraph Communication_Layer
-        Bus["?? Message Bus <br/>(Kafka / RabbitMQ)"]
+    subgraph Data_Persistence
+        OrderDB[("?? Postgres")]
+        InvDB[("?? MongoDB")]
     end
 
-    Client -->|HTTPS| Gateway
+    subgraph Messaging
+        Broker["?? Event Bus <br/>(Kafka / RabbitMQ)"]
+    end
+
+    LB --> WAF
+    WAF --> Gateway
     Gateway --> Mesh
-    Mesh --> Catalog
-    Mesh --> Order
-    Mesh --> User
-
-    Catalog --- DB1
-    Order --- DB2
-    User --- DB3
-
-    Order -.->|Sync Event| Bus
-    Bus -.->|Async Consume| Catalog
+    Mesh --> OrderSvc
+    Mesh --> InvSvc
+    
+    OrderSvc --- OrderDB
+    InvSvc --- InvDB
+    
+    OrderSvc -.->|Trigger Saga| Broker
+    Broker -.->|Consume| InvSvc
+    Broker -.->|Send SMS| NotifySvc
     
     style Gateway fill:#f9f,stroke:#333
     style Mesh fill:#ccf,stroke:#333
-    style Bus fill:#ff9,stroke:#333
+    style Broker fill:#ff9,stroke:#333
+    style LB fill:#fff,stroke:#333
 ```
 
 ---
@@ -160,10 +164,10 @@ graph TD
 | **04** | [Data Management](docs/04-data-management/README.md) | Saga Pattern, CQRS & DB per Service | ?? Tamamlandı |
 | **05** | API Gateway | Security, Rate Limiting & Auth | ?? Yaknda |
 | **06** | Observability | Tracking, Metrics & Logging | ?? Yaknda |
-| **07** | CI/CD | Docker, K8s & Cloud Deployment | ?? Yaknda |
+| **07** | Deployment | Docker, K8s & Cloud Native CI/CD | ?? Yaknda |
 
 ---
 
 <div align="center">
-  <sub>Elite Microservices Architect Journey ?? <b>arch-yunus</b></sub>
+  <sub>Mastering Microservices Architecture ?? <b>arch-yunus</b></sub>
 </div>
