@@ -1,6 +1,43 @@
 version: '3.8'
 
 services:
+  # ?? API Gateway: Sistemin Zrhlı Kapısı
+  gateway-service:
+    build:
+      context: ./services/gateway-service
+    container_name: micro_gateway
+    ports:
+      - "8080:8080" # Dıs dunyaya acılacak tek port
+    depends_on:
+      - product-service
+      - order-service
+    networks:
+      - micro_network
+
+  # ?? Product Service
+  product-service:
+    build:
+      context: ./services/product-service
+    container_name: micro_product
+    # Eksık: port mapping kaldırıldı (Dısarıdan erısım kapalı)
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - micro_network
+
+  # ?? Order Service
+  order-service:
+    build:
+      context: ./services/order-service
+    container_name: micro_order
+    # Eksık: port mapping kaldırıldı (Dısarıdan erısım kapalı)
+    depends_on:
+      product-service:
+        condition: service_started
+    networks:
+      - micro_network
+
   # ?? Veritaban: PostgreSQL
   postgres:
     image: postgres:15-alpine
