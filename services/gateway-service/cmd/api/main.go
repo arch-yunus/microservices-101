@@ -23,7 +23,7 @@ func main() {
 		Handler: gwHandler,
 	}
 
-	// 2. Graceful Shutdown
+	// 2. Zarif Kapan (Graceful Shutdown)
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 

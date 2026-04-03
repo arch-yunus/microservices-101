@@ -1,106 +1,106 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # Microservices 101: Architectural Engineering Guide
-  ### Designing and Managing Distributed Systems with Precision
+  # Microservices 101: Mimari Mühendislik Rehberi
+  ### Daıtık Sistemleri Hassasiyetle Tasarlamak ve Yönetmek
   
-  [![License](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue&logo=github)](LICENSE)
-  [![Go Version](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
-  [![Status](https://img.shields.io/badge/Status-Production--Grade--Draft-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
+  [![Lisans](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue&logo=github)](LICENSE)
+  [![Go Versiyonu](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
+  [![Durum](https://img.shields.io/badge/Durum-Profesyonel--Eğitim--Seti-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
 
-  **"Architecture is about managing complexity and enforcing autonomy through decoupled engineering."**
+  **"Mimari, karmaşıklığı yönetmek ve ayrıştırılmış mühendislik yoluyla otonomiyi sağlamakla ilgilidir."**
 
   ---
 </div>
 
-## Introduction: The Philosophy of Microservices
+## Giriş: Mikroservislerin Felsefesi
 
-Microservices architecture is the evolution of software engineering to handle extreme scale and complexity. It moves away from the monolithic "all-in-one" model towards a cellular structure where each service is an independent, autonomous unit specialized in a specific business domain.
+Mikroservis mimarisi, yazılım mühendisliğinin uç ölçek ve karmaşıklığı yönetmek için geçirdiği evrimdir. Monolitik "her şey bir arada" modelinden, her servisin belirli bir iş alanında uzmanlaşmış, bağımsız ve otonom bir birim olduğu hücresel bir yapıya geçişi temsil eder.
 
-This repository serves as a focused roadmap to mastering distributed systems, focusing on reliability, scalability, and maintainability.
-
----
-
-## Chapter 1: The Monolith Crisis and Evolution
-
-Software starts simple. A single repo, a single database. However, as organizations scale, the monolith becomes a bottleneck:
-- **Tight Coupling**: A change in one module breaks another.
-- **Scaling Issues**: You must scale the entire application even if only one feature is under load.
-- **Operational Drag**: Huge build times and high risk of catastrophic failure.
-
-Microservices solve this by decoupling teams and technology, allowing for independent deployment and specialized scaling.
+Bu depo, güvenilirlik, ölçeklenebilirlik ve sürdürülebilirliğe odaklanarak dağıtık sistemlerde ustalaşmak için hedeflenmiş bir yol haritası sunar.
 
 ---
 
-## Chapter 2: The Art of Decomposition (DDD)
+## Bölüm 1: Monolit Krizi ve Evrim
 
-Breaking a system is a strategic decision. We use **Domain-Driven Design (DDD)** to identify **Bounded Contexts**.
-- **Catalog Service**: Owns product identity and pricing.
-- **Order Service**: Owns order lifecycle and fulfillment.
+Yazılım basit başlar. Tek bir depo, tek bir veritabanı. Ancak organizasyonlar büyüdükçe, monolit bir darboğaz haline gelir:
+- **Sıkı Bağlılık (Tight Coupling)**: Bir modüldeki değişiklik diğerini bozar.
+- **Ölçekleme Sorunları**: Sadece bir özellik yük altında olsa bile tüm uygulamayı ölçeklendirmek zorundasınızdır.
+- **Operasyonel Yük**: Dev muazzam derleme süreleri ve katastrofik arıza riski.
 
-In this project, we have already implemented `services/product-service` and `services/order-service` as distinct entities to demonstrate this separation.
-
----
-
-## Chapter 3: Communication and Protocols
-
-How do independent services talk? We balance performance and flexibility.
-
-1.  **gRPC (Synchronous)**:
-    - **Usage**: Internal, service-to-service calls.
-    - **Why**: Protocol Buffers provide high-performance, strongly-typed binary communication. ✨
-2.  **Messaging (Asynchronous)**:
-    - **Usage**: Event-driven architecture.
-    - **Why**: Decouples services so they can fail and recover independently without bringing down the system.
+Mikroservisler, ekipleri ve teknolojiyi birbirinden ayırarak, bağımsız dağıtım ve uzmanlaşmış ölçeklendirme sağlayarak bu sorunu çözer.
 
 ---
 
-## Chapter 4: Data Management Strategies
+## Bölüm 2: Parçalama Sanatı (DDD)
 
-The golden rule: **Each service owns its own database.**
-- **Saga Pattern**: Managing transactions across services without global locks.
-- **CQRS**: Separating Read and Write models for maximum query performance.
+Bir sistemi bölmek stratejik bir karardır. **Domain-Driven Design (DDD)** kullanarak **Bounded Context**'leri (Sınırlandırılmış Bağlamlar) belirliyoruz.
+- **Catalog Service**: Ürün kimliğini ve fiyatlandırmasını yönetir.
+- **Order Service**: Sipariş yaşam döngüsünü ve yerine getirmeyi yönetir.
 
----
-
-## Chapter 5: Operational Excellence
-
-Building the service is only half the battle. Running it at scale requires:
-- **Graceful Shutdown**: Handling OS signals to close connections cleanly.
-- **Health Checks**: Ensuring dependencies are ready before traffic starts flowing.
-- **Service Mesh**: Managing complex network topologies outside of the application code.
+Bu projede, bu ayrımı göstermek için `services/product-service` ve `services/order-service` yapılarını farklı varlıklar olarak uyguladık.
 
 ---
 
-## Laboratory: Hands-on Execution
+## Bölüm 3: İletişim ve Protokoller
 
-The repository is equipped with a `Makefile` to orchestrate the entire development environment:
+Bağımsız servisler nasıl konuşur? Performans ve esnekliği dengeliyoruz.
+
+1.  **gRPC (Senkron)**:
+    - **Kullanım**: Dahili, servisten servise çağrılar.
+    - **Neden**: Protocol Buffers, yüksek performanslı ve güçlü tipli ikili iletişim sağlar. ✨
+2.  **Mesajlaşma (Asenkron)**:
+    - **Kullanım**: Olay tabanlı (Event-driven) mimari.
+    - **Neden**: Servisleri birbirinden ayırır, böylece sistemi çökertmeden bağımsız olarak arızalanabilir ve kurtulabilirler.
+
+---
+
+## Bölüm 4: Veri Yönetimi Stratejileri
+
+Altın kural: **Her servis kendi veritabanına sahiptir.**
+- **Saga Deseni**: Global kilitler olmadan servisler arası işlemleri yönetmek.
+- **CQRS**: Maksimum sorgu performansı için Okuma ve Yazma modellerini ayırmak.
+
+---
+
+## Bölüm 5: Operasyonel Mükemmellik (API Gateway)
+
+Servisi inşa etmek mücadelenin sadece yarısıdır. Ölçekli bir şekilde çalıştırmak şunları gerektirir:
+- **API Gateway**: Tüm trafiği karşılayan zırhlı bir giriş kapısı (Örn: `services/gateway-service`).
+- **Zarif Kapanış (Graceful Shutdown)**: Bağlantıları temiz bir şekilde kapatmak için işletim sistemi sinyallerini yönetmek.
+- **Sağlık Kontrolleri (Health Checks)**: Trafik akmaya başlamadan önce bağımlılıkların hazır olduğundan emin olmak.
+
+---
+
+## Laboratuvar: Uygulama Rehberi
+
+Depo, tüm geliştirme ortamını yönetmek için bir `Makefile` ile donatılmıştır:
 
 ```bash
-# Start Infrastructure (PostgreSQL, RabbitMQ, Redis)
+# Altyapıyı Başlat (PostgreSQL, RabbitMQ, Redis)
 make up
 
-# Run Product Service (Go)
+# Ürün Servisini Çalıştır (Go)
 make run-product
 
-# Run Order Service (Go)
+# Sipariş Servisini Çalıştır (Go)
 make run-order
 ```
 
 ---
 
-## Architecture Roadmap
+## Mimari Yol Haritası
 
-| Phase | Module | Focus | Status |
+| Aşama | Modül | Odak Noktası | Durum |
 | :--- | :--- | :--- | :---: |
-| 1 | Foundations | Paradigm Shift | ![100%](https://geps.dev/progress/100) |
-| 2 | Clean Architecture | Go Project Layout | ![100%](https://geps.dev/progress/100) |
-| 3 | Communication | gRPC Protocols | ![100%](https://geps.dev/progress/100) |
-| 4 | Containerization | Docker & Networks | ![100%](https://geps.dev/progress/100) |
-| 5 | API Gateway | Security & Routing | ![20%](https://geps.dev/progress/20) |
-| 6 | Messaging | Kafka/RabbitMQ | ![10%](https://geps.dev/progress/10) |
+| 1 | Temeller | Paradigma Değişimi | ![100%](https://geps.dev/progress/100) |
+| 2 | Clean Architecture | Go Proje Düzeni | ![100%](https://geps.dev/progress/100) |
+| 3 | İletişim | gRPC Protokolleri | ![100%](https://geps.dev/progress/100) |
+| 4 | Konteynerizasyon | Docker ve Ağlar | ![100%](https://geps.dev/progress/100) |
+| 5 | API Gateway | Güvenlik ve Yönlendirme | ![100%](https://geps.dev/progress/100) |
+| 6 | Mesajlaşma | Kafka/RabbitMQ | ![Soon](https://img.shields.io/badge/-Yakında-orange) |
 
 <div align="center">
   <br/>
-  <sub>Engineering Excellence | **arch-yunus**</sub>
+  <sub>Mühendislik Mükemmelliği | **arch-yunus**</sub>
 </div>

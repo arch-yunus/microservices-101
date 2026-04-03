@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	fmt.Println("?? Order Service balatiliyor...")
+	fmt.Println("?? Sipariş Servisi (Order Service) balatiliyor...")
 
 	// 1. gRPC Bağlantıs Kurulumu (Product Service'e baılan)
 	// Not: Docker ortamda localhost yerine "product-service" kullanlabilir.
@@ -28,14 +28,14 @@ func main() {
 	productClient := pb.NewProductServiceClient(conn)
 	orderSvc := service.NewOrderService(productClient)
 
-	// 2. Graceful Shutdown
+	// 2. Zarif Kapan (Graceful Shutdown)
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 
 	go func() {
-		fmt.Println("?? Order Service islemler iin hazır (7/24 Aktif).")
+		fmt.Println("?? Sipariş Servisi islemler iin hazır (7/24 Aktif).")
 		
-		// Eitim Amacl: Periyodik olarak bir sipari? denemesi yapalım (Simülasyon)
+		// Eğitim Amacl: Periyodik olarak bir sipari? denemesi yapalım (Simülasyon)
 		ticker := time.NewTicker(10 * time.Second)
 		defer ticker.Stop()
 
@@ -43,7 +43,7 @@ func main() {
 			select {
 			case <-ticker.C:
 				ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
-				_, err := orderSvc.PlaceOrder(ctx, "top-tier-key-123", 1)
+				_, err := orderSvc.PlaceOrder(ctx, "üst-seviye-anahtar-123", 1)
 				if err != nil {
 					fmt.Printf("?? Otomatik Sipari Hatas: %v\n", err)
 				}
@@ -56,5 +56,5 @@ func main() {
 
 	// Sinyal gelene kadar burada bloklanrz.
 	<-stop
-	fmt.Println("\n?? Order Service Guvenli Bir Sekilde Kapatiliyor...")
+	fmt.Println("\n?? Sipariş Servisi Guvenli Bir Sekilde Kapatiliyor...")
 }

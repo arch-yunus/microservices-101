@@ -15,9 +15,9 @@ import (
 )
 
 func main() {
-	fmt.Println("?? Product Service gRPC Sunucusu balatiliyor...")
+	fmt.Println("?? Ürün Servisi (Product Service) gRPC Sunucusu balatiliyor...")
 
-	// 1. Altyap ve Servislerin Kurulumu (Dependency Injection)
+	// 1. Altyapı ve Servislerin Kurulumu (Dependency Injection)
 	repo := repository.NewMemoryProductRepo()
 	productSvc := service.NewProductService(repo)
 
@@ -31,7 +31,7 @@ func main() {
 	productHandler := handler.NewGrpcProductHandler(productSvc)
 	pb.RegisterProductServiceServer(grpcServer, productHandler)
 
-	// 3. Graceful Shutdown (Zarif Kapan) Stratejisi
+	// 3. Zarif Kapan (Graceful Shutdown) Stratejisi
 	// Bir kanal (channel) olusturup Isletim Sistemi sinyallerini dinliyoruz.
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)

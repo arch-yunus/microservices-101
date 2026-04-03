@@ -6,7 +6,7 @@ Sisteminiz büyüdüğünde, dış dünyadaki müşterilerle iç dünyadaki serv
 
 ## 1. API Gateway Nedir?
 
-API Gateway, tüm istemci isteklerini (Mobile, Web, IoT) karşılayan ve bu istekleri ilgili iç servislere yönlendiren merkezi bir giriş noktasıdır.
+API Gateway, tüm istemci isteklerini (Mobil, Web, IoT) karşılayan ve bu istekleri ilgili iç servislere yönlendiren merkezi bir giriş noktasıdır.
 
 ### Temel Görevleri:
 - **Yönlendirme (Routing):** `/products` isteğini Ürün servisine, `/orders` isteğini Sipariş servisine gönderir.
@@ -36,7 +36,7 @@ Gerçek mikroservis dünyasında, dışarıdaki birisi asla Ürün servisine vey
 
 Bu projede, Go diliyle yazılmış minimalist bir `gateway-service` ekledik. Bu servis:
 1. **JWT Middleware** ile istekleri denetler.
-2. **Reverse Proxy** ile istekleri iç ağdaki servislere yönlendirir.
+2. **Reverse Proxy** ile istekleri iç ağdaki servislere yönlenditir.
 
 ---
 [Geri - Ana README](../../README.md)
