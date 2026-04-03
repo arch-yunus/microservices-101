@@ -133,7 +133,7 @@ make run-order
 | 3 | İletişim | gRPC ve Protobuf | ![100%](https://geps.dev/progress/100) |
 | 4 | Güvenlik | API Gateway ve JWT | ![100%](https://geps.dev/progress/100) |
 | 5 | Dayanıklılık | Sigorta ve Bölme Kalıpları | ![30%](https://geps.dev/progress/30) |
-| 6 | Mesajlaşma | Event-Driven Tasarım | ![Yakında](https://img.shields.io/badge/-Yakında-orange) |
+| 6 | Mesajlaşma | Event-Driven Tasarım | ![100%](https://geps.dev/progress/100) |
 
 <div align="center">
   <br/>

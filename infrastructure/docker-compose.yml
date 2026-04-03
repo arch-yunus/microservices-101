@@ -1,13 +1,13 @@
 version: '3.8'
 
 services:
-  # ?? API Gateway: Sistemin Zrhlı Kapısı
+  # ?? API Gateway: Sistemin Zırhlı Kapısı
   gateway-service:
     build:
       context: ./services/gateway-service
     container_name: micro_gateway
     ports:
-      - "8080:8080" # Dıs dunyaya acılacak tek port
+      - "8080:8080"
     depends_on:
       - product-service
       - order-service
@@ -19,7 +19,6 @@ services:
     build:
       context: ./services/product-service
     container_name: micro_product
-    # Eksık: port mapping kaldırıldı (Dısarıdan erısım kapalı)
     depends_on:
       postgres:
         condition: service_healthy
@@ -31,10 +30,22 @@ services:
     build:
       context: ./services/order-service
     container_name: micro_order
-    # Eksık: port mapping kaldırıldı (Dısarıdan erısım kapalı)
     depends_on:
       product-service:
         condition: service_started
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - micro_network
+
+  # ?? Notifier Service (Bildirim Merkezi - Asenkron)
+  notifier-service:
+    build:
+      context: ./services/notifier-service
+    container_name: micro_notifier
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
     networks:
       - micro_network
 
@@ -58,7 +69,7 @@ services:
     networks:
       - micro_network
 
-  # ?? Mesaj Kou: RabbitMQ
+  # ?? Mesaj Kuyruu: RabbitMQ
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: micro_rabbitmq
