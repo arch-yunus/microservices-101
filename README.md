@@ -25,6 +25,16 @@ Mikroservisler, devasa monolitik yapıların hantallığından kurtulup, saniyel
 
 ---
 
+## ?? Üretim Seviyesi Özellikler (Production-Ready)
+
+Bu repo sadece einitim amaçlı deildir; gerçek dnya standartlarını takip eder:
+- **Zarif Kapanış (Graceful Shutdown):** Tüm servislerimiz SIGINT/SIGTERM sinyallerini dinler ve baılantıları güvenli bir şekilde kapatır.
+- **Sağlık Kontrolleri (Health Checks):** Docker Compose uzerinde veritabanı hazır olmadan servisler ayağa kalkmaz.
+- **İzole Ağlar (Isolated Networks):** Servisler arası iletisim sadece ozel bir bridge network üzerinden gerccekleşir.
+- **Windows Dostu Araçlar:** `scripts/` klasoru altında Windows kullanıcıları için PowerShell otomasyonları mevcuttur.
+
+---
+
 ## ?? Hızlı Başlangıç (Quick Start)
 
 Sistemi saniyeler iinde ayaa kaldrmak iin terminalinizi hazrlayn:
