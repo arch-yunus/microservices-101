@@ -1,130 +1,106 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # ?? Microservices 101: Srıdan Zirveye Mimari Yolculuk
-  ### Daıtık Sistemleri Bir Mhendis Gibi Tasarlamay örenin
+  # Microservices 101: Architectural Engineering Guide
+  ### Designing and Managing Distributed Systems with Precision
   
   [![License](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue&logo=github)](LICENSE)
   [![Go Version](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
-  [![Status](https://img.shields.io/badge/Status-Educational--Masterpiece-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
+  [![Status](https://img.shields.io/badge/Status-Production--Grade--Draft-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
 
-  **"Bir sistem sadece kod deildir; o bir ya?ayan organizmadr. Onu b?lmeyi, konusturmay? ve ya?atmay? oreniyoruz."**
+  **"Architecture is about managing complexity and enforcing autonomy through decoupled engineering."**
 
   ---
 </div>
 
-## ?? Giri?: Mikroservis Nedir? (Gerçekten!)
+## Introduction: The Philosophy of Microservices
 
-Mikroservis, b?y?k bir ?e?liyi tek bir b?y?k tencerede (Monolith) kaynatmak yerine, her yeme?i kendi k???k tenceresinde pi?irmektir. E?er salataya sinek d??erse sadece salatay? d?keriz, t?m mutfak (Sistem) zehirlenmez. 
+Microservices architecture is the evolution of software engineering to handle extreme scale and complexity. It moves away from the monolithic "all-in-one" model towards a cellular structure where each service is an independent, autonomous unit specialized in a specific business domain.
 
-Bu rehberde, bir **Elite Architect** gibi d???nmeyi ve karma?alar? nas?l y?neteceklerinizi adım adım ?ğreneceksiniz.
-
----
-
-## ?? Bölüm 1: Monolith Krizi ve Evrim ??
-
-Her ?ey m?kemmel ba?lad?. Tek bir proje, tek bir veritaban?. Ama ?irket b?y?d?, ekip 100 ki?i oldu. Herkes ayn? dosyalar? d?zenlemeye ?al???yor, t?m d?nya ayn? hata nedeniyle ??k?yordu.
-
-- **Neden Değiştik?**
-    - **Hantal Yap?:** Tek bir sat?r de?i?iklik iin saati bulan derleme (build) s?releri.
-    - **Hata Yayılım?:** Login sayfasındaki bir hata nedeniyle ?deme sisteminin ??kmesi.
-    - **Teknoloji Esareti:** 10 y?ll?k bir projeyi yeni bir dille (örn: Go) yazmaya ?al??man?n imkans?zl???.
+This repository serves as a focused roadmap to mastering distributed systems, focusing on reliability, scalability, and maintainability.
 
 ---
 
-## ?? Bölüm 2: Parçalama Sanat? (DDD & Bounded Context) ??
+## Chapter 1: The Monolith Crisis and Evolution
 
-Bir sistemi par?alara b?lerken en b?y?k tehlike, "yanl?? yerden" b?lmektir. **Domain-Driven Design (DDD)** bize "Context"leri ??retir.
+Software starts simple. A single repo, a single database. However, as organizations scale, the monolith becomes a bottleneck:
+- **Tight Coupling**: A change in one module breaks another.
+- **Scaling Issues**: You must scale the entire application even if only one feature is under load.
+- **Operational Drag**: Huge build times and high risk of catastrophic failure.
 
-- **Bounded Context:** Bir kavramın (örn: Product) bir serviste ba?ka anlamı, dər serviste ba?ka anlamı vardır. 
-    - **Catalog Service**: Ürün fiyatı ve tanımıyla ilgilenir.
-    - **Order Service**: Ürünün stok durumu ve teslimatıyla ilgilenir.
-
-> [!TIP]
-> Bizim projemizde `services/product-service` ve `services/order-service` olarak bu ayrımı yaptık. Her servis kendi d?nyas?ndan sorumludur.
+Microservices solve this by decoupling teams and technology, allowing for independent deployment and specialized scaling.
 
 ---
 
-## ?? Bölüm 3: Sistemin Nabzı (Haberleşme & gRPC) ??
+## Chapter 2: The Art of Decomposition (DDD)
 
-Parçalar? birbirine nas?l ba?lar?z? Eğer hepsi s?rekli birbirini beklerse monolith'ten daha yava? bir sistemimiz olur.
+Breaking a system is a strategic decision. We use **Domain-Driven Design (DDD)** to identify **Bounded Contexts**.
+- **Catalog Service**: Owns product identity and pricing.
+- **Order Service**: Owns order lifecycle and fulfillment.
 
-1.  **gRPC (Senkron/Anl?k):** 
-    - **Neden?** Ultra h?zl?, tip g?venli. 
-    - **Bizim Kodumuzda:** `Product Service` ve `Order Service` birbirleriyle gRPC ?zerinden proto dosyalar?ndaki kurallara g?re konu?urlar. 📡⚡
-2.  **Mesajlaşma (Asenkron/Olay Odakl?):** 
-    - **Neden?** Bir servis o an kapal? olsa bile i?ler durmaz, mesajlar kuyrukta (Kafka/RabbitMQ) bekler. 📩
+In this project, we have already implemented `services/product-service` and `services/order-service` as distinct entities to demonstrate this separation.
 
 ---
 
-## ?? Bölüm 4: Veri Yönetimi (En Zor Kısım!) ??
+## Chapter 3: Communication and Protocols
 
-Mikroservis d?nyasının 1 numaral? kuralı: **Herkesin kendi veritabanı vardır.** Salatacı, k?ftecinin dolabını a?amaz!
+How do independent services talk? We balance performance and flexibility.
 
-- **Saga Pattern:** İki farklı servisteki veritaban?nda i?lem yapmam?z gerekirse (örn: Stok d?? ve ?deme yap), bunu "Distributed Transaction" yerine Saga ile yaparız. Eğer biri ba?ar?s?z olursa dierini geri al?rız (Compensating Transaction).
-- **CQRS:** Okuma ve Yazma i?lemlerini ayr?m?aktır. Sisteminiz saniyede 1 milyon okuma alıyorsa, bunu sadece okuma iin optimize edilmi? bir Redis/NoSQL katman?na yıkmak elite bir harekettir.
+1.  **gRPC (Synchronous)**:
+    - **Usage**: Internal, service-to-service calls.
+    - **Why**: Protocol Buffers provide high-performance, strongly-typed binary communication. ✨
+2.  **Messaging (Asynchronous)**:
+    - **Usage**: Event-driven architecture.
+    - **Why**: Decouples services so they can fail and recover independently without bringing down the system.
 
 ---
 
-## ?? Bölüm 5: Operasyonel Mükemmellik & Lab 🧪
+## Chapter 4: Data Management Strategies
 
-Artık teori bitti, mikroservislerini ayağa kaldırıp saniyeler iinde g?rmenin vaktidir.
+The golden rule: **Each service owns its own database.**
+- **Saga Pattern**: Managing transactions across services without global locks.
+- **CQRS**: Separating Read and Write models for maximum query performance.
 
-### ?? Pratik Lab (Lab Instructions)
-Bu projenin t?m par?aları, senin onkolayca ?al??tırman iin `Makefile` ile zırhlandırıldı:
+---
+
+## Chapter 5: Operational Excellence
+
+Building the service is only half the battle. Running it at scale requires:
+- **Graceful Shutdown**: Handling OS signals to close connections cleanly.
+- **Health Checks**: Ensuring dependencies are ready before traffic starts flowing.
+- **Service Mesh**: Managing complex network topologies outside of the application code.
+
+---
+
+## Laboratory: Hands-on Execution
+
+The repository is equipped with a `Makefile` to orchestrate the entire development environment:
 
 ```bash
-# 1. Altyapıyı (Postgres, RabbitMQ, Redis) uykusundan uyandır:
+# Start Infrastructure (PostgreSQL, RabbitMQ, Redis)
 make up
 
-# 2. Product Service'i (Go sunucusu) başlat: (Farklı terminal)
+# Run Product Service (Go)
 make run-product
 
-# 3. Order Service'i çalıştır ve gRPC sihrini g?r: (Farklı terminal)
+# Run Order Service (Go)
 make run-order
 ```
 
-### ?? Mimari Görünüm (Teaching Strategy)
-```mermaid
-graph TD
-    UI["?? Front-End <br/><small>(Sipari? Ver)</small>"]
-    Edge["?? API Gateway <br/><small>(G?venlik ve Y?nlendirme)</small>"]
-    
-    subgraph Core_Services
-        Order["?? Order Svc <br/><small>(Sipari? Mant??ı)</small>"]
-        Product["?? Product Svc <br/><small>(Ürün Katalogu)</small>"]
-    end
-    
-    subgraph Data_Layer
-        OrderDB[("?? Order DB")]
-        ProductDB[("?? Product DB")]
-    end
-    
-    UI --> Edge
-    Edge --> Order
-    Order -->|gRPC Call| Product
-    Order --- OrderDB
-    Product --- ProductDB
-```
-
 ---
 
-## ?? Final: Elite Mimarlar Yol Haritası 🗺️
+## Architecture Roadmap
 
-Seni bir mikroservis ustas? yapacak olan bu daldaki ilerlememizi takip et:
-
-| Adım | Konu | Durum |
-| :--- | :--- | :---: |
-| ?? **Faz 1** | Temeller ve Paradigma | ![100%](https://geps.dev/progress/100) |
-| ?? **Faz 2** | Clean Architecture (Kod Yapıs?) | ![100%](https://geps.dev/progress/100) |
-| ?? **Faz 3** | gRPC ile Servisler Arası İletişim | ![100%](https://geps.dev/progress/100) |
-| ?? **Faz 4** | Docker & Containerization | ![100%](https://geps.dev/progress/100) |
-| ?? **Faz 5** | API Gateway & Security | ![Soon](https://img.shields.io/badge/-Yaknda-orange) |
-| ?? **Faz 6** | Saga Pattern & Mesajla?ma | ![Soon](https://img.shields.io/badge/-Yaknda-orange) |
+| Phase | Module | Focus | Status |
+| :--- | :--- | :--- | :---: |
+| 1 | Foundations | Paradigm Shift | ![100%](https://geps.dev/progress/100) |
+| 2 | Clean Architecture | Go Project Layout | ![100%](https://geps.dev/progress/100) |
+| 3 | Communication | gRPC Protocols | ![100%](https://geps.dev/progress/100) |
+| 4 | Containerization | Docker & Networks | ![100%](https://geps.dev/progress/100) |
+| 5 | API Gateway | Security & Routing | ![20%](https://geps.dev/progress/20) |
+| 6 | Messaging | Kafka/RabbitMQ | ![10%](https://geps.dev/progress/10) |
 
 <div align="center">
   <br/>
-  <sub>Mastering Microservices Architecture ?? <b>arch-yunus</b></sub>
-  <br/>
-  <img src="https://img.shields.io/badge/Made_for-Education-blue?style=for-the-badge" alt="Made for Education" />
+  <sub>Engineering Excellence | **arch-yunus**</sub>
 </div>
