@@ -11,7 +11,7 @@
 
   **"Geleceğin dünyasını kucuk, bamsz ve otonom paralarla ina ediyoruz."**
 
-  [? Yol Haritas](#-yol-haritas) • [?? Teknik Derinlik](#-teknik-derin-dal) • [?? Mimari](#-mimari-görnüm) • [?? Baıslar](#-katkda-bulunma)
+  [? Yol Haritas](#-yol-haritas) • [?? Teknik Derin Dalı](#-teknik-derin-dal) • [?? Mimari](#-mimari-görünüm) • [?? Basit Anlatım](docs/KOLAY-ANLATIM.md) • [?? Katkıda Bulunma](CONTRIBUTING.md)
 
   ---
 </div>
