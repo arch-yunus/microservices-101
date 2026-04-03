@@ -1,113 +1,122 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # ?? Microservices 101
-  ### Sfrdan Datk Sistem Mimarisi Rehberi
+  # ?? Microservices 101: Sistem Mimarisi Manifestosu
+  ### Daıtık Sistemlerin Karanlık Dünyasında Bir Fener
   
   ![License](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue)
   ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
-  ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-  ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
-  
-  *Modern, leklenip ynetilebilir ve dayankl mikroservis sistemleri tasarlamann elite yol haritas.*
+  ![Architecture](https://img.shields.io/badge/Architecture-Clean--Microservices-red?style=for-the-badge)
 
-  [Roadmap](#-yol-haritas) | [Teknolojiler](#-teknolojiler) | [Mimari](#-mimari) | [Katkda Bulunma](CONTRIBUTING.md)
+  *Modern, lakilip yonetilebilir ve "Self-Healing" yeteneğine sahip sistemler tasarlamann yol haritas.*
 
   ---
 </div>
 
-## ?? Vizyon
+## ?? Mikroservis Nedir? (Gerçek Anlamda)
 
-Bu depo, monolitik yaplarn kstlamalarndan kurtulup moderne gemek isteyen gelitiriciler ve sistem mimarlar iin hazrlanmtr. Sadece kod yazmay deil, bir sistemin **yaam dngsn**, **gvenliğini** ve **izlenebilirliğini** u seviyede ele almay hedefler.
+Mikroservisler, devasa bir yazlmı, her biri belirli bir i mantna (Business Logic) sahip, bamsz olarak daltlabilen ve leklenilebilen "kk otonom hcreler" olarak tasarlama sanatıdır. 
 
-> [!IMPORTANT]
-> Mikroservis bir teknoloji deil, bir **stratejidir**. Bu rehberde amacmz sadece kodlamak deil, daltk bir sistemin karmaııklığını nasıl yoneteceğimizi oğrenmektir.
+> [!CAUTION]
+> Mikroservis "kk kod yazmak" deildir. Mikroservis, sistemin karmaşıklığını (Complexity) paralarına bolup, o paraları yonetilebilir kılmaktır. Eer paralar bamsz deilse, sadece "Daltık bir Monolith" yaratmsnz demektir.
 
 ---
 
-## ?? Yol Haritas (Roadmap)
+## ?? Derin Dalış: Mimari Sütunlar
 
-Eğitim sreci, bir sistem mimarnn zihnindeki u ak takip eder:
+### 1. Servis Parcalama: Domain-Driven Design (DDD)
+Mikroservislerin snırlarını rastgele değil, **Business Domain**'e gore belirleriz. 
+- **Bounded Context:** Her servisin bir sınırları vardır. "Sipari" servisi iin urun sadece bir `ProductID` iken, "Katalog" servisi iin urun `Açıklama`, `Resim` ve `Kategori` demektir.
+- **Ubiquitous Language:** Gelitirici ve İş birimi aynı dili konur.
 
-| Modl | Konu | Durum |
-| :--- | :--- | :--- |
-| **01** | [Giris: Paradigma Değisimi](docs/01-intro/README.md) | ?? Tamamland |
-| **02** | [Servis Parcalama & DDD](docs/02-decomposition/README.md) | ?? Tamamland |
-| **03** | [Haberlesme Protokolleri](docs/03-communication/README.md) | ?? Tamamland |
-| **04** | [Veri Yönetimi & Tutarllk](docs/04-data-management/README.md) | ?? Tamamland |
-| **05** | API Gateway & Security | ?? Yaknda |
-| **06** | Observability (Tracing & Metrics) | ?? Yaknda |
-| **07** | CI/CD & Deployment (K8s) | ?? Yaknda |
+### 2. Veri Yönetimi: Database per Service
+Her servisin kendi veritabanı olmalıdır. Asla ve asla ortak veritabanı kullanılmaz.
+- **Neden?** Bir servisin veritabanı deistiinde dierleri bozulmaz. 
+- **Zorluk:** Veri tutarlıı (Consistency). Bir serviste veri deistiinde dierleri "Event" yoluyla haberdar edilir (Eventual Consistency).
+
+### 3. Haberlesme: Senkron vs Asenkron
+- **Senkron (gRPC/REST):** Anlık yanıt gereken durumlar. "Bu kullanıcının yetkisi var mı?" (Hızlı ama bağımlı).
+- **Asenkron (Kafka/RabbitMQ):** "Sipari alındı, sıradaki iini yapsın!" (Yavaş ama bamsz). Sistemler arasndaki ban koparır.
+
+### 4. Dayankllk: Circuit Breaker Patterns
+Mikroservislerde servisler ker. Bu bir hata değil, bir gerçektir.
+- **Circuit Breaker:** Eer bir servis hata veriyorsa, onu aramayı durdururuz. Sistem "Açık Devre"ye geçer ve hatanın tm sisteme yayılmasını engeller.
+- **Retry & Timeout:** Bir istek cok uzun srdyse "vazgeç" ve "tekrar dene".
+
+---
+
+## ?? Eğitim Yol Haritas (Roadmap)
+
+| Modl | Konu | İeerik | Durum |
+| :--- | :--- | :--- | :--- |
+| **01** | [Giris](docs/01-intro/README.md) | Paradigma Değisimi & Neden Mikroservis? | ?? Tamamlandı |
+| **02** | [Decomposition](docs/02-decomposition/README.md) | DDD, Bounded Context & Servis Parçalama | ?? Tamamlandı |
+| **03** | [Communication](docs/03-communication/README.md) | gRPC, REST & Messaging Patterns | ?? Tamamlandı |
+| **04** | [Data Management](docs/04-data-management/README.md) | Saga Pattern, CQRS & DB per Service | ?? Tamamlandı |
+| **05** | API Gateway | Security, Rate Limiting & Auth | ?? Yaknda |
+| **06** | Observability | Tracing, Metrics & Logging | ?? Yaknda |
+| **07** | Deployment | Docker, K8s & CI/CD Pipelines | ?? Yaknda |
 
 ---
 
 ## ?? Mimari Görünüm
 
-Sistemin temel akını aşağıda görebilirsiniz:
-
 ```mermaid
 graph TD
-    %% Ana Nodes
-    Client["?? Web/Mobile Client"] 
-    Gateway["?? API Gateway <br/>(Kong / Ocelot)"]
-    Broker["?? Message Broker <br/>(RabbitMQ)"]
+    subgraph UI
+        Client["?? Client App"]
+    end
     
-    %% Services
-    Auth["?? Auth Service <br/>(Go)"]
-    Order["?? Order Service <br/>(Go)"]
-    Product["?? Product Service <br/>(Go)"]
-    Notification["?? Notify Service <br/>(Go)"]
+    subgraph Edge_Zone
+        Gateway["?? API Gateway <br/>(Security / Route)"]
+    end
     
-    %% Connections
+    subgraph Internal_Mesh
+        Auth["?? Identity Service"]
+        Order["?? Order Service"]
+        Payment["?? Payment Service"]
+    end
+    
+    subgraph Event_Bus
+        Broker["?? Message Broker <br/>(RabbitMQ / Kafka)"]
+    end
+
     Client -->|HTTPS| Gateway
     Gateway -->|gRPC| Auth
-    Gateway -->|REST/gRPC| Order
-    Gateway -->|REST/gRPC| Product
+    Gateway -->|REST| Order
+    Order -->|gRPC| Payment
+    Order -.->|Publish Event| Broker
+    Broker -.->|Consume| Payment
     
-    Order -.->|Event| Broker
-    Broker -.->|Consume| Notification
-    
-    %% Styling
     style Gateway fill:#f9f,stroke:#333,stroke-width:2px
     style Broker fill:#ff9,stroke:#333,stroke-width:2px
-    style Auth fill:#9f9,stroke:#333,stroke-width:1px
-    style Order fill:#9f9,stroke:#333,stroke-width:1px
-    style Product fill:#9f9,stroke:#333,stroke-width:1px
-    style Notification fill:#9f9,stroke:#333,stroke-width:1px
+    style Auth fill:#9f9,stroke:#333
+    style Order fill:#9f9,stroke:#333
+    style Payment fill:#9f9,stroke:#333
 ```
 
 ---
 
-## ?? Teknolojiler & Araclar
+## ?? Neden Go (Golang)?
 
-| Kategori | Arac | Badge |
-| :--- | :--- | :--- |
-| **Dil** | Go (Golang) | ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white) |
-| **İletişim** | gRPC / REST | ![gRPC](https://img.shields.io/badge/gRPC-4285F4?style=flat-square&logo=google&logoColor=white) |
-| **Gateway** | Kong / Ocelot | ![Kong](https://img.shields.io/badge/Kong-003459?style=flat-square&logo=kong&logoColor=white) |
-| **Veritabanı** | PostgreSQL / Redis | ![Postgres](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white) |
-| **Broker** | RabbitMQ | ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?style=flat-square&logo=rabbitmq&logoColor=white) |
-| **Gözlem** | Prometheus | ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white) |
+Bu eitimde **Go** kullanıyoruz çunku:
+1.  **Concurrency:** Goroutines ile binlerce mikroservis isteğini cok duuk kaynakla yonetebiliriz.
+2.  **Hız:** C++ hızında ama Python basitliinde kod yazmanızı salar.
+3.  **Binary:** Hiçbir baımlılıı olmayan tek bir dosya daltmanızı salar (Docker iin mukemmel).
 
 ---
 
-## ?? Baslangıc
-
-Projeyi yerel ortamnzda ayağa kaldrmak iin:
-
-```bash
-# Repoyu klonlayn
-git clone https://github.com/arch-yunus/microservices-101.git
-
-# Altyap servislerini başlatın
-docker-compose up -d
-```
+## ?? Elite Masterclass Dokümanı
+Daha da derinlere inmek, işin felsefesini hatmetmek iin lutfen uzmanlık belgemizi inceleyin:
+?? **[MASTERCLASS.md](docs/MASTERCLASS.md)**
 
 ---
 
-## ?? Lisans
-Bu proje [MIT](LICENSE) lisansı ile korunmaktadr.
+## ?? Katkda Bulunma
+Bu bir topluluk projesidir. Bilgi paylatıka çoğalır. [CONTRIBUTING.md](CONTRIBUTING.md) belgesini inceleyerek bu manifestoyu daha da buytebilirsin.
+
+---
 
 <div align="center">
-  <sub>Built with ?? by <b>arch-yunus</b></sub>
+  <sub>Elite Microservices Architect Journey ?? <b>arch-yunus</b></sub>
 </div>
