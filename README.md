@@ -1,47 +1,152 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # ?? Microservices 101: Sistem Mimarisi Manifestosu
-  ### Daıtık Sistemlerin Karanlık Dünyasında Bir Fener
+  # ?? Microservices 101: Mimari Ansiklopedisi & Manifesto
+  ### Daıtık Sistemlerin Kalbine Yolculuk
   
   ![License](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue)
   ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
   ![Architecture](https://img.shields.io/badge/Architecture-Clean--Microservices-red?style=for-the-badge)
+  ![Status](https://img.shields.io/badge/Status-Educational--Intense-orange?style=for-the-badge)
 
-  *Modern, lakilip yonetilebilir ve "Self-Healing" yeteneğine sahip sistemler tasarlamann yol haritas.*
+  *Modern, daltık ve leklenip yonetilebilir sistemlerin "Elite" rehberi.*
 
   ---
 </div>
 
-## ?? Mikroservis Nedir? (Gerçek Anlamda)
+## ?? Mikroservis Nedir? (Felsefi ve Teknik Bakış)
 
-Mikroservisler, devasa bir yazlmı, her biri belirli bir i mantna (Business Logic) sahip, bamsz olarak daltlabilen ve leklenilebilen "kk otonom hcreler" olarak tasarlama sanatıdır. 
+Mikroservisler, devasa bir yazlmı, her biri belirli bir **Business Domain**'e odaklanan, otonom ve bamsz servislerin birleşimi olarak tasarlamaktır. Bu bir teknoloji semimi deil, bir **organizasyonel strateji**dir.
 
 > [!CAUTION]
-> Mikroservis "kk kod yazmak" deildir. Mikroservis, sistemin karmaşıklığını (Complexity) paralarına bolup, o paraları yonetilebilir kılmaktır. Eer paralar bamsz deilse, sadece "Daltık bir Monolith" yaratmsnz demektir.
+> **Conway Kanunu:** "Sistemleri tasarlayan her organizasyon, o organizasyonun iletisim yapısını kopyalayan sistemler üretir." 
+> Mikroservis, ekibinizi de paralamanızı gerektirir. Küçük, "Two-Pizza Teams" (İki pizzayla doyan ekipler) mikroservisin ruhudur.
 
 ---
 
-## ?? Derin Dalış: Mimari Sütunlar
+## ?? Mimari Evrim: Neden Buradayız?
 
-### 1. Servis Parcalama: Domain-Driven Design (DDD)
-Mikroservislerin snırlarını rastgele değil, **Business Domain**'e gore belirleriz. 
-- **Bounded Context:** Her servisin bir sınırları vardır. "Sipari" servisi iin urun sadece bir `ProductID` iken, "Katalog" servisi iin urun `Açıklama`, `Resim` ve `Kategori` demektir.
-- **Ubiquitous Language:** Gelitirici ve İş birimi aynı dili konur.
+1.  **Monolith:** Her şey tek bir yerdedir. Daltımı kolay ama buyutmesi ve teknolojiyi deistirmesi imkansızdır.
+2.  **SOA (Service Oriented Architecture):** Servisler vardır ama genellikle devasa bir **ESB (Enterprise Service Bus)**'a banlıdır. Karmaıktır.
+3.  **Microservices:** Her servis bamszdır, hafiftir ve bamsz daltılabilir (Independently Deployable).
 
-### 2. Veri Yönetimi: Database per Service
-Her servisin kendi veritabanı olmalıdır. Asla ve asla ortak veritabanı kullanılmaz.
-- **Neden?** Bir servisin veritabanı deistiinde dierleri bozulmaz. 
-- **Zorluk:** Veri tutarlıı (Consistency). Bir serviste veri deistiinde dierleri "Event" yoluyla haberdar edilir (Eventual Consistency).
+---
 
-### 3. Haberlesme: Senkron vs Asenkron
-- **Senkron (gRPC/REST):** Anlık yanıt gereken durumlar. "Bu kullanıcının yetkisi var mı?" (Hızlı ama bağımlı).
-- **Asenkron (Kafka/RabbitMQ):** "Sipari alındı, sıradaki iini yapsın!" (Yavaş ama bamsz). Sistemler arasndaki ban koparır.
+## ?? 12-Factor App: Modern Uygulamanın 12 Kuralı
 
-### 4. Dayankllk: Circuit Breaker Patterns
-Mikroservislerde servisler ker. Bu bir hata değil, bir gerçektir.
-- **Circuit Breaker:** Eer bir servis hata veriyorsa, onu aramayı durdururuz. Sistem "Açık Devre"ye geçer ve hatanın tm sisteme yayılmasını engeller.
-- **Retry & Timeout:** Bir istek cok uzun srdyse "vazgeç" ve "tekrar dene".
+Bir mikroservisin "Cloud-Native" olması iin u kurallara uyması gerekir:
+1. **Codebase:** Tek bir depo, cok daltım.
+2. **Dependencies:** Tüm baımlılıklar net tanmlanm olmalı.
+3. **Config:** Ayarlar (DB siferleri vb.) ortam deiskenlerinde (Environment Variables) tutulmalı.
+4. **Backing Services:** Veritabanı vb. her ey banlanabilir bir kaynak olmalı.
+5. **Build, Release, Run:** Bu sureler birbirinden kesin snırlarla ayrılmalı.
+6. **Processes:** Uygulama "Stateless" (Durumsuz) olmalı. Veriyi bellekte deil, DB'de tutmalı.
+7. **Port Binding:** Uygulama kendi portunu darya açabilmeli.
+8. **Concurrency:** İşleri paralel yurtebilmek iin "Process Model" kullanılmalı.
+9. **Disposability:** Hizlı balayıp hzl ve gvenli kapanabilmeli (Graceful Shutdown).
+10. **Dev/Prod Parity:** Yerel ortam ve canlı ortam birbirine olabildiince yakın olmalı.
+11. **Logs:** Loglar bir "Event Stream" (Olay Akıı) olarak ele alınmalı.
+12. **Admin Processes:** Yonetimsel ipler normal kodun bir parası olmalı.
+
+---
+
+## ?? Gelişmiş Tasarım Kalıpları (Design Patterns)
+
+### 1. CQRS (Command Query Responsibility Segregation)
+Yazma (Command) ve Okuma (Query) islemlerini paralamak. 
+- **Neden?** Okuma islemleri (Raporlama) cok yk yaratsa da, yazma (Siparis) islemleri cok kritiktir. İkisini ayırarak sistemi mukemmel leklebiliriz.
+
+### 2. Event Sourcing
+Veritabanında "Anlık Durum"u tutmak yerine, oluan tm "Olaylar" (Events) serisini tutmak.
+- **Ornek:** Banka bakiyesini değil, tm para giriş/çıkış hareketlerini tutarsın. İstediin ana "Replay" yaparak geri donebilirsin.
+
+### 3. Saga Pattern (Dağıtk İslemler)
+Birden fazla servisi ilgilendiren bir islemde veri tutarlılıını salamak iin kullanılır.
+- **Choreography:** Servisler birbirine haber verir.
+- **Orchestration:** Bir yonetici servis i akısını yonetir.
+
+---
+
+## ?? Güvenlik: Sıfır Güven (Zero Trust)
+
+Mikroservislerde "İç ağ gvenlidir" mantıı olmzmz.
+- **API Gateway:** Tüm istekler tek bir kapıdan gırer. Burada JWT kontrolu, Rate Limiting yapılır.
+- **mTLS (Mutual TLS):** Servisler birbirleriyle konusurken karşılıklı sertifika dorulaması yapar.
+- **RBAC:** Kullanıcıların rolleri servisler arası tasınır.
+
+---
+
+## ?? Gözlemlenebilirlik (Observability)
+
+Karanlıkta yol bulmanın 3 yolu:
+1. **Tracing (Jaeger):** Bir isteğin hangi servislerden getiini milisaniye milisaniye gosterir.
+2. **Metrics (Prometheus):** RAM/CPU ve hata oranlarını grafiklestirir.
+3. **Logging (ELK Stack):** Tm hata mesajlarını bir merkezde toplar.
+
+---
+
+## ?? Test Stratejisi
+
+Mikroservis sisteminde "Unit Test" yetmez.
+- **Contract Testing (Pact):** Servis A deistiinde Servis B bozuluyor mu? Bu test servisler daltılmadan (Deployment) once yapılır.
+- **Chaos Engineering:** "Eer bir servisi rastgele kapatırsak ne olur?" sorusunun yanıtı aranır (Netflix Simian Army).
+
+---
+
+## ?? Anti-Patterns: Nelerden Kacmalısın?
+
+1. **Nano-services:** Servisi cok kk paralamak. (Yonetim yukunu artırır).
+2. **Shared Database:** İki servisin aynı DB'yi kullanması. (Olumcul hatadır).
+3. **Mega-Service:** Adı mikro kendisi monolit olan devasa servisler.
+
+---
+
+## ?? Mimari Görünüm
+
+```mermaid
+graph TD
+    subgraph Users
+        Client["?? Client Side"]
+    end
+
+    subgraph Infrastructure_Layer
+        Gateway["?? API Gateway <br/>(Kong / App Mesh)"]
+        Mesh["?? Service Mesh <br/>(Istio)"]
+    end
+
+    subgraph Business_Cloud
+        Catalog["?? Catalog Service <br/>(Go)"]
+        Order["?? Order Service <br/>(Go)"]
+        User["?? User Service <br/>(Go)"]
+    end
+
+    subgraph Data_Layer
+        DB1[("?? Postgres")]
+        DB2[("?? Redis")]
+        DB3[("?? MongoDB")]
+    end
+
+    subgraph Communication_Layer
+        Bus["?? Message Bus <br/>(Kafka / RabbitMQ)"]
+    end
+
+    Client -->|HTTPS| Gateway
+    Gateway --> Mesh
+    Mesh --> Catalog
+    Mesh --> Order
+    Mesh --> User
+
+    Catalog --- DB1
+    Order --- DB2
+    User --- DB3
+
+    Order -.->|Sync Event| Bus
+    Bus -.->|Async Consume| Catalog
+    
+    style Gateway fill:#f9f,stroke:#333
+    style Mesh fill:#ccf,stroke:#333
+    style Bus fill:#ff9,stroke:#333
+```
 
 ---
 
@@ -54,66 +159,8 @@ Mikroservislerde servisler ker. Bu bir hata değil, bir gerçektir.
 | **03** | [Communication](docs/03-communication/README.md) | gRPC, REST & Messaging Patterns | ?? Tamamlandı |
 | **04** | [Data Management](docs/04-data-management/README.md) | Saga Pattern, CQRS & DB per Service | ?? Tamamlandı |
 | **05** | API Gateway | Security, Rate Limiting & Auth | ?? Yaknda |
-| **06** | Observability | Tracing, Metrics & Logging | ?? Yaknda |
-| **07** | Deployment | Docker, K8s & CI/CD Pipelines | ?? Yaknda |
-
----
-
-## ?? Mimari Görünüm
-
-```mermaid
-graph TD
-    subgraph UI
-        Client["?? Client App"]
-    end
-    
-    subgraph Edge_Zone
-        Gateway["?? API Gateway <br/>(Security / Route)"]
-    end
-    
-    subgraph Internal_Mesh
-        Auth["?? Identity Service"]
-        Order["?? Order Service"]
-        Payment["?? Payment Service"]
-    end
-    
-    subgraph Event_Bus
-        Broker["?? Message Broker <br/>(RabbitMQ / Kafka)"]
-    end
-
-    Client -->|HTTPS| Gateway
-    Gateway -->|gRPC| Auth
-    Gateway -->|REST| Order
-    Order -->|gRPC| Payment
-    Order -.->|Publish Event| Broker
-    Broker -.->|Consume| Payment
-    
-    style Gateway fill:#f9f,stroke:#333,stroke-width:2px
-    style Broker fill:#ff9,stroke:#333,stroke-width:2px
-    style Auth fill:#9f9,stroke:#333
-    style Order fill:#9f9,stroke:#333
-    style Payment fill:#9f9,stroke:#333
-```
-
----
-
-## ?? Neden Go (Golang)?
-
-Bu eitimde **Go** kullanıyoruz çunku:
-1.  **Concurrency:** Goroutines ile binlerce mikroservis isteğini cok duuk kaynakla yonetebiliriz.
-2.  **Hız:** C++ hızında ama Python basitliinde kod yazmanızı salar.
-3.  **Binary:** Hiçbir baımlılıı olmayan tek bir dosya daltmanızı salar (Docker iin mukemmel).
-
----
-
-## ?? Elite Masterclass Dokümanı
-Daha da derinlere inmek, işin felsefesini hatmetmek iin lutfen uzmanlık belgemizi inceleyin:
-?? **[MASTERCLASS.md](docs/MASTERCLASS.md)**
-
----
-
-## ?? Katkda Bulunma
-Bu bir topluluk projesidir. Bilgi paylatıka çoğalır. [CONTRIBUTING.md](CONTRIBUTING.md) belgesini inceleyerek bu manifestoyu daha da buytebilirsin.
+| **06** | Observability | Tracking, Metrics & Logging | ?? Yaknda |
+| **07** | CI/CD | Docker, K8s & Cloud Deployment | ?? Yaknda |
 
 ---
 
