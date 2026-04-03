@@ -1,110 +1,105 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # Microservices 101: Mimari Mühendislik Ansiklopedisi (Cilt 2)
-  ### Dağıtık Sistemlerin Geçmişi, Bugünü ve Geleceği
+  # Microservices 101: Mimari Mühendislik Külliyatı (The Sacred Text)
+  ### Dağıtık Sistemlerin Felsefesi, Mühendisliği ve Savaş Yaraları
   
   [![Lisans](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue&logo=github)](LICENSE)
   [![Go Versiyonu](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
-  [![Durum](https://img.shields.io/badge/Durum-Dünya--Mimari--Mirası-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
+  [![Durum](https://img.shields.io/badge/Durum-Nihai--Mimari--Eser-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
 
-  **"Bak evladım; geçmişini bilmeyen mimar, geleceğin hatalarını bugünden inşa eder."**
+  **"Bak evladım; kod yazarsın unutulur, ama bir sistem kurarsın ya nesiller boyu yaşar ya da bir gecede seni uykusuz bırakır. Burada sadece teknoloji değil, sistemin ruhunu öğreneceksin."**
 
   ---
 </div>
 
-## Usta'nın Selamı: Neden Buradayız? 👴🏛️
+## II. Giriş: Zihinsel Dönüşüm (Paradigm Shift) 👴🏛️
 
-Selamun Aleyküm çırağım! Madem ki "daha çok bilgi" dedin, o zaman seni bu işin mutfağından alıp, mühendislik okyanusuna fırlatıyorum. Bu bölümde sadece kod değil, strateji, tarih ve vizyon konuşacağız. Hazır ol, bu yolculuk seni bir "yazılımcıdan" bir "mimara" dönüştürecek.
+Selamun Aleyküm çırağım! Mikroservislere sadece "servisleri ayırmak" diye bakıyorsan, daha yolun başındasın demektir. Bu iş, bir zihinsel dönüşümdür. Eskiden "Her şey benim elimde, her şeye hakimim" dediğin o güvenli monolitik limandan ayrılıp, fırtınalı ama özgür dağıtık okyanuslara açılıyoruz.
 
----
-
-## Bölüm 1 - 11: Temeller (Cilt 1 Özeti)
-*Önceki bölümlerde monolit krizini, gRPC hızını, Gateway zırhını ve RabbitMQ'nun mektup taşıma sanatını öğrendin. Eğer oraları atladıysan, geri dön ve temelini sağlam at evladım.*
+Burada kural şudur: **Hata kaçınılmazdır.** Önemli olan hatanın olması değil, hatanın tüm sitemi çökertmeden nasıl yönetileceğidir. Şimdi sandalyeni daha yakın çek, çünkü her paragrafta sektörün tozunu yutmuş bir ustanın tecrübelerini iliklerine kadar hissedeceksin.
 
 ---
 
-## Bölüm 12: Mimari Evrim ve Tarihçe (Nereden Geldik?) 📜👴
+## 🧩 Bölüm 1: Parçalama Sanatı ve Domain-Driven Design (DDD)
 
-Yazılım dünyası bir günde mikroservis olmadı.
-1.  **Mainframe Çağı:** Tek bir dev bilgisayar, her şey onun içindeydi.
-2.  **Monolith:** Uygulama büyüdü ama hala tek vücuttu. (Basit ama hantal).
-3.  **SOA (Service Oriented Architecture):** Servisleri ayırdık ama "Enterprise Service Bus" (ESB) denilen merkezi devasa bir kabloya bağladık. Kablo bozulunca her şey bitti.
-4.  **Microservices:** Bağımsızlık ilan edildi! Her servis kendi başına bir devlet.
+Mikroservisleri rastgele bölemezsin evladım. Yanlış yerden bölersen, servisler birbirine yapışık ikiz gibi dolanır. İşte burada **Domain-Driven Design (DDD)** ve **Bounded Context** (Sınırlandırılmış Bağlam) devreye girer. Her servisin kendi lügatı, kendi sınırları ve kendi yasaları olmalıdır.
 
----
+> [!CAUTION]
+> **Kriz Senaryosu:** `Product` ve `Order` servislerinin aynı veritabanı tablosuna (örn: `inventory`) eriştiğini düşün. Kampanya döneminde bir servis tabloyu kilitlerse (DB Lock), diğer servis de cevap veremez hale gelir. Tüm site kilitlenir! İşte bu yüzden "Database-per-service" altın kuraldır.
 
-## Bölüm 13: Service Mesh ve Görünmez Bağlantılar (Istio/Linkerd) 🕸️🛡️
-
-Evladım, 100 tane servisin olunca onları manuel yönetemezsin. İşte burada **Service Mesh** devreye girer.
-- **Sidecar:** Her servisin yanına bir "koruma görevlisi" (Proxy) dikersin. Servis sadece işini yapar, güvenlik ve trafik yönetimini Sidecar halleder.
-- **Istio:** Bu korumaların şefidir. Kim kime ne kadar paket göndermiş, kim hata yapmış hepsini o görür.
+- **Usta Sırrı:** Bir servisi bölmeden önce, o servisin "Veri Sahipliği"ni (Data Ownership) belirle. Eğer iki servis aynı veriye sürekli yazma ihtiyacı duyuyorsa, onları henüz ayırma vaktin gelmemiş demektir.
+- **Maliyet Analizi:** Servisleri bölmek; ağ gecikmesi (latency) ve operasyonel karmaşıklığı artırır. Eğer ekibin küçükse, devasa bölünmelere girmek seni bitirir.
 
 ---
 
-## Bölüm 14: Dağıtık ID Üretimi (Snowflake Sanatı) 🆔✨
+## 📡 Bölüm 2: İletişim Protokolleri (gRPC ve Telepatik Bağlar)
 
-Büyük sistemlerde veritabanının `auto_increment` özelliği patlar. Farklı veritabanlarındaki veriler çakışır.
-- **Snowflake ID:** Twitter'ın bulduğu bu yöntemle; zaman damgası (timestamp), makine kimliği ve bir sıra numarası birleştirilir. Sonuç: Milyarlarca veride asla çakışmayan, zamana duyarlı benzersiz kimlikler.
+Mikroservisler arası iletişim, sistemin sinir sistemidir. Biz burada **gRPC** kullanıyoruz. Neden mi? Çünkü REST gibi JSON metinleriyle vakit kaybetmeyiz. İkili (Binary) formatta, Protocol Buffers kullanarak servisleri birbirine telepatik bir bağla bağlıyoruz.
 
----
-
-## Bölüm 15: Kaos Mühendisliği (Sistemi Kasten Bozmak) 🐒💥
-
-"Sistemim çok sağlam" demekle olmaz, test edeceksin!
-- **Chaos Monkey:** Netflix'in meşhur maymunu. Rastgele servisleri kapatır, kabloları çeker. Eğer sistemin bu yıkımda hala ayaktaysa, işte o zaman "Ustayım" diyebilirsin.
-- **Mantık:** Hataları öngörmek yerine, hataları yaratıp sistemin tepkisini ölçmek.
+- **Neden gRPC?** Tip güvenliği (Strongly typed) sağlar. Kodun bir tarafında hata yaparsan, diğer taraf derleme anında sana "Durdur!" der.
+- **Usta Sırrı:** Dahili (internal) servislerde gRPC, harici (external) dünyada REST/GraphQL kullan. Protokollerin karakterine göre iş yap, usta işi budur.
+- **Kriz Senaryosu:** Yüksek trafikli bir sistemde JSON parse etmek CPU'yu sömürür. gRPC kullanarak CPU kullanımını %30-40 düşürebilir ve sunucu maliyetlerini kurtarabilirsin.
 
 ---
 
-## Bölüm 16: Go Performans Tuning (Sıkmak Değil, Terletmek) ⚡🔧
+## 🐋 Bölüm 3: Konteynırlar ve Ağ İzolasyonu (Docker)
 
-Go dili hızlıdır ama yanlış kullanılırsa RAM canavarına dönüşür.
-- **pprof:** Servisinin röntgenini çeker. Hangi fonksiyon CPU'yu sömürüyor, nerede bellek sızıntısı var (Memory Leak) bir bir gösterir.
-- **Garbage Collection (GC):** Go'nun temizlikçisidir. Çöpü ne zaman toplayacağını ona sen fısıldayabilirsin.
+Docker sadece "Benim makinemde çalışıyordu" sorununu çözmez evladım. Docker, her servise kendi izole dünyasını verir. Bizim projemizde her servis kendi konteynırında, dış dünyadan kopuk, sadece Gateway üzerinden haberleşecek şekilde tasarlandı.
 
----
-
-## Bölüm 17: 12-Factor App (Modern Yazılımın Anayasası) 🏗️✅
-
-Bir uygulama "Bulut Yerel" (Cloud-Native) olacaksa şu 12 kurala uymalıdır:
-- **Stateless:** Servisin içinde bilgi saklama, her şey dışarıda (Redis/DB) olsun.
-- **Config:** Ayarlarını kodun içine değil, ortam değişkenlerine (Environment Variables) koy.
+- **Health Checks:** Bir konteynırın "çıkmış" olması, onun "sağlıklı" olduğu anlamına gelmez. Veritabanına bağlanabiliyor mu? İş yapabiliyor mu? Docker Health Check'leri bu yüzden hayati önemdedir.
+- **Kriz Senaryosu:** Bir servisin bellek sızıntısı (Memory Leak) yaptığını ve sunucunun tüm RAM'ini bitirdiğini düşün. Docker limitleri (resource constraints) olmazsa, o tek servis tüm fiziksel makineyi (ve üzerindeki diğer servisleri) çökertir.
 
 ---
 
-## Bölüm 18: Devlerin Savaşı (Netflix, Uber, Spotify) ⚔️📊
+## 🔐 Bölüm 4: API Gateway ve Zero Trust (The Fortress)
 
-- **Netflix:** Mikroservislerin kralıdır. Devasa trafikleri Chaos Engineering ile yönetirler.
-- **Uber:** Bazı servislerini çok parçaladığı için performans sorunu yaşadı ve "Macro-services" (Daha mantıklı büyüklükte servisler) yapısına geri döndü.
-- **Öğüt:** Körleme her şeyi parçalama; ihtiyacın kadar böl, usta işi yap!
+Sistemin ön kapısı (Gateway) zırhlı olmalı. Ama daha da önemlisi, içerideki servislerin de birbirine "şüpheyle" bakmasıdır. Biz burada **JWT (JSON Web Token)** ile güvenliği sağlıyoruz.
 
----
-
-## Mimari Yol Haritası (Müfredat - Cilt 2)
-
-| Seviye | Modül | Konu | Durum |
-| :--- | :--- | :--- | :---: |
-| 🛡️ | Tarihçe | Evrim ve SOA | ![100%](https://geps.dev/progress/100) |
-| 🕸️ | Service Mesh | Sidecar ve Istio | ![100%](https://geps.dev/progress/100) |
-| 🆔 | Veri | Snowflake ID | ![100%](https://geps.dev/progress/100) |
-| 🐒 | Kaos | Chaos Monkey | ![100%](https://geps.dev/progress/100) |
-| ⚡ | Performans | pprof ve Tuning | ![100%](https://geps.dev/progress/100) |
+- **Stateless Security:** Gateway kullanıcıyı doğrular, bir token verir. Diğer servisler veritabanına gidip "Bu kim?" diye sormaz. Token'ı matematiksel olarak doğrular ve işine bakar.
+- **Usta Sırrı:** Token'ların içine sadece gerekli bilgileri (örn: `user_id`) koy. Devasa nesneleri token içinde taşırsan ağ trafiğini yorarsın.
+- **Maliyet Analizi:** Merkezi bir yetkilendirme servisi (IAM) kurmak zordur ama güvenlik açıklarının maliyeti dükkanı kapattırır evladım.
 
 ---
 
-## Laboratuvar: Uygulama Rehberi
+## 📩 Bölüm 5: Mesajlaşma ve Event-Driven Design (RabbitMQ)
 
-```bash
-# 1. Altyapıyı Başlat (Tezgahı Kur)
-make up
+Bak çırağım, bazen "Hemen cevap ver!" demek yerine "Ben işimi yaptım, sen müsait olunca şuna bak" demek gerekir. İşte asenkron haberleşmenin gücü budur. RabbitMQ üzerinden olayları (Events) havaya fırlatırız.
 
-# 2. Servisleri Uyandır (Ustaları İşe Başlat)
-make run-product
-make run-order
-```
+- **Eventually Consistent:** "Şimdi değil ama birazdan her şey düzelecek" demektir. Sipariş servisi işini yapar, Notifier servisi 2 saniye sonra e-mail atar. Kullanıcı mutlu, sistem rahat.
+- **Usta Sırrı:** Kuyruğa attığın mesajlar "Idempotent" olmalı. Yani aynı mesaj iki kere gelirse (network hatasından dolayı), sistem hata yapmamalı.
+- **Kriz Senaryosu:** E-mail servisinin (Notifier) 1 saatliğine çöktüğünü düşün. Eğer gRPC ile bağlı olsaydı, Sipariş servisi de tıkanırdı. RabbitMQ sayesinde mesajlar kuyrukta bekler, servis gelince 1 saatlik işi 5 dakikada eritir.
+
+---
+
+## 🐒 Bölüm 6: Kaos Mühendisliği ve Esneklik (Circuit Breaker)
+
+Sistemini o kadar sağlam kurmalısın ki, kablolar kopunca bile ayakta kalsın. **Circuit Breaker (Sigorta)** deseni tam olarak budur. Eğer `Product Service` hata verirse, `Order Service` sürekli onu arayıp kendini kilitlemez. Anında "Şu an ürün bilgisi alamıyorum, sonra dene" der ve yoluna devam eder.
+
+- **Felsefe:** Hata beklenmedik bir misafir değildir; o ailenin bir parçasıdır. Onunla yaşamayı öğrenmelisin çırağım.
+- **Kaos Deneyi:** Haftada bir kez, en kritik servislerini kasten kapat ve sistemin "Zarif Kapanış" (Graceful Shutdown) yapıp yapmadığını izle.
+
+---
+
+## 📜 Bölüm 7: Mimari Evrim (Tarih Bilmeyen Mimar Olamaz)
+
+Eskiden her şey devasa demir yığınları (Mainframes) içindeydi. Sonra Monolitler geldi. Biz bugün Mikroservisleri konuşuyoruz ama yarın belki Serverless veya başka bir şey konuşacağız.
+
+- **Strangler Fig:** Eski sistemi öldürme, onu yavaşça sar. Yeni servisler eskileri boğdukça sistem modernleşir.
+- **Maliyet Analizi:** Bir monoliti bir günde mikroservise çevirmeye çalışmak, dükkanı iflasa sürükler. Bu bir maratondur, sprint değil evladım.
+
+---
+
+## 🚀 Bölüm 8: Öğrenme Yolu ve Ustalık Seviyeleri
+
+1.  **Çıraklık:** `make up` komutunu çalıştır, logları izle, akışı anla.
+2.  **Kalfalık:** Bir servisin kodunu değiştir, gRPC ile yeni bir alan (field) ekle ve tüm sistemin nasıl değiştiğini gör.
+3.  **Ustalık:** Yeni bir servis ekle (örn: `inventory-service`) ve RabbitMQ üzerinden diğer servislerle konuştur.
+4.  **Mimarlık:** Sistemin bir parçasını kasten boz ve Circuit Breaker mekanizmasının sistemi nasıl koruduğunu `pprof` ile analiz et.
+
+---
 
 <div align="center">
   <br/>
-  <sub>Mühendislik Onuruna ve Bilginin Sonsuzluğuna Sadakatle | **arch-yunus**</sub>
+  <sub>Bu eser, mühendislik onuruna, usta-çırak geleneğine ve tertemiz bir kod felsefesine adanmıştır. | **arch-yunus**</sub>
 </div>
