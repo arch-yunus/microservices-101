@@ -4,7 +4,12 @@
   # ?? Microservices 101
   ### Sfrdan Datk Sistem Mimarisi Rehberi
   
-  *Modern, leklenip ynetilebilir ve dayankl mikroservis sistemleri tasarlamann yol haritas.*
+  ![License](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue)
+  ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+  ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+  ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+  
+  *Modern, leklenip ynetilebilir ve dayankl mikroservis sistemleri tasarlamann elite yol haritas.*
 
   [Roadmap](#-yol-haritas) | [Teknolojiler](#-teknolojiler) | [Mimari](#-mimari) | [Katkda Bulunma](CONTRIBUTING.md)
 
@@ -15,8 +20,8 @@
 
 Bu depo, monolitik yaplarn kstlamalarndan kurtulup moderne gemek isteyen gelitiriciler ve sistem mimarlar iin hazrlanmtr. Sadece kod yazmay deil, bir sistemin **yaam dngsn**, **gvenliğini** ve **izlenebilirliğini** u seviyede ele almay hedefler.
 
-> [!TIP]
-> Bu rehber, **Go (Golang)** dilini ana performans motoru olarak kullanr, ancak prensipler dilden bamszdr.
+> [!IMPORTANT]
+> Mikroservis bir teknoloji deil, bir **stratejidir**. Bu rehberde amacmz sadece kodlamak deil, daltk bir sistemin karmaııklığını nasıl yoneteceğimizi oğrenmektir.
 
 ---
 
@@ -24,25 +29,15 @@ Bu depo, monolitik yaplarn kstlamalarndan kurtulup moderne gemek isteyen gelitir
 
 Eğitim sreci, bir sistem mimarnn zihnindeki u ak takip eder:
 
-### 1. Giri: Paradigma Değisimi
-- Mikroservis nedir? Neden ihtiyacmz var?
-- Monolith vs. Microservices (Trade-offs)
-- **[Dokman: 01-intro/README.md](docs/01-intro/README.md)**
-
-### 2. Servis Parcalama & DDD
-- Domain-Driven Design (DDD) temelleri.
-- Bounded Context ve Aggregate kavramlar.
-- **[Dokman: 02-decomposition/README.md](docs/02-decomposition/README.md)**
-
-### 3. Haberlesme Protokolleri
-- **Senkron:** REST API vs gRPC (Protocol Buffers).
-- **Asenkron:** Message Broker (RabbitMQ, Kafka) ve Event-Driven-Architecture.
-- **[Dokman: 03-communication/README.md](docs/03-communication/README.md)**
-
-### 4. Veri Yönetimi & Tutarllk
-- Database per Service prensibi.
-- Dağıtk ilemler: Saga Pattern (Orchestration vs Choreography).
-- **[Dokman: 04-data-management/README.md](docs/04-data-management/README.md)**
+| Modl | Konu | Durum |
+| :--- | :--- | :--- |
+| **01** | [Giris: Paradigma Değisimi](docs/01-intro/README.md) | ?? Tamamland |
+| **02** | [Servis Parcalama & DDD](docs/02-decomposition/README.md) | ?? Tamamland |
+| **03** | [Haberlesme Protokolleri](docs/03-communication/README.md) | ?? Tamamland |
+| **04** | [Veri Yönetimi & Tutarllk](docs/04-data-management/README.md) | ?? Tamamland |
+| **05** | API Gateway & Security | ?? Yaknda |
+| **06** | Observability (Tracing & Metrics) | ?? Yaknda |
+| **07** | CI/CD & Deployment (K8s) | ?? Yaknda |
 
 ---
 
@@ -52,38 +47,47 @@ Sistemin temel akını aşağıda görebilirsiniz:
 
 ```mermaid
 graph TD
-    Client[Web/Mobile Client] -->|HTTP| Gateway[API Gateway]
-    Gateway -->|gRPC| AuthService[Auth Service]
-    Gateway -->|REST/gRPC| OrderService[Order Service]
-    Gateway -->|REST/gRPC| ProductService[Product Service]
+    %% Ana Nodes
+    Client["?? Web/Mobile Client"] 
+    Gateway["?? API Gateway <br/>(Kong / Ocelot)"]
+    Broker["?? Message Broker <br/>(RabbitMQ)"]
     
-    OrderService -.->|Event| Broker[Message Broker: RabbitMQ]
-    Broker -.->|Notification| NotificationService[Notification Service]
+    %% Services
+    Auth["?? Auth Service <br/>(Go)"]
+    Order["?? Order Service <br/>(Go)"]
+    Product["?? Product Service <br/>(Go)"]
+    Notification["?? Notify Service <br/>(Go)"]
     
-    subgraph Infrastructure
-        Gateway
-        Broker
-    end
+    %% Connections
+    Client -->|HTTPS| Gateway
+    Gateway -->|gRPC| Auth
+    Gateway -->|REST/gRPC| Order
+    Gateway -->|REST/gRPC| Product
     
-    subgraph Services
-        AuthService
-        OrderService
-        ProductService
-    end
+    Order -.->|Event| Broker
+    Broker -.->|Consume| Notification
+    
+    %% Styling
+    style Gateway fill:#f9f,stroke:#333,stroke-width:2px
+    style Broker fill:#ff9,stroke:#333,stroke-width:2px
+    style Auth fill:#9f9,stroke:#333,stroke-width:1px
+    style Order fill:#9f9,stroke:#333,stroke-width:1px
+    style Product fill:#9f9,stroke:#333,stroke-width:1px
+    style Notification fill:#9f9,stroke:#333,stroke-width:1px
 ```
 
 ---
 
 ## ?? Teknolojiler & Araclar
 
-| Kategori | Arac | Acıklama |
+| Kategori | Arac | Badge |
 | :--- | :--- | :--- |
-| **Diller** | Go (Golang) | Yuksek performans ve eszamanllk. |
-| **İletişim** | gRPC / REST | Hizlı ve tip-guvenli iletisim. |
-| **Gateway** | Ocelot / Kong | API yönetimi ve guvenliği. |
-| **Database** | PostgreSQL / Redis | Relational ve Cache katmanlar. |
-| **Broker** | RabbitMQ | Olaya dayalı (Event-driven) mimari. |
-| **Gözlem** | Prometheus / Grafana | Sistem metrikleri ve izleme. |
+| **Dil** | Go (Golang) | ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white) |
+| **İletişim** | gRPC / REST | ![gRPC](https://img.shields.io/badge/gRPC-4285F4?style=flat-square&logo=google&logoColor=white) |
+| **Gateway** | Kong / Ocelot | ![Kong](https://img.shields.io/badge/Kong-003459?style=flat-square&logo=kong&logoColor=white) |
+| **Veritabanı** | PostgreSQL / Redis | ![Postgres](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white) |
+| **Broker** | RabbitMQ | ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?style=flat-square&logo=rabbitmq&logoColor=white) |
+| **Gözlem** | Prometheus | ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white) |
 
 ---
 
@@ -91,16 +95,19 @@ graph TD
 
 Projeyi yerel ortamnzda ayağa kaldrmak iin:
 
-1.  Repoyu klonlayn:
-    ```bash
-    git clone https://github.com/arch-yunus/microservices-101.git
-    ```
-2.  Altyap servislerini başlatın:
-    ```bash
-    docker-compose up -d
-    ```
+```bash
+# Repoyu klonlayn
+git clone https://github.com/arch-yunus/microservices-101.git
+
+# Altyap servislerini başlatın
+docker-compose up -d
+```
 
 ---
 
 ## ?? Lisans
 Bu proje [MIT](LICENSE) lisansı ile korunmaktadr.
+
+<div align="center">
+  <sub>Built with ?? by <b>arch-yunus</b></sub>
+</div>
