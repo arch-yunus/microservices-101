@@ -1,166 +1,108 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # Microservices 101: Mimari Mühendislik ve Tasarım Ansiklopedisi
-  ### Dağıtık Sistemlerde Uzmanlaşmak İçin Temel Kaynak
+  # Microservices 101: Usta-Çırak Mimari Mektebi
+  ### Dağıtık Sistemleri Temelden, Ruhunu Anlayarak İnşa Etmek
   
   [![Lisans](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue&logo=github)](LICENSE)
   [![Go Versiyonu](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
-  [![Durum](https://img.shields.io/badge/Durum-Mimari--Başvuru--Kaynağı-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
+  [![Durum](https://img.shields.io/badge/Durum-Mimari--Okulu-teal?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
 
-  **"Mükemmel bir mimari, sadece çalışan kod değil; öngörülebilen, ölçeklenebilen ve evrimleşebilen bir yapıdır."**
+  **"Bak evladım; her kod yazılır, ama her sistem yaşamaz. Mimari, sistemi ayakta tutan o görünmez omurgadır."**
 
   ---
 </div>
 
-## Giriş: Mikroservis Ekosistemine Bakış
+## Usta'nın Selamı: Neden Buradayız? 👴🏛️
 
-Mikroservis mimarisi, devasa ve yönetilmesi imkansız hale gelen monolitik sistemlerin yarattığı hantallığa bir çözümdür. Ancak bu mimari "bedava" değildir; beraberinde dağıtık sistemlerin karmaşıklığını getirir. Bu rehber, sizi bu karmaşıklığın içinde bir usta (Architect) gibi yönetmeye hazırlayacaktır.
+Selamun Aleyküm çırağım, hoş geldin!
 
----
+Eskiden her şey basitti. Bir web sitemiz vardı, bir de veritabanımız. Her şey aynı sepetteydi (Monolith). Sonra dünya büyüdü, kullanıcılar arttı. O devasa sistemler artık yerinden kalkamaz, değişemez hale geldi. Bir yerini değiştirsen başka yeri patlıyordu.
 
-## Bölüm 1: Monolit Krizi ve Mikroservise Geçiş Stratejileri
-
-Yazılım dünyasında hiçbir dev sistem bir gecede mikroservis olarak doğmaz. Genellikle bir Monolit'in sınırlarını zorlamasıyla başlar.
-
-### Strangler Fig (Boğucu İncir) Deseni
-Eski bir sistemi (Monolith) tamamen yıkıp yeniden yazmak yerine, servisleri birer birer dışarı çıkarıp trafiği yavaşça yeni servislere yönlendirme stratejisidir. 
-- **Zamanla:** Yeni servisler monolitik yapıyı "boğar" ve sonunda eski yapı tamamen devre dışı kalır.
+İşte bu yüzden **Mikroservisleri** bulduk. Yani "Büyük lokma yeme, küçük lokmaları birleştir" dedik. Ama dikkat et; bir şeyi parçalamak kolaydır, parçaları bir arada uyum içinde tutmak asıl ustalıktır. Bu okulda sana sadece kod yazmayı değil, sistemi tasarlamayı öğreteceğim.
 
 ---
 
-## Bölüm 2: İleri Seviye Tasarım Kalıpları (Design Patterns)
+## Bölüm 1: Büyük Resim (Mutfak Benzetmesi) 🗺️✨
 
-Mikroservisler arası bağımlılığı ve hata yayılımını (Cascading Failure) önlemek için şu kalıplar hayati önem taşır:
-
-### 1. Circuit Breaker (Sigorta Deseni)
-Bir servis sürekli hata veriyorsa, diğer servislerin onu aramaya devam edip kendilerini kitlemesini önler.
-- **Kapalı (Closed):** Normal akış.
-- **Açık (Open):** Hata eşiği aşılırsa, isteklere anında "Hata var" döner, hedef servisi yormaz.
-- **Yarı Açık (Half-Open):** Servisin düzelip düzelmediğini anlamak için arada birkaç deneme yapar.
-
-### 2. Bulkhead (Bölme Deseni)
-Gemi ambarlarındaki bölmeler gibi, bir servisteki bir modülün çökmesinin tüm servisi veya sistemi etkilemesini önlemek için kaynakları (Thread pools, CPU) izole etmektir.
+Mikroservisleri anlamak için profesyonel bir restoran mutfağını düşün:
+- **Waiter (API Gateway):** Müşteriyi karşılar, siparişi alır. Müşteri içerideki kargaşayı görmez.
+- **Chef (Service):** Sadece kendi yemeğini yapar. Çorbacı pilava karışmaz, pilavcı tatlıya.
+- **Kitchen Intercom (gRPC):** Ustalar arası hızlı ve net iletişim.
+- **Post Office (RabbitMQ):** Bir malzeme biterse veya bir yemek hazırsa, bağırmak yerine not bırakırsın. Diğerleri uygun olunca o notu alır.
 
 ---
 
-## Bölüm 3: Karar Matrisleri ve Teknoloji Kıyaslama
+## Bölüm 2: Temeller ve Parçalama Sanatı (DDD)
 
-"En iyi teknoloji" yoktur, "ihtiyaca en uygun çözüm" vardır.
+Evladım, her şeyi ayırmaya kalkma! Mikroservis yapayım derken "Nano-servis" çukuruna düşersin.
+- **Catalog Service**: Dükkanın vitrinidir.
+- **Order Service**: Kasanın kendisidir.
 
-### İletişim Protokolleri
-| Protokol | Hız / Performans | Kullanım Alanı | Zorluk |
-| :--- | :--- | :--- | :--- |
-| **REST/JSON** | Orta | Dış dünya, Mobil uygulamalar | Düşük |
-| **gRPC/Proto** | **Çok Yüksek** | **Dahili (Svc to Svc)** | Orta |
-| **GraphQL** | Esnek | Dinamik veri ihtiyacı olan UIlar | Yüksek |
+> [!TIP]
+> **Usta Öğüdü:** Eğer iki servis sürekli birbirine soru soruyorsa (aşırı bağımlıysa), onları ayırmış değil, sadece birbirine kabloyla bağlamışsındır. Buna "Dağıtık Monolit" denir, sakın ha!
 
 ---
 
-## Bölüm 4: Veri Yönetimi ve Saga Topolojileri
+## Bölüm 3: İletişim ve Protokoller (gRPC ve Mesajlaşma)
 
-Mikroservislerde en büyük zorluk veridir. Atomik bir `UPDATE` her zaman mümkün değildir.
-
-### Saga Deseni (Dağıtık Transaction)
-1. **Koreografi (Choreography):** Her servis bir iş yapınca "Event" fırlatır. Diğerleri bu event'i duyup kendi işini yapar. Merkezi bir yönetici yoktur. (Küçük sistemler için ideal).
-2. **Orkestrasyon (Orchestration):** Bir "Saga Manager" vardır. Tüm süreci o yönetir. Hangi adımın bittiğini ve kimin hata yaptığını o bilir. (Karmaşık iş süreçleri için şarttır).
+Ustalar nasıl konuşur?
+1.  **gRPC (Doğrudan Hat):** "Bana şu ürünün fiyatını hemen söyle." Beklersin, cevabı alırsın. Hızlıdır, disiplinlidir. ✨
+2.  **Asenkron (Mektup):** "Ben bu siparişi aldım, haberiniz olsun." Mesajı bırakır gidersin. Notifier servis o notu alır, e-mailini atar. Kimse kimseyi beklemez.
 
 ---
 
-## Bölüm 5: API Gateway & Güvenlik (The Fortress)
+## Bölüm 4: Mimari Zırh ve Koruma (Gateway & Security)
 
-Sisteminiz büyüdüğünde, dış dünyadaki müşterilerle iç dünyadaki servisleriniz arasına bir "Zırhlı Kapı" (API Gateway) koymak zorunluluğu doğar.
-
-- **JWT (JSON Web Token):** Kullanıcıyı bir kez Gateway girişinde doğrularız. Kullanıcıya bir "Giriş Kartı" verilir ve bu kartla iç ağda dolaşabilir.
-- **Rate Limiting:** Bir kullanıcının saniyede kaç istek yapabileceğini belirleyerek sistemi (DDoS gibi) saldırılardan korur.
-
----
-
-## Bölüm 6: Mesajlaşma ve Olay Odaklı Tasarım (Event-Driven)
-
-Servisleriniz birbirini beklemek zorunda kaldığında, bir tanesinin yavaşlığı tüm sistemi yavaşlatır.
-- **Producer / Consumer:** Bir olay (Event) fırlatılır ve ilgili servisler bunu tüketir.
-- **RabbitMQ / Kafka:** Mesajları güvenle taşıyan ve kuyruğa alan aracı sistemlerdir.
+Dükkanın ön kapısı (Gateway) olmazsa, her önüne gelen mutfağa girer.
+- **Zırhlı Kapı (Gateway):** Gireni çıkanı denetler.
+- **Giriş Kartı (JWT):** "Ben bu dükkanın yetkili müşterisiyim" demenin yolu.
+- **Sigorta (Circuit Breaker):** Eğer bir servis hata veriyorsa, diğer sistemleri de yakmasın diye sigortayı attırırsın.
 
 ---
 
-## Bölüm 7: Dağıtık Dünyada Test Stratejileri 🧪
+## Bölüm 5: "Sakın Ha!" (En Büyük Hatalar) 🚫🛡️
 
-Mikroservislerde "Her şeyi test ettim" demek zordur. Test piramidi burada evrilir:
-- **Unit Testing**: Fonksiyonel seviyede hız ve doğruluk.
-- **Integration Testing**: Veritabanı ve dış servislerle (containerized) olan bağ.
-- **Contract Testing (Pact)**: "Servis A, Servis B'nin gönderdiği JSON yapısını hala anlayabiliyor mu?" sorusunu tüm sistemi çalıştırmadan test etmek.
-- **E2E (End-to-End)**: Kullanıcı gözünden tüm akışın testi.
-
----
-
-## Bölüm 8: Zero Trust ve İç Güvenlik ✨🔐
-
-Dış kapıyı (Gateway) kilitlemek yetmez! İçerideki servislerin de birbirine güvenmemesi gerekir.
-- **Service-to-Service Auth**: Her servisin kendi kimliği (Identity) olmalıdır.
-- **mTLS (Mutual TLS)**: Servisler birbirleriyle konuşurken sadece şifreli değil, aynı zamanda birbirlerinin kimliğini doğrulayarak konuşurlar.
-- **Secret Management**: Şifreler ve API anahtarları asla kodda değil, Vault veya AWS Secrets Manager gibi güvenli yerlerde tutulmalıdır.
+Bak çırağım, piyasada çok can yakan şu hataları kulağına küpe yap:
+1.  **Veritabanını Paylaşma:** "Aman ne olacak, ikisi de aynı tabloyu okusun" dediğin an mikroservis biter. Her usta kendi malzemesini kendi dolabında tutar.
+2.  **Erken Parçalama:** Daha trafik yokken, 100 tane servis açma. Önce ihtiyacın olsun, sonra ayır.
+3.  **Körleme Dağıtım:** Test etmeden, izlemeyi (Monitoring) kurmadan sistem dağıtma. Karanlıkta araba sürmeye benzer.
 
 ---
 
-## Bölüm 9: DevOps ve Otomasyon Hattı (CI/CD) 🚀🏗️
+## Bölüm 6: Öğrenme Yolculuğu (Çıraklıktan Ustalığa) 🚀
 
-Mikroservislerin "hızlı dağıtım" gücü otomasyondan gelir:
-- **Continuous Integration (CI)**: Her kod değişikliğinde testlerin otomatik çalışması.
-- **Continuous Delivery (CD)**: Testten geçen kodun otomatik olarak staging/production ortamına çıkması.
-- **Canary Release**: Yeni sürümü önce kullanıcıların %5'ine açıp, hata yoksa herkese yaymak.
-- **Blue-Green Deployment**: Eski ve yeni sürümü paralel çalıştırıp trafiği anında kaydırmak.
-
----
-
-## Bölüm 10: Kubernetes ve Bulut Yerel Gelecek 🛰️☁️
-
-Docker tek bir konteyner için iyidir ama 100 tane servisi yönetmek için bir "Orkestra Şefi" lazımdır: **Kubernetes (K8s)**.
-- **Auto-Scaling**: Trafik artınca servis kopyalarını otomatik artırır.
-- **Self-Healing**: Çöken bir servisi otomatik olarak yeniden başlatır.
-- **Service Discovery**: Servislerin birbirini dinamik olarak bulmasını sağlar.
+Bu repoyu nasıl çalışmalısın?
+1.  **Kalfalık:** Önce `make up` ile dükkanı aç, servisleri tek tek çalıştır.
+2.  **Ustalık:** `infrastructure/docker-compose.yml` dosyasını kurcala, servislerin birbirini nasıl bulduğunu anla.
+3.  **Mimarlık:** Kendi servisini ekle (örn: `payment-service`) ve RabbitMQ üzerinden diğerleriyle konuştur.
 
 ---
 
-## Bölüm 11: Veri Tutarlılığı ve Nihai Sürdürülebilirlik 💾🔄
+## Mimari Yol Haritası (Müfredat)
 
-"Nihai Tutarlılık" (Eventual Consistency) kavramına alışmalısınız.
-- **ACID vs BASE**: Mikroservislerde ACID (Katı Tutarlılık) yerine BASE (Esnek ama Erişilebilir) prensipleri öne çıkar.
-- **Data Sharding**: Veritabanını parçalara bölerek devasa yükleri yönetmek.
+| Seviye | Modül | Konu | Durum |
+| :--- | :--- | :--- | :---: |
+| 🟢 | Temeller | Paradigma ve Mutfak Analojisi | ![100%](https://geps.dev/progress/100) |
+| 🟡 | Clean Architecture | Go ile Temiz Kod Yazmak | ![100%](https://geps.dev/progress/100) |
+| 🟠 | İletişim | gRPC ve Protobuf Ustası Olmak | ![100%](https://geps.dev/progress/100) |
+| 🔴 | Güvenlik | Gateway ve JWT Zırhı | ![100%](https://geps.dev/progress/100) |
+| 🟣 | Event-Driven | RabbitMQ ve Asenkron Güç | ![100%](https://geps.dev/progress/100) |
 
 ---
 
-## Laboratuvar: Uygulama ve Deney Rehberi
-
-Deponuzda yer alan altyapıyı kullanarak bu kavramları bizzat test edin:
+## Laboratuvar: Uygulama Rehberi
 
 ```bash
-# 1. Altyapıyı Başlat (Database, RabbitMQ, Redis)
+# 1. Altyapıyı Başlat (Tezgahı Kur)
 make up
 
-# 2. API Gateway (Zırhlı Kapı) Çalıştır
-cd services/gateway-service && go run cmd/api/main.go
-
-# 3. İç Servisleri Uyandır
+# 2. Servisleri Uyandır (Ustaları İşe Başlat)
 make run-product
 make run-order
 ```
 
----
-
-## Mimari Yol Haritası (Mükemmeliyete Giden Yol)
-
-| Adım | Konu | Odak Noktası | Durum |
-| :--- | :--- | :--- | :---: |
-| 1 | Temeller | Paradigma ve Evrim | ![100%](https://geps.dev/progress/100) |
-| 2 | Clean Architecture | Go Proje Standartları | ![100%](https://geps.dev/progress/100) |
-| 3 | İletişim | gRPC ve Protobuf | ![100%](https://geps.dev/progress/100) |
-| 4 | Güvenlik | API Gateway ve JWT | ![100%](https://geps.dev/progress/100) |
-| 5 | Dayanıklılık | Sigorta ve Bölme Kalıpları | ![30%](https://geps.dev/progress/30) |
-| 6 | Mesajlaşma | Event-Driven Tasarım | ![100%](https://geps.dev/progress/100) |
-| 10 | Kubernetes | Orchestration | ![Yakında](https://img.shields.io/badge/-Yakında-orange) |
-
 <div align="center">
   <br/>
-  <sub>Sürekli Gelişim ve Mühendislik Onuruyla | **arch-yunus**</sub>
+  <sub>Mühendislik Onuruna ve Usta-Çırak Geleneğine Sadakatle | **arch-yunus**</sub>
 </div>
