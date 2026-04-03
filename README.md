@@ -1,162 +1,104 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
 
-  # ?? Microservices 101: Mimari Manifesto & Master Class
-  ### Daıtık Sistemlerin Kusursuz Yonetimi ve "Elite" Tasarım Kalıpları
+  # ?? Microservices 101: Mimari Manifesto & Teknoloji Rehberi
+  ### Stratejik Karar Verme ve Sistem Tasarm Uzmanl
   
   [![License](https://img.shields.io/github/license/arch-yunus/microservices-101?style=for-the-badge&color=blue&logo=github)](LICENSE)
   [![Go Version](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
   [![Architecture](https://img.shields.io/badge/Arch-Clean--Microservices-FF4B11?style=for-the-badge&logo=architecture&logoColor=white)](#-mimari-görünüm)
   [![Status](https://img.shields.io/badge/Status-Ultimate--Master--Guide-red?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
 
-  **"Kompleksiteyi parala, otonomiyi fethet. Gelecei elite mimarlar ina eder."**
-
-  [? Yol Haritas](#-yol-haritas) • [?? Teknik Derin Dalı](#-teknik-derin-dal) • [?? Mimari](#-mimari-görünüm) • [?? Basit Anlatım](docs/KOLAY-ANLATIM.md) • [?? İleri Seviye Patternlar](#-ileri-seviye-tasarm-kalplar)
+  **"Sadece kodlamayı değil, daltk dnyanın karmaııklığını nasıl yoneteceini oren."**
 
   ---
 </div>
 
-## ?? Vizyon & Felsefe
+## ?? Mikroservis Mimarisi: Kökenler ve Evrim
 
-Bu repo, modern daltık sistemlerin sadece kodlanmasını değil, bir **mhendislik harikas** olarak nasıl tasarlanacaını "Elite" seviyede ele alır. Mikroservislerin "hızlı daltım", "yuksek leklebilirlik" ve "hata dayankllıı" (Fault Tolerance) vaatlerini gerçeğe dnştrmek iin gereken tum cephanelii burada bulacaksın.
+Mikroservis, bir gecede ortaya cıkmıs bir fantezi deildir; monolitik sistemlerin "leklenemezlik" krizine bir cevaptır.
 
----
-
-## ?? Teknik Derin Dalı (Elite Deep Dives)
-
-Modern bir mikroservis sisteminin "Anayasas" olan kritik kavramları aşağıda detaylandırdım.
-
-<details>
-<summary><b>?? 1. Conway Kanunu ve Ters Conway Manevrası</b></summary>
-<br/>
-Yazlm mimarisi, organizasyonunuzun iletisim yapısının yansmasıdır. **Inverse Conway Maneuver** kullanarak, istediiniz mimariyi elde etmek iin once ekiplerinizi (Teams) o mimariye uygun hale getirmelisiniz. Otonom ekipler = Otonom servisler.
-</details>
-
-<details>
-<summary><b>?? 2. Migration: Strangler Fig Pattern</b></summary>
-<br/>
-Bir Monolith'i mikroservise cevirmek iin her şeyi bir anda yıkmak intihardır. Bunun yerine "Strangler Fig" (Boan İncir) pattern'ı kullanılır. Yeni ozellikler mikroservis olarak yazılır, eski Monolith'in paraları yava yava mikroservislere aktarılarak Monolith sonunda "bolar" ve yok edilir.
-</details>
-
-<details>
-<summary><b>?? 3. Data Patterns: CQRS & Event Sourcing</b></summary>
-<br/>
-Servislerin veri tabanlarını ayırmak yetmez. Okuma ve Yazma islemlerini (CQRS) paralamak, sistemin performansını 10 kat artırabilir. Event Sourcing ile verinin "en son halini" değil, "oluşum hikayesini" tutarız. Bu sayede geriye donuk tum hataları replay ederek bulabiliriz.
-</details>
-
-<details>
-<summary><b>?? 4. Güvenlik: mTLS & Zero-Trust Mesh</b></summary>
-<br/>
-Sadece kapıda (Gateway) gvenlik yapmak yeterli deildir. Her servisin birbiriyle sertifika (mTLS) uzerinden konusması ve "İçerideki kimseye guvenme" mantııyla hareket edilmesi (Zero Trust) zorunludur.
-</details>
-
-<details>
-<summary><b>?? 5. Resilience: Rate Limiting & Circuit Breaker</b></summary>
-<br/>
-Sistemi asırı ykten (DDoS veya hatalı clientlar) korumak iin **Token Bucket** veya **Leaky Bucket** algoritmalarıyla Rate Limiting uygulanmalıdır. Patlayan bir servise gıden yolu kapatan Circuit Breaker ise sistemin "kendini onarma" (Self-Healing) yeteneğini sağlar.
-</details>
+### ?? Tarihçe (Chronology)
+- **2011 (Venice Workshop):** "Micro-services" terimi ilk kez bir yazlm mimarları toplantısında telaffuz edildi.
+- **2012 (James Lewis):** Bu mimariyi "Microservices" olarak adlandırıp Case Study olarak sundu.
+- **2014 (Martin Fowler & James Lewis):** Mikroservislerin altın çaını baslatan meşhur makale yayınlandı. Monolitik devir resmen sarsıldı.
+- **2015+ (Cloud Era):** Docker ve Kubernetes'in yukselisiyle mikroservisler endstri standardı haline geldi.
 
 ---
 
-## ?? İleri Seviye Tasarım Kalıpları (The Architect's Toolkit)
+## ?? Devlerin Savaşı: Teknoloji Karşılaştırmaları
 
-Mikroservis sistemlerinde hayati onem tasıyan pattern'lar katalou:
+Mikroservis dünyasında "En İyi" yoktur, "İhtiyaca En Uygun" vardır. İşte kritik savaslar:
 
-- **Sidecar Pattern:** Loglama, metrik ve gvenlik gibi "ortak" iileri bir container yanına (Sidecar) devretmek. (Kodunuz kirlenmez!).
-- **Ambassador Pattern:** Servis dısı iletisimleri (Retry, Logging) yoneten bir vekil sunucu kullanımı.
-- **Anti-Corruption Layer (ACL):** Eski (Legacy) bir sistemle yeni mikroservisi konusurken, eski sistemin "kirli" verisinin yeni sistemimizi bozmaması iin araya koyduumuz tercme katmanı.
-- **Bulkhead Pattern:** Bir geminin paraları gibi, bir servis cokyorsa digerlerine yayılmaması iin kaynakları (Thread, CPU) izole etmek.
+### 1. Haberleşme: gRPC vs REST
+| Ozellik | gRPC (Google RPC) | REST (HTTP/1.1) | Winner? |
+| :--- | :--- | :--- | :--- |
+| **Hız** | ?? Ultra Hızlı (Binary) | ?? Orta (Text-based) | **gRPC** |
+| **Format** | Protocol Buffers | JSON / XML | **gRPC** |
+| **Kullanım** | Servisler Arası (İç) | Client-Server (Dış) | **DURUMA GORE** |
+| **Browser** | Zayıf Destek | Tam Destek | **REST** |
+
+### 2. Mesajlama: Kafka vs RabbitMQ
+| Ozellik | Apache Kafka | RabbitMQ | Winner? |
+| :--- | :--- | :--- | :--- |
+| **Trafik** | ?? Milyarlarca Mesaj | ?? Yuksek Trafik | **Kafka** |
+| **Mantık** | Log-based (Stream) | Queue-based (Kuyruk) | **Berabere** |
+| **Yapı** | Pub/Sub (Olay Odaklı) | Akıllı Yonlendirme | **RabbitMQ** |
+| **Kullanım** | Big Data / Event Store | Task Queue / RPC | **DURUMA GORE** |
+
+### 3. Orkestrasyon: Kubernetes vs Docker Swarm
+- **Kubernetes (K8s):** Karmaıktır ama her şeyi yonetir. (Google'ın mimarisi). **Büyük sistemler iin tek tercih.**
+- **Docker Swarm:** Basittir, ogrenmesi kolaydır. **Kucuk/Orta olcekli projeler iin ideal.**
+- **HashiCorp Nomad:** K8s'e gore cok daha hafiftir, sadece "Job" odaklıdır.
+
+### 4. Veritabanı: SQL vs NoSQL
+- **PostgreSQL (SQL):** İlişkisel veri, katı tutarlılık (ACID). (Order, User, Payment servisleri).
+- **MongoDB / Cassandra (NoSQL):** Yatay lekleme, esnek şema. (Product Catalog, Log, Tracking servisleri).
 
 ---
 
-## ?? Altyapı & DevEx (Developer Experience)
+## ?? Reponun Amacı & Misyonu
 
-Mikroservis yazmak, sadece kod yazmak deildir; altyapıyı da kodlamaktır (Infrastructure as Code).
-- **IaC (Terraform):** Tum sunucuların kodla yonetilmesi.
-- **Service Mesh (Istio):** Servisler arası iletisimi kod yazmadan yonetme katmanı.
-- **Local Dev (Telepresence):** lokalinizde calısırken kendinizi Kubernetes cluster'ının bir parçası gibi hissetmenizi salayan elite araclar.
+Bu depo (microservices-101), senin için sadece bir "Tutorial" deildir. Amacımız:
+1.  **Doru Silahı Seç:** Hangi teknolojiyi ne zaman kullanman gerektiğini ogretmek.
+2.  **Maliyet Optimize Et:** Gereksiz yere Kafka kullanıp server faturasını artırmanı engellemek.
+3.  **Elite Architect Yetistir:** Sektorde "Her iie mikroservis yapalım" diyen deil, "Burada monolit daha iyi olur" diyebilecek bilinçte mimarlar yetistirmek.
 
 ---
 
-## ?? Mimari Görünüm (High-Level Design)
+## ?? Mimari Görünüm (Strategy Map)
 
 ```mermaid
-%%{init: {'theme': 'dark', 'themeVariables': { 'mainBkg': '#1a1a1a', 'nodeBorder': '#555' }}}%%
-graph TD
-    subgraph UI_Layer
-        Web["?? Web App"]
-        Mobile["?? Mobile App"]
+graph LR
+    subgraph Clients
+        App["?? Mobile/Web"]
     end
 
-    subgraph Entry_Layer
-        Edge["?? Edge Gateway <br/><small>OAuth2 / Rate Limit</small>"]
+    subgraph API_Edge
+        Gateway["?? API Gateway <br/>(REST)"]
     end
 
-    subgraph Control_Plane
-        Mesh["?? Service Mesh Control <br/><small>Istio / Linkerd</small>"]
+    subgraph Internal_HighSpeed
+        Auth["?? Security <br/>(gRPC)"]
+        Order["?? Order Svc <br/>(gRPC)"]
     end
 
-    subgraph Business_Execution
-        Auth["?? Identity <br/><small>Go / Vault</small>"]
-        Catalog["?? Catalog Svc <br/><small>Go / MongoDB</small>"]
-        Order["?? Order Svc <br/><small>Go / PostgreSQL</small>"]
-        Notify["?? Push Svc <br/><small>Node.js / Redis</small>"]
+    subgraph Event_Driven
+        Broker["?? Event Bus <br/>(Kafka/RabbitMQ)"]
     end
 
-    subgraph Messaging_Backbone
-        Kafka["?? Message Broker <br/><small>Kafka Clusters</small>"]
-    end
-
-    Web & Mobile -->|HTTPS| Edge
-    Edge --> Mesh
-    Mesh --> Auth & Catalog & Order
-    Order -.->|Sync Event| Kafka
-    Kafka -.->|Async Trigger| Notify
+    App -->|JSON/REST| Gateway
+    Gateway -->|Proto/gRPC| Auth
+    Gateway -->|Proto/gRPC| Order
+    Order -.->|Fire Event| Broker
     
-    style Edge fill:#7b1fa2,stroke:#fff,color:#fff
-    style Kafka fill:#ffb300,stroke:#333
-    style Auth fill:#2e7d32,stroke:#fff,color:#fff
-    style Order fill:#2e7d32,stroke:#fff,color:#fff
-    style Catalog fill:#2e7d32,stroke:#fff,color:#fff
-    style Mesh fill:#0277bd,stroke:#fff,color:#fff
+    style Gateway fill:#f9f,stroke:#333
+    style Broker fill:#ff9,stroke:#333
+    style Internal_HighSpeed fill:#e1f5fe,stroke:#01579b
 ```
 
 ---
 
-## ?? Eğitim Yol Haritas (Elite Roadmap)
-
-Seni bir sistem mimarına dnsturecek progress tablosu:
-
-| Aşama | Modl | Odak Noktası | Durum |
-| :--- | :--- | :--- | :---: |
-| ?? **Faz 1** | [Giris](docs/01-intro/README.md) | Paradigma Deıişimi & Temeller | ![Done](https://img.shields.io/badge/-Tamamland-success?style=flat-square) |
-| ?? **Faz 2** | [Decomposition](docs/02-decomposition/README.md) | DDD & Servis Parçalama | ![Done](https://img.shields.io/badge/-Tamamland-success?style=flat-square) |
-| ?? **Faz 3** | [Communication](docs/03-communication/README.md) | gRPC & Event-Driven Archi. | ![Done](https://img.shields.io/badge/-Tamamland-success?style=flat-square) |
-| ?? **Faz 4** | [Data Management](docs/04-data-management/README.md) | Saga Pattern & CQRS | ![Done](https://img.shields.io/badge/-Tamamland-success?style=flat-square) |
-| ?? **Faz 5** | API Gateway | Security, Rate Limiting & Auth | ![Planned](https://img.shields.io/badge/-Yaknda-orange?style=flat-square) |
-| ?? **Faz 6** | Observability | Distributed Tracing & Metrics | ![Planned](https://img.shields.io/badge/-Yaknda-orange?style=flat-square) |
-| ?? **Faz 7** | Cloud Native | Docker, K8s & GitOps | ![Planned](https://img.shields.io/badge/-Yaknda-orange?style=flat-square) |
-
----
-
-## ?? Neden Go (Golang)?
-
-Neden mikroservis dnyasının lider dili Go?
-- **Sıfır Baımlılık:** Statik binary dosyaları ile Docker container'larını sniler içinde ayağa kaldırın.
-- **Eszamanllk (Concurrency):** Go kanalları ve routine'leri ile binlerce request'i en duuk CPU ile yonetin.
-
----
-
-## ?? Katkda Bulunma
-
-Bu bir topluluk ve geliim projesidir. Sen de bu manifestoya katkda bulunabilirsin!
-?? **[CONTRIBUTING.md](CONTRIBUTING.md)** belgesine goz at.
-
----
-
 <div align="center">
-  <br/>
-  <img src="https://img.shields.io/badge/Designed_with-??-red?style=for-the-badge" alt="Built with love" />
-  <br/>
-  <sub>Mastering Microservices Architecture ?? <b>arch-yunus</b></sub>
+  <sub>Elite Microservices Architect Journey ?? <b>arch-yunus</b></sub>
 </div>
