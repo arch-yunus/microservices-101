@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"github.com/google/uuid"
 	"github.com/arch-yunus/microservices-101/services/product-service/internal/domain"
 	"time"
 )
@@ -17,7 +18,7 @@ func NewProductService(repo domain.ProductRepository) *ProductService {
 }
 
 // CreateNewProduct iş kurallarını kontrol eder ve ürünü oluşturur
-func (s *ProductService) CreateNewProduct(name string, price float64) (*domain.Product, error) {
+func (s *ProductService) CreateNewProduct(name, description string, price float64) (*domain.Product, error) {
 	if name == "" {
 		return nil, errors.New("urun ismi bos olamaz")
 	}
@@ -26,12 +27,21 @@ func (s *ProductService) CreateNewProduct(name string, price float64) (*domain.P
 	}
 
 	product := &domain.Product{
-		ID:        "fake-uuid", // Gerçek sistemde UUID gen edilir
-		Name:      name,
-		Price:     price,
-		CreatedAt: time.Now(),
+		ID:          uuid.New().String(),
+		Name:        name,
+		Description: description,
+		Price:       price,
+		CreatedAt:   time.Now(),
 	}
 
 	err := s.repo.Create(product)
 	return product, err
+}
+
+func (s *ProductService) GetProduct(id string) (*domain.Product, error) {
+	return s.repo.GetByID(id)
+}
+
+func (s *ProductService) ListProducts() ([]*domain.Product, error) {
+	return s.repo.List()
 }

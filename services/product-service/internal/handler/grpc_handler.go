@@ -18,11 +18,32 @@ func NewGrpcProductHandler(svc *service.ProductService) *GrpcProductHandler {
 
 // GetProduct proto dosyasında tanımlanan RPC metodu
 func (h *GrpcProductHandler) GetProduct(ctx context.Context, req *pb.GetProductRequest) (*pb.ProductResponse, error) {
-	// Not: Burada domain modeline donusum yapılmalı. 
-	// simdilik basitlik amacl direkt donebiliriz.
+	product, err := h.svc.GetProduct(req.Id)
+	if err != nil {
+		return nil, err
+	}
+
 	return &pb.ProductResponse{
-		Id:    req.Id,
-		Name:  "Elite Product from gRPC",
-		Price: 299.99,
+		Id:          product.ID,
+		Name:        product.Name,
+		Description: product.Description,
+		Price:       product.Price,
+		CreatedAt:   product.CreatedAt.String(),
+	}, nil
+}
+
+// CreateProduct proto dosyasında tanımlanan RPC metodu
+func (h *GrpcProductHandler) CreateProduct(ctx context.Context, req *pb.CreateProductRequest) (*pb.ProductResponse, error) {
+	product, err := h.svc.CreateNewProduct(req.Name, req.Description, req.Price)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.ProductResponse{
+		Id:          product.ID,
+		Name:        product.Name,
+		Description: product.Description,
+		Price:       product.Price,
+		CreatedAt:   product.CreatedAt.String(),
 	}, nil
 }

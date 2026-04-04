@@ -1,26 +1,33 @@
-# 04-data-management: Veri Yönetimi & Tutarllk
+# 04-Veri Yönetimi ve Dağıtık Veri Tutarlılığı
 
-Mikroservis sisteminde her servis bir veritabanı yneitir. Bu durum, "Veri Tutarlllığı" (Data Consistency) sorununa yol açar.
-
-## ?? Database Per Service
-
-- **Neden?** Her servis kendi ihtıyacına uygun veritabanını semelidir (Örn: Order iin SQL, Search iin NoSQL).
-- **Hata:** Tüm servislerin aynı DB'yi (Shared Database) kullanması **En Byk Anti-pattern**'dir.
-
-## ?? Saga Pattern (Daltık İslemler)
-
-Birden fazla servis arasndaki tutarlllığı salamak iin kullanlan daltık ilem (Transaction) modelidr.
-
-### Orchestration Model
-- Bir **Orchestrator** (Yonlendirici), tum akısı yonetir. servislerden birinden hata gelirse "Compensating Transactions" tetikler.
-
-### Choreography Model
-- Her servis bir islemi bitirdiinde bir event yollar. Dieri bu eventi alıp kendi islemini yapar.
-
-## ?? Eventual Consistency (Nihai Tutarllk)
-
-Sistemde verilerin her an her yerde aynı anda guncel olması (Strong Consistency) mikroservis sistemlerinde performance sorunu yaratr. Bu yuzden **Eventual Consistency** kabul edilir.
+Mikroservis mimarisinde her servisin kendi veri kaynağını (Data Store) yönetmesi esastır. Bu yaklaşım, sistemin otonomisini artırsa da "Dağıtık Veri Tutarlılığı" (Distributed Data Consistency) sorununu beraberinde getirir.
 
 ---
 
-[Geri - 03-communication/README.md](../03-communication/README.md) | [Ana README](../../README.md)
+## 💾 Database Per Service Prensiibi
+
+Mikroservislerin bağımsız ölçeklenebilmesi ve teknolojik serbestlik (Polyglot Persistence) için her servis kendi veritabanına sahip olmalıdır:
+- **Neden?**: Her servis kendi ihtiyacına en uygun veritabanı türünü seçebilir (Örn: Sipariş için PostgreSQL, Arama için Elasticsearch, Oturum yönetimi için Redis).
+- **Anti-Pattern**: Birden fazla servisin aynı veritabanı şemasını paylaşması (Shared Database), servisler arasında sıkı bağımlılığa (Tight Coupling) yol açar ve mikroservislerin temel faydalarını ortadan kaldırır.
+
+---
+
+## 🔄 Dağıtık İşlem Yönetimi: Saga Pattern
+
+Geleneksel monolitik sistemlerdeki ACID (Atomicity, Consistency, Isolation, Durability) işlemleri, dağıtık sistemlerde yerini **Saga Pattern** ile yönetilen yerel işlemler dizisine bırakır:
+
+### 1. Orkestrasyon Modeli (Orchestration-based Saga)
+Merkezi bir "Saga Orchestrator", tüm iş akışını yönetir ve servisleri koordine eder. Bir hata durumunda telafi edici işlemleri (Compensating Transactions) tetikler.
+
+### 2. Koreografi Modeli (Choreography-based Saga)
+Servisler arasında merkezi bir kontrol noktası yoktur. Her servis kendi işlemini tamamladığında bir olay (Event) yayınlar ve diğer servisler bu olayları dinleyerek kendi süreçlerini ilerletir.
+
+---
+
+## ⚖️ Nihai Tutarlılık (Eventual Consistency)
+
+Dağıtık sistemlerde verilerin her an her yerde eşzamanlı olarak güncel olması (Strong Consistency), ciddi performans ve erişilebilirlik sorunlarına yol açar. Bu nedenle çoğu mikroservis yapısında, verilerin belirli bir süre sonunda (eventually) tutarlı hale geleceği **Eventual Consistency** modeli kabul edilir.
+
+---
+
+[Geri - 03-İletişim Stratejileri](../03-communication/README.md) | [Ana README](../../README.md)

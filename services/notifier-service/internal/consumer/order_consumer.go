@@ -4,15 +4,26 @@ import (
 	"fmt"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"log"
+	"time"
 )
 
 // ListenOrderEvents RabbitMQ dan siparis olaylarını dinler
 func ListenOrderEvents() {
-	// Not: Docker daki servis ismi "rabbitmq"dur.
-	conn, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
+	var conn *amqp.Connection
+	var err error
+
+	// Haberleşme katmanı baglantı denemesi (Retry Logic)
+	for i := 0; i < 10; i++ {
+		conn, err = amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
+		if err == nil {
+			break
+		}
+		log.Printf("?? RabbitMQ'ya bağlanılamıyor, tekrar deneniyor (%d/10): %v", i+1, err)
+		time.Sleep(5 * time.Second)
+	}
+
 	if err != nil {
-		log.Printf("?? RabbitMQ Baglantı Hatası: %v", err)
-		return
+		log.Fatalf("?? RabbitMQ Bağlantı Hatası: %v", err)
 	}
 	defer conn.Close()
 

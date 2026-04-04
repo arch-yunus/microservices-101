@@ -1,99 +1,83 @@
 <div align="center">
-  <img src="./assets/banner.png" width="100%" alt="Microservices 101 Banner" />
+  <img src="./assets/banner.png" width="100%" alt="Microservices Architecture Banner" />
 
-  # Mikroservis Masterclass: Mühendislik Serüveni 🚀
-  ### Adım Adım, Uygulamalı Mikroservis İnşa Etme Rehberi
+  # Microservices Architecture: Engineering Handbook 🏗️
+  ### Modern Dağıtık Sistemler Tasarımı ve Uygulama Rehberi
   
-  [![Eğitim Vizyonu](https://img.shields.io/badge/Eğitim-Masterclass-blue?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
-  [![Go Versiyonu](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
-  [![Durum](https://img.shields.io/badge/Öğrenme-Odaklı-success?style=for-the-badge)](LICENSE)
+  [![Architecture](https://img.shields.io/badge/Architecture-Microservices-6366f1?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
+  [![Go Version](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
+  [![License](https://img.shields.io/badge/License-MIT-success?style=for-the-badge)](LICENSE)
 
-  **"Bak evladım; okursan unutursun, görürsen hatırlarsın, ama yaparsan öğrenirsin."**
+  **"Dağıtık sistemlerin karmaşıklığını yönetmek, sadece kod yazmak değil; doğru mimari prensipleri uygulamakla başlar."**
 
   ---
 </div>
 
-## 🎓 Hoş Geldiniz: Bu Reponun Amacı Nedir?
+## 📌 Proje Hakkında
 
-Selamun Aleyküm çırağım! Bu repo, mikroservis dünyasını "karşıdan izlemek" için değil, **bizzat inşa ederek öğrenmek** için tasarlandı. Burada devasa bilgi yığınları arasında boğulmayacaksın; her adımda yeni bir servis ekleyecek, sistemleri bozacak ve gerçek bir mimar gibi düşüneceksin.
+Bu depo, modern mikroservis mimarisi prensiplerini uçtan uca uygulamalı bir şekilde öğretmek amacıyla tasarlanmış profesyonel bir eğitim platformudur. Proje; **Go dili**, **gRPC**, **Event-Driven Architecture (EDA)** ve **Cloud-Native** araçlar kullanarak, gerçek dünya senaryolarına dayanan bir e-ticaret altyapısını simüle eder.
+
+### 🛠️ Temel Teknolojiler
+- **Dil**: Go (Golang)
+- **Haberleşme**: gRPC (Synchronous), RabbitMQ (Asynchronous)
+- **Veri Yönetimi**: PostgreSQL, Redis
+- **Altyapı**: Docker, Docker Compose
+- **Güvenlik**: API Gateway & JWT Authentication
 
 ---
 
-## 🗺️ Adım Adım Yol Haritası (Müfredat)
+## 🗺️ Öğrenim Müfredatı (Learning Roadmap)
 
-Aşağıdaki adımları sırayla takip ederek, temelden en ileri seviyeye kadar mikroservis mimarisini öğreneceksin:
+Müfredat, bir mühendisin monolitik yapıdan dağıtık sistemlere geçiş sürecini kapsayan 5 ana modülden oluşmaktadır:
 
-| Aşama | Konu | Temel Kavram | Zorluk |
+| Seviye | Modül | Teknik Kapsam | Durum |
 | :--- | :--- | :--- | :---: |
-| 🛡️ 1 | **Temeller & Go** | Proje Yapısı ve Go Modülleri | 🟢 |
-| 🔌 2 | **İletişim (gRPC)** | Servisler Arası Doğrudan Hat | 🟡 |
-| 🔐 3 | **Güvenlik (Gateway)** | Zırhlı Kapı ve JWT Giriş Kartı | 🔴 |
-| 📩 4 | **Mesajlaşma (RabbitMQ)** | Asenkron Haberleşme ve Mektuplar | 🟣 |
-| 🐒 5 | **Dayanıklılık (Kaos)** | Sigorta (Circuit Breaker) ve Hata Yönetimi | 🟠 |
+| 🏗️ | **Modül 1: Temeller** | Clean Architecture, PostgreSQL, UUID | ✅ |
+| 🔌 | **Modül 2: Haberleşme** | gRPC (Product <-> Order) | ✅ |
+| 🛡️ | **Modül 3: Güvenlik** | API Gateway (Echo), Path Routing | ✅ |
+| 📩 | **Modül 4: Event-Driven** | RabbitMQ (Order Created -> Notifier) | ✅ |
+| 🐒 | **Modül 5: Dayanıklılık** | Circuit Breaker & Retry Logic | 🏗️ |
 
 ---
 
-## 🧪 Ders 1: Servislerin Doğuşu (Fundamentals)
+## 🚀 Başlangıç Rehberi
 
-**Baba'nın Analojisi:** Mikroservisleri bir restoran mutfağı gibi düşün. Her servisin tek bir görevi var (Çorbacı, Pilavcı). Biz önce bu tezgahları kuracağız.
+### Ön Gereksinimler
+Sistemi çalıştırmadan önce aşağıdaki araçların kurulu olduğundan emin olun:
+- [Docker & Docker Compose](https://docs.docker.com/get-docker/)
+- [Go 1.21+](https://go.dev/dl/)
+- Make (Opsiyonel, ancak önerilir)
 
-### 💻 Laboratuvar:
-Projeyi ayağa kaldırmak için şu komutu çalıştır:
+### Hızlı Kurulum
+Tüm altyapıyı (Veritabanları, Message Broker, Redis) tek bir komutla ayağa kaldırın:
 ```bash
-# Tüm dükkanı (Database, Redis, RabbitMQ) açıyoruz.
+# Projeyi klonlayın
+git clone https://github.com/arch-yunus/microservices-101.git
+cd microservices-101
+
+# Altyapıyı başlatın
 make up
 ```
 
-### 🎯 Meydan Okuma:
-Tüm servisler ayağa kalktıktan sonra `services/product-service` loglarını izle. Servis veritabanına bağlanabiliyor mu? Eğer bağlantı yoksa, Docker container'ının ismini kontrol et!
+---
+
+## 📚 Dokümantasyon ve Derinlemesine Bakış
+
+Teorik altyapıyı güçlendirmek için `docs/` dizinindeki teknik makaleleri inceleyebilirsiniz:
+
+- [**00 - Dağıtık Sistem Temelleri**](./docs/01-intro/README.md): Monolith vs. Microservice karşılaştırması.
+- [**01 - Mimari Tasarım**](./docs/02-decomposition/README.md): Bounded Context ve Servis Ayrıştırma.
+- [**02 - Servisler Arası İletişim**](./docs/03-communication/README.md): gRPC ve Protobuf derinlemesine inceleme.
+- [**03 - API Gateway Tasarımı**](./docs/05-api-gateway/README.md): Neden Gateway kullanmalıyız?
+- [**04 - Event-Driven Architecture**](./docs/06-messaging/README.md): RabbitMQ ve Mesaj Kuyrukları.
 
 ---
 
-## 🔌 Ders 2: Servislerin Konuşması (gRPC)
+## 📈 Katkıda Bulunma
 
-**Baba'nın Analojisi:** Artık mutfaktaki ustaların birbiriyle hızlı konuşması lazım. "Ürün var mu?" "Var." gRPC, bu ustaların arasındaki doğrudan ve çok hızlı dahili hattır.
-
-### 💻 Laboratuvar:
-```bash
-# Order servisi ile Product servisini gRPC üzerinden konuştur:
-make run-product
-make run-order
-```
-`order-service` içinden ürün sorgulaması yapıldığında loglarda "gRPC Request" ifadesini görmelisin!
-
-### 🎯 Meydan Okuma:
-`proto/product/product.proto` dosyasını aç ve yeni bir alan (field) ekle: `string description`. Sonra tüm kodda bu alanı taşımaya çalış. Bakalım her şey hala çalışıyor mu?
-
----
-
-## 🔐 Ders 3: Zırhlı Kapı (API Gateway)
-
-**Baba'nın Analojisi:** Müşteri kime sipariş verecek? Doğrudan mutfağa giremez. Kapıda bir **Garson (Gateway)** durur, siparişi alır ve içeriye iletir.
-
-### 💻 Laboratuvar:
-```bash
-# Gateway'i çalıştır ve dışarıdan (Port 8080) istek at:
-cd services/gateway-service && go run cmd/api/main.go
-```
-
-### 🎯 Meydan Okuma:
-JWT token'ı olmadan Gateway'den içeri girmeye çalış (Unauthorized - 401). Bakalım garson seni içeri alacak mı?
-
----
-
-## 📩 Ders 4: Mektuplar ve Kuyruklar (Messaging)
-
-**Baba'nın Analojisi:** Sipariş bittiğinde e-mail atmak için garsonun beklemesine gerek yok. Bir not yazar ve **Posta Kutusuna (RabbitMQ)** bırakır. Bildirim servisi gelince oradan alır.
-
-### 🎯 Meydan Okuma:
-`notifier-service`'i durdur ve bir sipariş oluştur. Sonra servisi geri aç. Mesajın kuyrukta beklemiş olduğunu ve servis açılınca hemen işlendiğini gözlemle!
-
----
-
-## 🚀 Mezuniyet ve İleri Seviye
-Tüm bu adımları tamamladıysan; tebrikler çırağım, artık bir kalfasın! İleri seviye konular (Kubernetes, Service Mesh, Chaos Engineering) için `docs/` klasöründeki derinleşme rehberlerini inceleyebilirsin.
+Bu proje açık kaynaklı bir topluluk girişimidir. Geliştirme sürecine katkıda bulunmak, hata raporlamak veya yeni özellikler önermek için lütfen [CONTRIBUTING.md](./CONTRIBUTING.md) dosyasını inceleyin.
 
 <div align="center">
   <br/>
-  <sub>Bu repo, mikroservislerin ruhunu bizzat yaparken öğrenmen için inşa edildi. | **arch-yunus**</sub>
+  <sub>Engineering Excellence Series | **© 2026 arch-yunus**</sub>
 </div>

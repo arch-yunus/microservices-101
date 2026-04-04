@@ -1,34 +1,57 @@
-# microservices-101: Makefile
-# Bu dosya sistem paralarını yönetmek için kullanılan ana merkezdir.
+# ==============================================================================
+# Microservices Architecture: Engineering Handbook - Makefile
+# ==============================================================================
+# Bu dosya, sistem bileşenlerinin yönetimi, geliştirilmesi ve orkestrasyonu 
+# için merkezi bir kontrol noktası olarak tasarlanmıştır.
 
-.PHONY: up down build test run-product
+# Proje Değişkenleri
+DOCKER_COMPOSE = docker-compose -f infrastructure/docker-compose.yml
+PROTO_DIR = proto
 
-# Altyapı servislerini (Veritaban, Mesaj Kuyruu, Bellek) başlat
+.PHONY: help up down build test proto run-product run-order run-gateway
+
+help:
+	@echo "Kullanılabilir komutlar:"
+	@echo "  make up           - Altyapı servislerini (PostgreSQL, RabbitMQ, Redis) başlatır."
+	@echo "  make down         - Altyapı servislerini durdurur."
+	@echo "  make build        - Tüm mikroservis imajlarını oluşturur."
+	@echo "  make proto        - Proto dosyalarından Go kodlarını üretir."
+	@echo "  make test         - Tüm birim testleri (Unit Tests) çalıştırır."
+	@echo "  make run-product  - Product Service'i yerel ortamda başlatır."
+	@echo "  make run-order    - Order Service'i yerel ortamda başlatır."
+	@echo "  make run-gateway  - Gateway Service'i yerel ortamda başlatır."
+
+# --- Altyapı Yönetimi ---
 up:
-	docker-compose -f infrastructure/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) up -d
 
-# Altyapı servislerini durdur
 down:
-	docker-compose -f infrastructure/docker-compose.yml down
+	$(DOCKER_COMPOSE) down
 
-# Proto dosyalarından Go kodunu üret
-# Not: protoc, protoc-gen-go ve protoc-gen-go-grpc kurulu olmalıdır.
+# --- Geliştirme Araçları ---
 proto:
+	@echo "Protobuf kodları üretiliyor..."
 	protoc --go_out=. --go_opt=paths=source_relative \
 	--go-grpc_out=. --go-grpc_opt=paths=source_relative \
-	proto/product/product.proto
+	$(PROTO_DIR)/product/product.proto
+	protoc --go_out=. --go_opt=paths=source_relative \
+	--go-grpc_out=. --go-grpc_opt=paths=source_relative \
+	$(PROTO_DIR)/order/order.proto
 
-# Tüm servislerin Docker imajlarını oluştur
 build:
-	docker-compose -f infrastructure/docker-compose.yml build
+	$(DOCKER_COMPOSE) build
 
-# Servisleri yerel olarak çalıştır
+test:
+	go test -v ./...
+
+# --- Servis Çalıştırma ---
 run-product:
-	cd services/product-service && go run cmd/api/main.go
+	go run services/product-service/cmd/api/main.go
 
 run-order:
-	cd services/order-service && go run cmd/api/main.go
+	go run services/order-service/cmd/api/main.go
 
-# Tüm testleri çalıştır
-test:
-	go test ./...
+run-gateway:
+	go run services/gateway-service/cmd/api/main.go
+
+# ==============================================================================

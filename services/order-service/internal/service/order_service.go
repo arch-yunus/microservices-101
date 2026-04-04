@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/arch-yunus/microservices-101/proto/product"
 	"github.com/arch-yunus/microservices-101/services/order-service/internal/domain"
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -13,10 +14,14 @@ import (
 // OrderService sipariş mantığını yöneten yapı
 type OrderService struct {
 	productClient product.ProductServiceClient
+	repo          domain.OrderRepository
 }
 
-func NewOrderService(pc product.ProductServiceClient) *OrderService {
-	return &OrderService{productClient: pc}
+func NewOrderService(pc product.ProductServiceClient, repo domain.OrderRepository) *OrderService {
+	return &OrderService{
+		productClient: pc,
+		repo:          repo,
+	}
 }
 
 // PlaceOrder yeni bir sipariş olusturur ve olayı RabbitMQ ya fırlatır (Asenkron)
@@ -29,14 +34,19 @@ func (s *OrderService) PlaceOrder(ctx context.Context, productID string, quantit
 
 	// 2. Sipariş objesini olustur
 	order := &domain.Order{
-		ID:        fmt.Sprintf("order-%d", time.Now().Unix()),
+		ID:        uuid.New().String(),
 		ProductID: p.Id,
 		Quantity:  quantity,
 		Total:     p.Price * float64(quantity),
 		CreatedAt: time.Now(),
 	}
 
-	fmt.Printf("?? Sipariş Olusturuldu: %s için %d adet (Toplam: %.2f TL)\n", p.Name, quantity, order.Total)
+	// 3. Veritabanına kaydet
+	if err := s.repo.Create(order); err != nil {
+		return nil, fmt.Errorf("siparis kaydedilemedi: %v", err)
+	}
+
+	fmt.Printf("📦 Sipariş Olusturuldu ve Kaydedildi: %s için %d adet (Toplam: %.2f TL)\n", p.Name, quantity, order.Total)
 
 	// 3. RABBITMQ'YA OLAY FIRLAT (Asenkron Haberleşme)
 	// Not: Gerçek projelerde baglantı havuzu (connection pool) kullanılmalıdır.

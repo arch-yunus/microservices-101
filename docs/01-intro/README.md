@@ -1,28 +1,32 @@
-# 01-intro: Mikroservis Nedir?
+# 01-Giriş: Mikroservis Mimarisine Giriş
 
-Bu modl, monolitik bir sitemden mikroservis mimarisine neden ve nasl geileceine dair temel teoriyi ele alr.
-
-## ?? Giris
-
-Mikroservis mimarisi, byk bir yazlm sistemini, her biri belirli bir i mantna (Business Logic) sahip, bamsz olarak daltlabilen ve leklenilebilen kk servislerin birleşimi olarak tasarlama yaklaımıdr.
-
-### Monolitik Mimari (The Monolith)
-- **Avantaj:** Basit dağıtım, kolay test etme.
-- **Dezavantaj:** Tek bir hata tm sistemi korur, teknoloji bağlılığı, uzun daltm sreleri.
-
-### Mikroservis Mimarisi
-- **Avantaj:** Teknolojik serbestlik, bamsz lekleme, ekal ve hzl daltm.
-- **Dezavantaj:** Dağıtk sistem karmaklığı, veri tutarllğı zorluklar, operasyonel yuk.
-
-## ?? Ne Zaman Mikroservis?
-
-Eer projeniz:
-- Byk bir ekip (100+ gelistirici) ise,
-- Farklı bileşenlerin farklı ölçeklendirme gereksinimleri (CPU vs Memory) varsa,
-- Hızlı srekli teslimat (Continuous Delivery) kritik ise,
-
-... mikroservis doru tercihtir.
+Bu modül, monolitik sistemlerden mikroservis mimarisine geçişin nedenlerini, avantajlarını ve karşılaşılabilecek temel zorlukları teknik bir perspektifle ele alır.
 
 ---
 
-[Geri - Ana README](../../README.md) | [İleri - 02-decomposition/README.md](../02-decomposition/README.md)
+## 🏗️ Mimari Dönüşüm
+
+Mikroservis mimarisi, karmaşık bir yazılım sistemini, her biri belirli bir iş mantığına (Business Logic) sahip, bağımsız olarak geliştirilebilir, dağıtılabilir ve ölçeklenebilir küçük servislerin birleşimi olarak tasarlama yaklaşımıdır.
+
+### Monolitik Mimari (The Monolith)
+Geleneksel "her şey tek bir yerde" yaklaşımıdır.
+- **Avantajlar**: Basit dağıtım süreçleri, kolay uçtan uca (E2E) test imkanı.
+- **Dezavantajlar**: Tek bir hata tüm sistemi etkileyebilir (Single Point of Failure), teknoloji bağımlılığı yüksektir ve dağıtım süreleri sistem büyüdükçe uzar.
+
+### Mikroservis Mimarisi
+Modern, dağıtık sistem yaklaşımıdır.
+- **Avantajlar**: Teknolojik serbestlik (Poliglot), bağımsız ölçeklenebilirlik, hata izolasyonu ve hızlı sürekli teslimat (CD).
+- **Dezavantajlar**: Dağıtık sistem karmaşıklığı, veri tutarlılığı (Data Consistency) yönetimi ve operasyonel yükün artması.
+
+---
+
+## 🎯 Ne Zaman Mikroservis Tercih Edilmeli?
+
+Mikroservis mimarisine geçiş kararı, projenin ölçeği ve ekibin yetkinliklerine bağlı olarak verilmelidir:
+1.  **Ekip Ölçeği**: Geniş geliştirici ekiplerinin (100+) bağımsız çalışması gerektiğinde.
+2.  **Ölçeklendirme Gereksinimleri**: Farklı sistem bileşenlerinin farklı kaynak (CPU/Memory) ihtiyaçları olduğunda.
+3.  **Hızlı Teslimat Deneyimi**: Continuous Delivery süreçlerinin kritik olduğu, yüksek rekabetçi pazarlarda.
+
+---
+
+[Geri - Ana README](../../README.md) | [İleri - 02-Ayrıştırma Stratejileri](../02-decomposition/README.md)

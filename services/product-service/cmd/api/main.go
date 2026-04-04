@@ -1,7 +1,9 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
+	_ "github.com/lib/pq"
 	pb "github.com/arch-yunus/microservices-101/proto/product"
 	"github.com/arch-yunus/microservices-101/services/product-service/internal/handler"
 	"github.com/arch-yunus/microservices-101/services/product-service/internal/repository"
@@ -12,13 +14,38 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 func main() {
-	fmt.Println("?? Ürün Servisi (Product Service) gRPC Sunucusu balatiliyor...")
+	fmt.Println("🚀 Ürün Servisi (Product Service) gRPC Sunucusu başlatılıyor...")
 
-	// 1. Altyapı ve Servislerin Kurulumu (Dependency Injection)
-	repo := repository.NewMemoryProductRepo()
+	// 1. Veritabanı Bağlantısı
+	dbAddr := os.Getenv("DATABASE_URL")
+	if dbAddr == "" {
+		dbAddr = "postgres://user:password@postgres:5432/micro_db?sslmode=disable"
+	}
+
+	var db *sql.DB
+	var err error
+	for i := 0; i < 10; i++ {
+		db, err = sql.Open("postgres", dbAddr)
+		if err == nil {
+			if err = db.Ping(); err == nil {
+				break
+			}
+		}
+		log.Printf("?? Veritabanına bağlanılamıyor, tekrar deneniyor (%d/10): %v", i+1, err)
+		time.Sleep(5 * time.Second)
+	}
+
+	if err != nil {
+		log.Fatalf("?? Veritabanı Bağlantı Hatası: %v", err)
+	}
+	defer db.Close()
+
+	// 2. Altyapı ve Servislerin Kurulumu (Dependency Injection)
+	repo := repository.NewPostgresProductRepository(db)
 	productSvc := service.NewProductService(repo)
 
 	// 2. gRPC Sunucusu Yaplandrmas

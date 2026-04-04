@@ -1,6 +1,49 @@
-# Mikroservis Giriş Kapısı: API Gateway ve Güvenlik
+# 05-Merkezi Giriş Kapısı: API Gateway ve Güvenlik Mimarisi
 
-Sisteminiz büyüdüğünde, dış dünyadaki müşterilerle iç dünyadaki servisleriniz arasına bir "Zırhlı Kapı" (API Gateway) koymak zorunluluğu doğar.
+Mikroservis ekosistemleri büyüdükçe, dış dünyadaki istemciler ile iç ağdaki servisler arasında güvenli, kontrollü ve optimize edilmiş bir giriş noktası (API Gateway) kurmak zorunlu hale gelir.
+
+---
+
+## 🏗️ API Gateway Nedir?
+
+API Gateway, tüm istemci isteklerini (Web, Mobil, IoT) karşılayan ve bu istekleri iş mantığına göre ilgili iç servislere yönlendiren (Routing) merkezi bir vekil sunucudur (Reverse Proxy).
+
+### Temel Sorumluluklar:
+- **Yönlendirme (Routing)**: İsteklerin URL yapısına göre doğru servislere (`/products` -> Product Service, `/orders` -> Order Service) iletilmesi.
+- **Kimlik Doğrulama ve Yetkilendirme (AuthN/AuthZ)**: Kullanıcı erişim haklarının servislerin önünde tek bir merkezden kontrol edilmesi.
+- **Yük Dengeleme (Load Balancing)**: Gelen trafiğin servislerin farklı replikalarına sağlıklı bir şekilde dağıtılması.
+- **Hız Sınırlama (Rate Limiting)**: Servislerin aşırı yoğunluğa veya DDoS saldırılarına karşı korunması.
+- **Protokol Dönüşümü**: Dışarıdan gelen REST/HTTP isteklerinin içeride gRPC veya başka protokollere dönüştürülmesi.
+
+---
+
+## 🔐 Güvenlik Stratejisi: JWT (JSON Web Token)
+
+Dağıtık sistemlerde stateless (durumsuz) bir güvenlik modeli benimsenmelidir. Kullanıcının her serviste yeniden doğrulanması yerine, Gateway katmanında bir kez doğrulanması esastır:
+
+1.  **Giriş İşlemi**: Kullanıcı bilgileri doğrulandıktan sonra Gateway/Auth servisi tarafından dijital imzalı bir **JWT Token** üretilir.
+2.  **Erişim Kontrolü**: İstemci, sonraki her istekte bu token'ı `Authorization: Bearer <token>` başlığıyla gönderir.
+3.  **Haberleşme Güvenliği**: Gateway, token'ın geçerliliğini ve imzasını kontrol ederek isteği içeriye buyur eder.
+
+---
+
+## 🔒 Ağ İzolasyonu (Network Segmentation)
+
+Güvenli bir mimaride, iç servisler ve veritabanları asla doğrudan dış dünyaya açılmamalıdır:
+- **Docker Network**: Tüm servisler Docker üzerinde izole bir "Bridge Network" içinde çalışır.
+- **Sınırlı Erişim**: Dış dünya ile sadece API Gateway'in belirlenmiş portu (örneğin: 8080) üzerinden iletişim kurulabilir. Bu, "Saldırı Yüzeyi"ni (Attack Surface) minimuma indirir.
+
+---
+
+## 🚀 Projedeki Uygulama
+
+Bu eğitim kapsamında, Go diliyle geliştirilmiş minimalist bir `gateway-service` yer almaktadır. Bu servis;
+- Custom **JWT Middleware** ile yetki kontrolü yapar.
+- Dinamik **Reverse Proxy** mekanizması ile trafiği orkestre eder.
+
+---
+
+[Geri - 04-Veri Yönetimi](../04-data-management/README.md) | [Ana README](../../README.md)
 
 ---
 
