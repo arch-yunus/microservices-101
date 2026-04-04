@@ -27,6 +27,8 @@ func main() {
 	gwHandler := handler.NewGatewayHandler()
 
 	// 3. API Rotaları
+	e.GET("/health", handler.HealthHandler)
+	
 	api := e.Group("/api/v1")
 	{
 		api.GET("/products/:id", gwHandler.GetProduct)

@@ -9,6 +9,8 @@ import (
 	"github.com/arch-yunus/microservices-101/services/product-service/internal/repository"
 	"github.com/arch-yunus/microservices-101/services/product-service/internal/service"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/health"
+	"google.golang.org/grpc/health/grpc_health_v1"
 	"log"
 	"net"
 	"os"
@@ -57,6 +59,11 @@ func main() {
 	grpcServer := grpc.NewServer()
 	productHandler := handler.NewGrpcProductHandler(productSvc)
 	pb.RegisterProductServiceServer(grpcServer, productHandler)
+
+	// ?? Health Check Servisi Kaydı
+	healthServer := health.NewServer()
+	grpc_health_v1.RegisterHealthServer(grpcServer, healthServer)
+	healthServer.SetServingStatus("", grpc_health_v1.HealthCheckResponse_SERVING)
 
 	// 3. Zarif Kapan (Graceful Shutdown) Stratejisi
 	// Bir kanal (channel) olusturup Isletim Sistemi sinyallerini dinliyoruz.

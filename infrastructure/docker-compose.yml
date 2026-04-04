@@ -8,9 +8,16 @@ services:
     container_name: micro_gateway
     ports:
       - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     depends_on:
-      - product-service
-      - order-service
+      product-service:
+        condition: service_healthy
+      order-service:
+        condition: service_healthy
     networks:
       - micro_network
 
@@ -19,6 +26,11 @@ services:
     build:
       context: ./services/product-service
     container_name: micro_product
+    healthcheck:
+      test: ["CMD", "/usr/bin/grpc_health_probe", "-addr=:50051"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
     depends_on:
       postgres:
         condition: service_healthy
@@ -30,6 +42,11 @@ services:
     build:
       context: ./services/order-service
     container_name: micro_order
+    healthcheck:
+      test: ["CMD", "/usr/bin/grpc_health_probe", "-addr=:50052"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
     depends_on:
       product-service:
         condition: service_started

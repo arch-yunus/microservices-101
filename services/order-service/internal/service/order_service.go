@@ -7,6 +7,7 @@ import (
 	"github.com/arch-yunus/microservices-101/proto/product"
 	"github.com/arch-yunus/microservices-101/services/order-service/internal/domain"
 	amqp "github.com/rabbitmq/amqp091-go"
+	"github.com/sony/gobreaker"
 	"log"
 	"time"
 )
@@ -15,20 +16,46 @@ import (
 type OrderService struct {
 	productClient product.ProductServiceClient
 	repo          domain.OrderRepository
+	cb            *gobreaker.CircuitBreaker
 }
 
 func NewOrderService(pc product.ProductServiceClient, repo domain.OrderRepository) *OrderService {
+	// Circuit Breaker Yapılandırması
+	cbSettings := gobreaker.Settings{
+		Name:        "ProductServiceBreaker",
+		MaxRequests: 5,
+		Interval:    10 * time.Second,
+		Timeout:     30 * time.Second,
+		ReadyToTrip: func(counts gobreaker.Counts) bool {
+			failureRatio := float64(counts.TotalFailures) / float64(counts.Requests)
+			return counts.Requests >= 3 && failureRatio >= 0.6
+		},
+		OnStateChange: func(name string, from, to gobreaker.State) {
+			log.Printf("⚠️  Circuit Breaker [%s] Durum Değişti: %s -> %s", name, from, to)
+		},
+	}
+
 	return &OrderService{
 		productClient: pc,
 		repo:          repo,
+		cb:            gobreaker.NewCircuitBreaker(cbSettings),
 	}
 }
 
 // PlaceOrder yeni bir sipariş olusturur ve olayı RabbitMQ ya fırlatır (Asenkron)
 func (s *OrderService) PlaceOrder(ctx context.Context, productID string, quantity int) (*domain.Order, error) {
-	// 1. gRPC ile urun bilgilerini sorgula (Senkron)
-	p, err := s.productClient.GetProduct(ctx, &product.GetProductRequest{Id: productID})
+	// 1. gRPC ile urun bilgilerini sorgula (Senkron) - Circuit Breaker Korumalı
+	var p *product.ProductResponse
+	_, err := s.cb.Execute(func() (interface{}, error) {
+		var err error
+		p, err = s.productClient.GetProduct(ctx, &product.GetProductRequest{Id: productID})
+		return p, err
+	})
+
 	if err != nil {
+		if err == gobreaker.ErrOpenState {
+			return nil, fmt.Errorf("kritik hata: ürün servisi geçici olarak devre dışı (Circuit Breaker OPEN)")
+		}
 		return nil, fmt.Errorf("urun bilgisi alinamadi: %v", err)
 	}
 

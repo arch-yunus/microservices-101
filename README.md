@@ -84,13 +84,11 @@ Mikroservisler dış dünyaya doğrudan açılmamalıdır. **API Gateway**, tüm
 
 Bu depo, yukarıdaki teorik bilgileri pratiğe döken 5 aşamalı bir masterclass sunar:
 
-| Seviye | Modül | Teknik Derinlik | Durum |
-| :--- | :--- | :--- | :---: |
 | 🏗️ | **Modül 1: Mimari** | Clean Architecture, PostgreSQL, Domain Logic | ✅ |
 | 🔌 | **Modül 2: İletişim** | gRPC, Protobuf, Synchronous Calls | ✅ |
 | 🛡️ | **Modül 3: Gateway** | Edge Service, Echo Framework, Routing | ✅ |
 | 📩 | **Modül 4: Mesajlaşma** | RabbitMQ, Event-Driven, Async Consumers | ✅ |
-| 🐒 | **Modül 5: Stabilite** | Circuit Breaker, Health Checks, Distributed Tracing | 🏗️ |
+| 🐒 | **Modül 5: Stabilite** | Circuit Breaker, Health Checks, Fallback | ✅ |
 
 ---
 
