@@ -1,11 +1,24 @@
 version: '3.8'
 
 services:
+  # ?? Jaeger: İzleme (Tracing)
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: micro_jaeger
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - micro_network
+
   # ?? API Gateway: Sistemin Zırhlı Kapısı
   gateway-service:
     build:
       context: ./services/gateway-service
     container_name: micro_gateway
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
     ports:
       - "8080:8080"
     healthcheck:
@@ -26,6 +39,8 @@ services:
     build:
       context: ./services/product-service
     container_name: micro_product
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
     healthcheck:
       test: ["CMD", "/usr/bin/grpc_health_probe", "-addr=:50051"]
       interval: 5s
@@ -42,6 +57,8 @@ services:
     build:
       context: ./services/order-service
     container_name: micro_order
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
     healthcheck:
       test: ["CMD", "/usr/bin/grpc_health_probe", "-addr=:50052"]
       interval: 5s

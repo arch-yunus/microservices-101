@@ -89,6 +89,7 @@ Bu depo, yukarıdaki teorik bilgileri pratiğe döken 5 aşamalı bir masterclas
 | 🛡️ | **Modül 3: Gateway** | Edge Service, Echo Framework, Routing | ✅ |
 | 📩 | **Modül 4: Mesajlaşma** | RabbitMQ, Event-Driven, Async Consumers | ✅ |
 | 🐒 | **Modül 5: Stabilite** | Circuit Breaker, Health Checks, Fallback | ✅ |
+| 🔍 | **Modül 6: Gözlem** | Distributed Tracing, OpenTelemetry, Jaeger | ✅ |
 
 ---
 

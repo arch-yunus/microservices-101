@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/arch-yunus/microservices-101/services/gateway-service/internal/handler"
+	"github.com/arch-yunus/microservices-101/services/gateway-service/internal/pkg/otel"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho"
 	"log"
 	"net/http"
 	"os"
@@ -17,11 +19,19 @@ import (
 func main() {
 	fmt.Println("🚀 API Gateway (The Fortress) başlatılıyor...")
 
+	// ?? OpenTelemetry Tracing İlklendirme
+	shutdown, err := otel.InitTracer("gateway-service")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer shutdown(context.Background())
+
 	e := echo.New()
 
 	// 1. Middleware Kurulumu
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(otelecho.Middleware("gateway-service"))
 
 	// 2. Handler Kurulumu
 	gwHandler := handler.NewGatewayHandler()

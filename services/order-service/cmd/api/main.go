@@ -8,6 +8,8 @@ import (
 	pb "github.com/arch-yunus/microservices-101/proto/product"
 	"github.com/arch-yunus/microservices-101/services/order-service/internal/repository"
 	"github.com/arch-yunus/microservices-101/services/order-service/internal/service"
+	"github.com/arch-yunus/microservices-101/services/order-service/internal/pkg/otel"
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/health"
@@ -21,41 +23,51 @@ import (
 )
 
 func main() {
-	fmt.Println("🚀 Sipariş Servisi (Order Service) başlatılıyor...")
+	fmt.Println("🚀 Order Service başlatılıyor...")
 
-	// 1. Veritabanı Bağlantısı
+	// 🛡️ OpenTelemetry Tracing İlklendirme
+	shutdown, err := otel.InitTracer("order-service")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer shutdown(context.Background())
+
+	// 1. Veritabanı ve Mesaj Kuyruğu Bağlantıları (Retry Logic ile)
 	dbAddr := os.Getenv("DATABASE_URL")
 	if dbAddr == "" {
 		dbAddr = "postgres://user:password@postgres:5432/micro_db?sslmode=disable"
 	}
 
 	var db *sql.DB
-	var err error
 	for i := 0; i < 10; i++ {
 		db, err = sql.Open("postgres", dbAddr)
 		if err == nil {
-			if err = db.Ping(); err == nil {
-				break
-			}
+			err = db.Ping()
 		}
-		log.Printf("?? Veritabanına bağlanılamıyor, tekrar deneniyor (%d/10): %v", i+1, err)
-		time.Sleep(5 * time.Second)
+		if err == nil {
+			break
+		}
+		log.Printf("⚠️ Veritabanına (Postgres) bağlanılamadı, 2s içinde tekrar denenecek (%d/10): %v", i+1, err)
+		time.Sleep(2 * time.Second)
 	}
 
 	if err != nil {
-		log.Fatalf("?? Veritabanı Bağlantı Hatası: %v", err)
+		log.Fatalf("❌ Veritabanı Bağlantı Hatası: %v", err)
 	}
 	defer db.Close()
 
-	// 2. gRPC Bağlantısı Kurulumu (Product Service'e bağlan)
 	productSvcAddr := os.Getenv("PRODUCT_SERVICE_ADDR")
 	if productSvcAddr == "" {
 		productSvcAddr = "product-service:50051"
 	}
 
-	conn, err := grpc.Dial(productSvcAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	// Product Service gRPC Bağlantısı (Context Propagation Interceptor ile)
+	conn, err := grpc.Dial(productSvcAddr, 
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
+	)
 	if err != nil {
-		log.Fatalf("?? gRPC Bağlantı Hatası: %v", err)
+		log.Fatalf("❌ Product Service'e bağlanılamadı: %v", err)
 	}
 	defer conn.Close()
 
@@ -63,12 +75,14 @@ func main() {
 	repo := repository.NewPostgresOrderRepository(db)
 	orderSvc := service.NewOrderService(productClient, repo)
 
-	// ?? gRPC Sunucusu Yapılandırması (Health Check için)
+	// ⚙️ gRPC Sunucusu Yapılandırması (Health Check & Tracing için)
 	lis, err := net.Listen("tcp", ":50052")
 	if err != nil {
-		log.Fatalf("?? Port Dinleme Hatası: %v", err)
+		log.Fatalf("❌ Port Dinleme Hatası: %v", err)
 	}
-	grpcServer := grpc.NewServer()
+	grpcServer := grpc.NewServer(
+		grpc.UnaryInterceptor(otelgrpc.UnaryServerInterceptor()),
+	)
 	
 	// Health Check Servisi Kaydı
 	healthServer := health.NewServer()
@@ -76,9 +90,9 @@ func main() {
 	healthServer.SetServingStatus("", grpc_health_v1.HealthCheckResponse_SERVING)
 
 	go func() {
-		fmt.Println("🚀 Health Check Sunucusu :50052 portunda dinliyor...")
+		fmt.Println("🚀 Health Check & Tracing Sunucusu :50052 portunda dinliyor...")
 		if err := grpcServer.Serve(lis); err != nil {
-			log.Fatalf("?? Sunucu Hatası: %v", err)
+			log.Fatalf("❌ Sunucu Hatası: %v", err)
 		}
 	}()
 
