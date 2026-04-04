@@ -119,6 +119,42 @@ make up
 
 ---
 
+## 📘 Bölüm VII: İleri Seviye Konseptler ve Sözlük
+
+Mikroservis ekosisteminde uzmanlaşmak için bilinmesi gereken derin kavramlar:
+
+### 🚫 Mikroservis Anti-Desenleri (Kaçınılması Gerekenler)
+- **Nano-services:** Servisleri çok küçük parçalara bölmek, ağ gecikmesini (latency) ve yönetim karmaşıklığını artırır.
+- **Shared Database:** Birden fazla servisin aynı veritabanı şemasına erişmesi, otonomiyi öldüren en büyük hatadır.
+- **Distributed Monolith:** Servislerin birbirine aşırı sıkı bağımlı olduğu, birini değiştirmek için hepsini birden deploy etmeniz gereken yapıdır.
+
+### 📜 Mikroservis Sözlüğü
+- **Idempotency (Aynı Güçlülük):** Bir işlemin birden fazla kez uygulanmasının, sonucu değiştirmemesi özelliğidir (Özellikle mesajlaşmada kritiktir).
+- **Service Mesh (İstio, Linkerd):** Servisler arası iletişimi, güvenliği ve gözlemlenebilirliği yöneten altyapı katmanıdır.
+- **Sidecar Pattern:** Asıl servisin yanına eklenen, yardımcı görevleri (logging, proxy) üstlenen konteyner yapısıdır.
+- **CQRS:** Komut ve Sorgu sorumluluklarının ayrılması prensibidir.
+
+---
+
+## 🚀 Bölüm VIII: Dağıtım Stratejileri
+
+Mikroservis sistemlerinde kesintisiz (Zero-Downtime) dağıtım için kullanılan yöntemler:
+
+1.  **Blue-Green Deployment:** Sistemin iki kopyası vardır (Mavi: Eski, Yeşil: Yeni). Trafik aniden yeniye yönlendirilir.
+2.  **Canary Release:** Yeni sürüm önce kullanıcıların küçük bir kısmına (%5) açılır, sorun yoksa genele yayılır.
+3.  **Rolling Update:** Servis örnekleri (instances) tek tek güncellenir.
+
+---
+
+## 🧪 Bölüm IX: Test Stratejileri
+
+Mikroservislerde test piramidi farklılık gösterir:
+- **Unit Tests:** İç mantığı test eder.
+- **Contract Tests:** Servisler arası "sözleşme"lerin (API yapıları) bozulmadığını kontrol eder.
+- **End-to-End (E2E) Tests:** Tüm akışı (Gateway -> Order -> Product) test eder.
+
+---
+
 ## 📚 Kaynakça ve İleri Okuma
 
 Bu ansiklopediyi hazırlarken faydalanılan başucu kaynakları:
