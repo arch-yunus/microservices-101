@@ -1,100 +1,98 @@
 <div align="center">
   <img src="./assets/banner.png" width="100%" alt="Microservices Architecture Banner" />
 
-  # Microservices Architecture: The Engineering Bible (Absolute Masterclass) 📚
-  ### Üst Düzey Dağıtık Sistemler, Dijital Ekonomi ve Yazılım Egemenliği Ansiklopedisi
+  # Microservices Architecture: The Engineering Tome (Infinity Edition) 📜
+  ### Mimari Egemenlik, Dijital Ekonomi ve Küresel Dağıtık Sistemler Mühendisliği
   
   [![Architecture](https://img.shields.io/badge/Architecture-Microservices-6366f1?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
   [![Go Version](https://img.shields.io/badge/Go-1.21%2B-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
   [![OpenTelemetry](https://img.shields.io/badge/Observability-OpenTelemetry-f59e0b?style=for-the-badge)](https://opentelemetry.io)
   [![Chaos Engineering](https://img.shields.io/badge/Resilience-Chaos_Engineering-000000?style=for-the-badge)](https://github.com/arch-yunus/microservices-101)
 
-  **"Dağıtık sistemlerin kaotik doğası karşısında, mimari disiplin sadece bir tercih değil; bir hayatta kalma ve egemenlik stratejisidir. Bu depo, monolitik sistemlerin hantallığından kurtulup, mikroservislerin otonom, sınırsız ölçeklenebilir ve hata toleranslı dünyasına mühendislik perspektifiyle atılan en radikal ve kapsamlı adımdır."**
+  **"Dağıtık sistemlerin sonsuz entropisi karşısında, mimari egemenlik sadece bir mühendislik tercihi değil; bir kurumun dijital dünyada hayatta kalma ve ölçeklenme iradesidir. Bu depo, monolitik sistemlerin yapısal prangalarından kurtulup, mikroservislerin otonom, sınırsız ölçeklenebilir ve kaos altında bile elastik kalabilen dünyasına atılan en derin ve radikal mühendislik mühürüdür."**
 
   ---
 </div>
 
-## 🌐 Bölüm I: Yazılım Mimarilerinin Ekonomik ve Teknik Evrimi
+## 🌐 Bölüm I: Mimari Egemenliğin Felsefesi ve Dijital Ekonomi
 
-Yazılım dünyası, başlangıcından bu yana karmaşıklığı (complexity) yönetmek için sürekli form değiştirmiştir. Yazılım mimarisi, sadece teknik bir tercih değil, aynı zamanda bir **"Zaman-Maliyet-Egemenlik"** denklemidir. Mikroservisler, bu evrimin en olgun, ancak operasyonel maliyeti (Overhead) en yüksek halkasıdır.
+Yazılım dünyası, başlangıcından bu yana karmaşıklığı (complexity) yönetmek için sürekli form değiştirmiştir. Yazılım mimarisi, sadece teknik bir tercih değil, aynı zamanda bir **"Zaman-Maliyet-Egemenlik"** ve **"Ekip Topolojisi"** denklemidir.
 
-### 🏛️ 1. Geleneksel Monolit: Devlerin Yükselişi (The Giant)
+### 🏛️ 1. Geleneksel Monolit: Devlerin Yükselişi ve Teknik Borç (The Giant)
 Tüm iş mantığının tek bir süreç (process) içinde paketlendiği yapıdır. 
-- **Ekonomik Perspektif:** Day 1 maliyeti en düşük mimaridir. Ancak uygulama büyüdükçe **"Yazılım Entropisi"** devreye girer. Kod tabanı devasa bir yığın (Big Ball of Mud) haline gelir. Bu durum, piyasaya çıkış hızını (Time-to-Market) öldüren ve kurumsal çevikliği (Agility) yok eden bir **Teknik Borç** (Technical Debt) sarmalına yol açar.
+- **Ekonomik Perspektif:** Day 1 maliyeti en düşük mimaridir. Ancak uygulama büyüdükçe **"Yazılım Entropisi"** (Software Entropy) devreye girer. Bu durum, piyasaya çıkış hızını (Time-to-Market) öldüren ve kurumsal çevikliği yok eden bir **Teknik Borç** sarmalına yol açar.
+- **Brooks Yasası:** "Gecikmiş bir yazılım projesine daha fazla insan eklemek, onu daha da geciktirir." Mikroservisler, bu yasayı kırmak için ekipler arası bağımlılıkları minimize eden tek gerçek panzehirdir.
 
-### 📡 2. SOA (Service-Oriented Architecture): ESB Hantallığı
-Mikroservislerin atasıdır. Servislerin merkezi bir **Enterprise Service Bus (ESB)** üzerinden konuştuğu yapıdır. 
-- **Hata:** SOA'da "Akıllı Boru Hattı" (ESB) varken, tüm iş mantığı bu merkezi yapıda boğulurdu. Mikroservis felsefesi ise bunun tam zıttıdır: **"Akıllı Uç Noktalar ve Basit Boru Hatları"** (Smart Endpoints, Dumb Pipes).
+### 📡 2. SOA (Service-Oriented Architecture): ESB Prangaları
+Mikroservislerin doğrudan atasıdır. Servislerin merkezi bir **Enterprise Service Bus (ESB)** üzerinden konuştuğu yapıdır. 
+- **Temel Hata:** SOA'da "Hantal ve Akıllı" bir merkezi yapı (ESB) varken, mikroservis felsefesi **"Akıllı Uç Noktalar ve Basit Boru Hatları"** (Smart Endpoints, Dumb Pipes) yaklaşımını savunur.
 
 ### 🧩 3. Mikroservis Devrimi: Otonom Birimlerin Egemenliği (The Swarm)
-Bir uygulamayı, her biri kendi veritabanına sahip, bağımsız dağıtılabilen ve belirli bir iş yeteneğini temsil eden otonom servisler kümesi olarak tasarlamaktır.
-- **Conway Yasası:** Mikroservisler, ekiplerin dikey olarak bölünmüş (Vertical Slices) otonom hücreler haline gelmesini sağlayarak kurumsal egemenliği (Sovereignty) artırır.
+Bir uygulamayı, her biri kendi veritabanına sahip, bağımsız dağıtılabilen ve belirli bir iş yeteneğini temsil eden otonom hücreler kümesi olarak tasarlamaktır.
+- **Reverse Conway Maneuver:** "Sistemleri tasarlayan kurumlar, bu sistemlerin yapısında kendi iletişim yapılarını kopyalarlar." Mikroservisler, bu yasayı tersine çevirerek ekiplerin de dikey olarak bölünmüş (Vertical Slices) otonom hücreler haline gelmesini sağlar.
 
 ---
 
-## 🏗️ Bölüm II: Dağıtık Sistemlerin 4 Temel Sütunu (Ultra Masterclass)
+## 🏗️ Bölüm II: "Shared Nothing" Ara Temelleri (Infinity Foundations)
 
-### 1. Bounded Context (DDD & Event Storming)
+### 1. Bounded Context (DDD & Advanced Context Mapping)
 Her servisin kendi semantik dilini (**Ubiquitous Language**) belirlemesidir.
-- **Event Storming:** İş akışlarını "Domain Events" üzerinden modelleyerek Bounded Context sınırlarını keşfetme tekniğidir. Bu projede her servis, kendi bağlamında (Context) bir "Egemenlik Alanı" oluşturur.
+- **Context Mapping Patterns:** **Customer-Supplier**, **Shared Kernel**, **Anti-Corruption Layer (ACL)** ve **Conformist** gibi desenlerle servisler arası sınırların nasıl yönetileceği belirlenir.
+- **Event Storming:** İş akışlarını "Domain Events" üzerinden modelleyerek Bounded Context sınırlarını keşfetme tekniğidir.
 
 ### 2. Otonomi & Polyglot Architecture
 Her servis, kendi veritabanına ve teknoloji yığınına sahip olmalıdır.
-- **Polyglot Persistence:** "One size fits all" yaklaşımını reddederek, işe en uygun veritabanını (Postgres, Redis, Mongo vb.) seçme özgürlüğüdür. Paylaşımlı veritabanı otonomiyi öldüren en büyük anti-desendir.
+- **Polyglot Persistence:** Tek bir veritabanı türüyle her sorunu çözmek yerine (One-size-fits-all), işe en uygun veritabanını (Relational for ACID, Cache for speed, NoSQL for scale) seçme özgürlüğüdür.
 
-### 3. Ölçeklenebilirlik: AKF Scale Cube
+### 3. Ölçeklenebilirlik: The AKF Scale Cube
 - **X-Axis:** Instance kopyalamak (Cloning).
 - **Y-Axis:** Fonksiyonel ayrıştırma (Functional Decomposition).
-- **Z-Axis:** Veri bölümleme (Sharding/Tenant Isolation).
+- **Z-Axis:** Veri bölümleme ve Kiracı İzolasyonu (**Sharding/Tenant Isolation**).
 Bu projede biz Y-Axis ölçeklendirmeyi mimariyle, X-Axis'i Docker ile uyguluyoruz.
-
-### 4. Hata Toleransı: Cascade Failures & Chaos Engineering
-Dağıtık sistemlerde ağ güvenilmezdir. Önemli olan hatanın bir domino taşı gibi yayılmasını önlemektir (**The Titanic Effect**). **Circuit Breaker** (Devre Kesici), açık/kapalı/yarı-açık durumlarıyla sistemin geri kalanını korur.
 
 ---
 
-## 📡 Bölüm III: Protokol Mühendisliği & Ağ Katmanı
+## 📡 Bölüm III: Protokol ve Ağ Egemenliği (Networking Supremacy)
 
 ### 1. Senkron: gRPC & Protobuf v3
-- **HTTP/2 & Binary Framing:** Veriler JSON gibi metin değil, ikili formatta taşınır. Bandwidth kullanımını %50-70 düşürür.
-- **Deadlines & Cancellation Propagation:** Bir istek iptal edildiğinde veya zamanaşımına (timeout) uğradığında, bu sinyal tüm servis zinciri boyunca iletilerek gereksiz işlem yükü önlenir.
+- **HTTP/2 & Binary Framing:** Veriler ikili (binary) formatta taşınarak ağ bandwidth kullanımını %70'e kadar düşürür.
+- **Deadlines & Cancellation Propagation:** Bir istek zamanaşımına uğradığında, bu sinyal tüm servis zinciri boyunca iletilerek gereksiz işlem yükü (Zombie Processes) önlenir.
+- **L7 Load Balancing (Envoy/Istio):** İstek bazlı (Request-based) yük dengeleme ile sistemdeki yük en verimli şekilde dağıtılır.
 
 ### 2. Asenkron: RabbitMQ & EDA (Event-Driven Architecture)
 - **Temporal Decoupling:** Servislerin zaman bazlı bağımlılığını ortadan kaldırır. 
-- **Competing Consumers:** Kuyruğu birden fazla instance dinleyerek iş yükünü otomatik paylaşır. **Manual ACKs** ve **DLX (Dead Letter Exchange)** ile mesaj kaybı imkansız hale getirilir.
+- **Competing Consumers:** Kuyruğu birden fazla instance dinleyerek iş yükünü otomatik paylaşır. **DLX (Dead Letter Exchange)** ve **Message Compaction** ile mesaj güvenliği en üst düzeye çıkarılır.
 
 ---
 
-## 💾 Bölüm IV: Dağıtık Sistem Teorisi (The PhD Masterclass)
+## 💾 Bölüm IV: Dağıtık Sistem Teorisi (World-Class Research)
 
-### 1. CAP Teoremi vs. PACELC
-PACELC, modern sistemlerin asıl rehberidir. Bir sistem bölünmüşken (Partitioned) CAP geçerlidir; normal çalışırken (Else) **Latens (Latency)** ve **Tutarlılık (Consistency)** arasında seçim yapılır.
+### 1. PACELC: Gerçek Dünya Seçimleri
+Bir sistem bölünmüşken (Partitioned) CAP geçerlidir; normal çalışırken (Else) **Latens (Latency)** ve **Tutarlılık (Consistency)** arasında seçim yapılır.
 
-### 2. Saat Senkronizasyonu (Clock Synchronization)
-Dağıtık sistemlerde "mutlak zaman" yoktur. **Mantıksal Saatler** (Logical Clocks) ve **Lamport Timestamps** kullanılarak olayların sırası (Causal Ordering) belirlenir.
+### 2. Konsensüs ve Mantıksal Saatler (Consensus & Clocks)
+Dağıtık sistemlerde "mutlak zaman" yoktur. **Raft** veya **Paxos** gibi konsensüs algoritmaları ve **Lamport Timestamps** (Mantıksal Saatler) kullanılarak olayların sırası (Causal Ordering) belirlenir.
 
 ### 3. Saga Deseni: Nihai Tutarlılık
-Birden fazla servisi ilgilendiren işlemlerde hatayı geri almak için **Telafi Edici İşlemler** (Compensating Transactions) kullanılır. **Semantic Locking** ile dağıtık verinin tutarlılığı korunur.
+Birden fazla servisi ilgilendiren işlemlerde hatayı geri almak için **Compensating Transactions** kullanılır. **Semantic Locking** ile dağıtık verinin tutarlılığı korunur.
 
 ---
 
-## 🛡️ Bölüm V: Edge Intelligence & API Gateway (The Fortress)
+## 🛡️ Bölüm V: Edge Intelligence & API Gateway
 
-- **API Composition:** Farklı servislerden gelen verilerin Gateway seviyesinde birleştirilip istemciye tek bir cevap olarak dönülmesidir.
-- **Request Collapsing:** Aynı anda gelen özdeş isteklerin tek bir isteğe düşürülerek iç sistemlerin korunmasıdır.
-- **Mutual TLS (mTLS):** İç servisler arası iletişimde her iki tarafın da birbirinin sertifikasını doğruladığı en üst düzey güvenlik katmanıdır.
+- **API Composition & Request Collapsing:** Gateway, farklı servislerden gelen verileri birleştirir ve özdeş istekleri tek bir isteğe düşürerek iç sistemleri korur.
+- **Load Shedding:** Sistem aşırı yüklendiğinde, Gateway henüz isteği iç servislere iletmeden düşük öncelikli istekleri reddederek çekirdek servislerin çökmesini engeller.
+- **Mutual TLS (mTLS):** İç servisler arası iletişimde her iki tarafın da sertifika doğruladığı en üst düzey güvenlik katmanıdır.
 
 ---
 
-## 🔍 Bölüm VI: SRE & Modern Gözlemlenebilirlik
+## 🔍 Bölüm VI: SRE & Modern Gözlemlenebilirlik (Global Scale)
 
-### 1. Üç Sütun (MELT)
-Metrics, Events, Logs, Traces. Sistemin "ateşini" (Metrics) ölçer, "yolculuğunu" (Tracing) izleriz.
+### 1. MELT ve RED Metotları
+Metrics, Events, Logs, Traces. Sistemin "ateşini" ölçer, "yolculuğunu" (Tracing) izleriz. **RED Method** (Rate, Errors, Durations) ile servis sağlığı anlık izlenir.
 
-### 2. RED ve USE Metotları
-- **RED:** Rate, Errors, Durations (Servis sağlığı).
-- **USE:** Utilization, Saturation, Errors (Kaynak kullanımı).
-**OpenTelemetry** ile bu veriler merkezi bir Jaeger UI üzerinden izlenebilir hale getirilmiştir.
+### 2. Error Budget & SLO/SLA
+SLA (Service Level Agreement), SLO (Objective) ve SLI (Indicator) arasındaki ilişkiyle sistem başarısı ölçülür. **Hata Bütçesi (Error Budget)** bitene kadar yeni özellikler (features), biterse sadece kararlılık çalışmaları (stability) yapılır.
 
 ---
 
@@ -113,29 +111,28 @@ Bu depo, yukarıdaki teorik bilgileri pratiğe döken **6 aşamalı bir mühendi
 
 ---
 
-## 🛠️ Teknik Sözlük & Anti-Desenler
+## 🛠️ Teknik Sözlük & Gelişmiş Anti-Desenler
 
 ### 🚫 Anti-Desenler (Karanlık Yüz)
-- **Nana-services:** Aşırı küçük servisler, ağ gecikmesini artırır.
-- **Distributed Monolith:** Servislerin birbirine aşırı sıkı bağımlı olması.
-- **Entity Services:** Sadece veritabanı tablolarını temsil eden CRUD servisler.
+- **Nana-services:** Aşırı küçük servislerin ağ gecikmesini artırması.
+- **Distributed Monolith:** Servislerin birbirine o kadar bağımlı olması ki, tek bir servisi deploy etmenin diğerlerini bozması.
+- **Entity Services:** Sadece veritabanı tablolarını temsil edenCRUD servisler.
 
 ### 📜 Sözlük
-- **Idempotency:** Bir işlemin birden fazla kez tetiklense bile veritabanında sadece bir kez etkili olması.
-- **Infrastructure as Code (IaC):** Altyapının kod olarak tanımlanıp (Docker Compose) tekrar üretilebilir olması.
+- **Idempotency:** Bir işlemin birden fazla kez uygulanmasının sonucu değiştirmemesi.
+- **Infrastructure as Code (IaC):** Altyapının kod olarak (Docker Compose) tanımlanıp tekrar üretilebilir olması.
 - **Immutable Infrastructure:** Servis güncellendiğinde yama yapmak yerine kopyanın tamamen değiştirilmesi.
 
 ---
 
-## 🚀 Dağıtım (Deployment) & Chaos Engineering
+## 🚀 Dağıtım (Deployment) & Chaos Engineering Masterclass
 
 ### 1. Stratejiler
-- **Canary Release:** Yeni sürümün kademeli olarak açılması.
-- **Shadow Deployment:** Gerçek trafiğin sessizce yeni sürüme kopyalanması.
-- **Weighted Traffic Shifting:** Trafiğin yüzdesel olarak yeni servislere aktarılması.
+- **Canary & Shadow Deployment:** Yeni sürümün kademeli açılması veya gerçek trafiğin sessiz kopyalanması.
+- **Weighted Traffic Shifting:** Trafiğin yüzdesel olarak (99/1 → 50/50) yeni servislere aktarılması.
 
 ### 2. Kaos Mühendisliği (Chaos Engineering)
-Sisteme rastgele hatalar (gecikme, servis durdurma) enjekte edilerek sistemin dayanıklılığı ve **Auto-healing** yeteneği test edilir. "Failing is not an option, but recovery is a requirement."
+Sisteme rastgele hatalar (gecikme, servis durdurma) enjekte edilerek sistemin **Blast Radius** (Etki Alanı) analizi ve **Auto-healing** yeteneği test edilir. "Failing is not an option, but recovery is a requirement."
 
 ---
 
